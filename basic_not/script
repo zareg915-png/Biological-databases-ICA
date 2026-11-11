@@ -1,0 +1,283 @@
+#!/usr/bin/env python3
+
+
+import json
+import os
+import sys
+import time
+import xml.etree.ElementTree as ET
+from pathlib import Path
+
+import requests
+
+
+NCBI_BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+NCBI_EMAIL = os.getenv("NCBI_EMAIL")
+NCBI_API_KEY = os.getenv("NCBI_API_KEY")
+
+
+def ncbi_get(endpoint, params, max_retries=3, sleep_between=0.5):
+    """Send a request to NCBI and retry if the request fails."""
+    url = f"{NCBI_BASE}/{endpoint}"
+    params = dict(params)
+
+    if NCBI_EMAIL:
+        params.setdefault("email", NCBI_EMAIL)
+    if NCBI_API_KEY:
+        params.setdefault("api_key", NCBI_API_KEY)
+
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = requests.get(url, params=params, timeout=30)
+
+            if response.status_code == 200:
+                return response
+
+            print(
+                f"[WARN] Attempt {attempt} for {endpoint} returned "
+                f"HTTP {response.status_code}.",
+                file=sys.stderr,
+            )
+        except requests.exceptions.RequestException as error:
+            print(
+                f"[WARN] Attempt {attempt} for {endpoint} failed "
+                f"({type(error).__name__}).",
+                file=sys.stderr,
+            )
+
+        if attempt < max_retries:
+            time.sleep(sleep_between)
+
+    print(f"[ERROR] Could not retrieve {endpoint}.", file=sys.stderr)
+    return None
+
+
+def esearch_gene(symbol, organism="Homo sapiens"):
+    """Find the first matching NCBI Gene ID for a symbol and organism."""
+    params = {
+        "db": "gene",
+        "term": f'{symbol}[Gene Name] AND "{organism}"[Organism]',
+        "retmode": "json",
+    }
+
+    response = ncbi_get("esearch.fcgi", params)
+    if response is None:
+        return None
+
+    try:
+        data = response.json()
+    except ValueError:
+        print(f"[ERROR] Could not read ESearch JSON for {symbol}.", file=sys.stderr)
+        return None
+
+    gene_ids = data.get("esearchresult", {}).get("idlist", [])
+    if not gene_ids:
+        print(f"[WARN] No Gene ID found for {symbol} in {organism}.", file=sys.stderr)
+        return None
+
+    return gene_ids[0]
+
+
+def esummary_gene(gene_id):
+    """Retrieve the summary for one NCBI Gene ID."""
+    params = {
+        "db": "gene",
+        "id": gene_id,
+        "retmode": "json",
+    }
+
+    response = ncbi_get("esummary.fcgi", params)
+    if response is None:
+        return None
+
+    try:
+        data = response.json()
+    except ValueError:
+        print(f"[ERROR] Could not read ESummary JSON for {gene_id}.", file=sys.stderr)
+        return None
+
+    summary = data.get("result", {}).get(gene_id)
+    if summary is None:
+        print(f"[WARN] No summary found for Gene ID {gene_id}.", file=sys.stderr)
+
+    return summary
+
+
+def efetch_gene_xml(gene_id):
+    """Retrieve the full NCBI Gene record as XML text."""
+    params = {
+        "db": "gene",
+        "id": gene_id,
+        "rettype": "gp",
+        "retmode": "xml",
+    }
+
+    response = ncbi_get("efetch.fcgi", params)
+    if response is None:
+        return None
+
+    return response.text
+
+
+def extract_ensembl_gene_ids_from_xml(xml_text):
+    """Read human Ensembl gene IDs from the NCBI record's cross-references."""
+    try:
+        root = ET.fromstring(xml_text)
+    except ET.ParseError:
+        print("[WARN] Could not read the Gene XML record.", file=sys.stderr)
+        return []
+
+    ensembl_ids = []
+
+    for dbtag in root.iter():
+        if not dbtag.tag.endswith("Dbtag"):
+            continue
+
+        database_name = ""
+        for child in dbtag:
+            if child.tag.endswith("Dbtag_db"):
+                database_name = (child.text or "").strip()
+
+        if "ensembl" not in database_name.lower():
+            continue
+
+        for child in dbtag:
+            if child.tag.endswith("Dbtag_tag"):
+                for element in child.iter():
+                    value = (element.text or "").strip()
+                    if value.startswith("ENSG") and value not in ensembl_ids:
+                        ensembl_ids.append(value)
+
+    return ensembl_ids
+
+
+def fetch_ncbi_info_for_gene_list(gene_symbols, organism="Homo sapiens"):
+    """Retrieve the summary and Ensembl cross-references for each gene."""
+    results = []
+
+    for symbol in gene_symbols:
+        print(f"\n=== Processing gene symbol: {symbol} ===")
+
+        gene_id = esearch_gene(symbol, organism)
+        if gene_id is None:
+            continue
+
+        print(f"  NCBI Gene ID: {gene_id}")
+
+        summary = esummary_gene(gene_id)
+        if summary is None:
+            continue
+
+        xml_text = efetch_gene_xml(gene_id)
+        ensembl_ids = []
+        if xml_text is not None:
+            ensembl_ids = extract_ensembl_gene_ids_from_xml(xml_text)
+
+        if ensembl_ids:
+            print(f"  Ensembl Gene IDs: {', '.join(ensembl_ids)}")
+        else:
+            print("  No Ensembl Gene ID retrieved.")
+
+        results.append(
+            {
+                "query_symbol": symbol,
+                "gene_id": gene_id,
+                "summary": summary,
+                "ensembl_gene_ids": ensembl_ids,
+            }
+        )
+
+    return results
+
+
+def print_human_readable_summary(results):
+    """Print the main annotation fields in the Run console."""
+    print("\n===== NCBI GENE SUMMARY =====")
+
+    for entry in results:
+        summary = entry["summary"]
+        official_symbol = summary.get("nomenclaturesymbol", summary.get("name", "NA"))
+        ensembl_ids = ";".join(entry["ensembl_gene_ids"]) or "NA"
+
+        print(f"Symbol queried: {entry['query_symbol']}")
+        print(f"  NCBI Gene ID: {entry['gene_id']}")
+        print(f"  Official symbol: {official_symbol}")
+        print(f"  Official name: {summary.get('nomenclaturename', 'NA')}")
+        print(f"  Chromosome: {summary.get('chromosome', 'NA')}")
+        print(f"  Map location: {summary.get('maplocation', 'NA')}")
+        print(f"  Ensembl Gene IDs: {ensembl_ids}")
+        print(f"  Summary: {summary.get('summary', 'NA')}")
+        print()
+
+
+def write_table_to_file(results, filename, delimiter="\t"):
+    """Write one tab-separated row per successfully annotated input."""
+    columns = [
+        "Query_Symbol",
+        "Gene_ID",
+        "ENSG_IDs",
+        "Official_Symbol",
+        "Official_Name",
+        "Status",
+        "Chromosome",
+        "Map_Location",
+        "Other_Aliases",
+        "Summary",
+    ]
+
+    def clean(value):
+        if value is None:
+            return ""
+        return str(value).replace("\n", " ").replace("\r", " ").replace(delimiter, " ")
+
+    with open(filename, "w", encoding="utf-8") as output:
+        output.write(delimiter.join(columns) + "\n")
+
+        for entry in results:
+            summary = entry["summary"]
+            row = [
+                entry["query_symbol"],
+                entry["gene_id"],
+                ";".join(entry["ensembl_gene_ids"]),
+                summary.get("nomenclaturesymbol", summary.get("name")),
+                summary.get("nomenclaturename"),
+                summary.get("status"),
+                summary.get("chromosome"),
+                summary.get("maplocation"),
+                summary.get("otheraliases"),
+                summary.get("summary"),
+            ]
+            output.write(delimiter.join(clean(value) for value in row) + "\n")
+
+    print(f"[INFO] Wrote {filename}")
+
+
+def save_results_to_json(results, filename):
+    """Save the NCBI summaries and Ensembl IDs as JSON."""
+    with open(filename, "w", encoding="utf-8") as output:
+        json.dump(results, output, indent=2)
+
+    print(f"[INFO] Wrote {filename}")
+
+
+def main():
+    gene_list = [
+        "BRCA1", "BRCA2", "TP53", "EGFR", "MYC",
+        "APOE", "CFTR", "ACE2", "TNF", "VEGFA",
+    ]
+    organism = "Homo sapiens"
+
+    output_dir = Path.home() / "BDB_ICA"
+    output_dir.mkdir(exist_ok=True)
+
+    results = fetch_ncbi_info_for_gene_list(gene_list, organism)
+
+    print_human_readable_summary(results)
+    write_table_to_file(results, output_dir / "ncbi_gene_summary.tsv")
+    save_results_to_json(results, output_dir / "ncbi_gene_info.json")
+    print(f"[INFO] Annotated {len(results)} of {len(gene_list)} inputs.")
+
+
+if __name__ == "__main__":
+    main()
+
