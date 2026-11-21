@@ -81,8 +81,9 @@ def read_input_tables(base_dir):
                 ):
                     raise ValueError(f"Incomplete resolved row: {path}:{line_number}")
 
-                # Unresolved inputs are kept, with an empty Gene ID stored as NULL.
-                row["Gene_ID"] = gene_id or None
+                # Store every empty cell as SQL NULL, so missing values are
+                # consistent across columns (unresolved rows are still kept).
+                row = {key: (value if value.strip() else None) for key, value in row.items()}
                 rows.append(row)
 
         if not rows:
@@ -292,7 +293,9 @@ def export_sql_dump(database, password, output_dir):
             command = [
                 program, f"--defaults-file={options_path}",
                 "--single-transaction", "--skip-lock-tables", "--no-tablespaces",
-                "--default-character-set=utf8mb4", "--skip-comments",
+                "--default-character-set=utf8mb4",
+                # One INSERT per row, so the dump is readable and diff-friendly.
+                "--skip-extended-insert",
             ]
             for option, setting in (
                 ("--column-statistics", "0"), ("--set-gtid-purged", "OFF"),

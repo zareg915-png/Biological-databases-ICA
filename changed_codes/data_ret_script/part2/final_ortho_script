@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+#BDB ICA Part 2: map human genes from Part 1 to their mouse orthologs.
+
+
 import argparse
 import csv
 import json
@@ -14,18 +18,12 @@ from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
-
 import requests
 
 
-# ---------------------------------------------------------------------------
-# Configuration: INPUT_ROOT keeps Number 1's selected Part 1 folder. It must
-# contain development/ and challenge/ with the saved Part 1 exports. Change
-# it if those exports are elsewhere. OUTPUT_ROOT is the requested Part 2 path.
-# These lists check input identity/order only; they never supply gene mappings.
-# A custom --input run can contain any list and does not use these list checks.
-# ---------------------------------------------------------------------------
 
+
+# Configuration: paths, the expected input lists and NCBI settings.
 INPUT_ROOT = Path("~/BDB_ICA/OP1_data/part1_data/final_data").expanduser()
 OUTPUT_ROOT = Path("~/BDB_ICA/OP1_data/part2_data").expanduser()
 PART1_FILENAME = "ncbi_gene_summary2.json"  # Change to .tsv to use that export.
@@ -214,11 +212,8 @@ def response_json(response: requests.Response) -> Dict[str, Any]:
     return data
 
 
-# ---------------------------------------------------------------------------
-# Step 0: read Part 1 instead of resolving its symbols/aliases/ENSG IDs again.
-# The original source row is retained even when Part 1 could not resolve it.
-# ---------------------------------------------------------------------------
 
+# Step 0: read Part 1 results instead of resolving the symbols again.
 def read_part1_results(filename: Union[str, Path]) -> List[Dict[str, Any]]:
     """Read the exact JSON schema or TSV columns written by final Part 1."""
     path = Path(filename).expanduser()
@@ -239,8 +234,7 @@ def read_part1_results(filename: Union[str, Path]) -> List[Dict[str, Any]]:
     return records
 
 
-# Number 2 improvement: Part 1 writes unquoted TSV, so quote characters must
-# stay ordinary text. Keep Number 1's duplicate-header and row-width checks.
+# Part 1 writes unquoted TSV, so quotes are read as ordinary text.
 def read_part1_tsv(handle) -> List[Dict[str, Any]]:
     reader = csv.DictReader(handle, delimiter="\t", quoting=csv.QUOTE_NONE)
     required = {
@@ -280,6 +274,10 @@ def prepare_part1_records(
             raise OrthologError(f"Part 1 record {position} is missing its required final-script fields.")
         if not isinstance(record["summary"], dict):
             raise OrthologError(f"Part 1 record {position}: the summary must be a dictionary.")
+        # Treat null notes as empty; copy so the caller's records are unchanged.
+        record = dict(record)
+        for key in ["resolution_note", "same_gene_note"]:
+            record[key] = record.get(key) or ""
         for key in ["query_symbol", "resolution_status", "resolution_note", "same_gene_note"]:
             if not isinstance(record.get(key, ""), str):
                 raise OrthologError(f"Part 1 record {position}: query labels, statuses and notes must contain text.")
@@ -301,7 +299,7 @@ def prepare_part1_records(
         prepared.append({
             "input_id": record["query_symbol"], "gene_id": str(gene_id).strip(),
             "symbol": symbol, "input_row": position,
-            "summary": dict(summary),  # Number 2: retain the full Part 1 ESummary.
+            "summary": dict(summary),  # Keep the full ESummary so it can be reused without another request.
             "ensembl_gene_ids": ensembl_ids,
             "resolution_status": record["resolution_status"],
             "resolution_note": record.get("resolution_note", ""),
@@ -312,8 +310,7 @@ def prepare_part1_records(
     return prepared
 
 
-# Number 2's shared summary parser, with Number 1's strict record-ID, type
-# and taxonomy checks. Both cached and fresh records pass the same checks.
+# Validate a summary record, whether it came from Part 1 or a fresh request.
 def summary_fields(record: Dict[str, Any], gene_id: str) -> Dict[str, str]:
     gene_id = validate_gene_id(gene_id)
     if not isinstance(record, dict) or not record or record.get("error"):
@@ -366,7 +363,7 @@ def get_gene_summary(gene_id: str, part1_summary: Dict[str, Any]) -> Dict[str, s
 
 
 def cached(cache: Dict[str, Any], key: str, lookup, *args) -> Any:
-    """Number 2: share successful results or safe failures across aliases."""
+    """Cache each result or error by Gene ID, so aliases share one lookup."""
     if key not in cache:
         try:
             cache[key] = lookup(*args)
@@ -375,12 +372,8 @@ def cached(cache: Dict[str, Any], key: str, lookup, *args) -> Any:
     return cache[key]
 
 
-# ---------------------------------------------------------------------------
-# Step 1: get mouse orthologs via the same NCBI Datasets endpoint as SRT.
-# Ask for mouse on the server, check species locally, and follow every page.
-# A successful empty response is different from a failed/malformed response.
-# ---------------------------------------------------------------------------
 
+# Step 1: retrieve mouse orthologs from NCBI Datasets, following every page.
 def fetch_orthologs_for_gene(gene_id: str) -> Dict[str, Any]:
     """Return a validated, combined reports list for this human Gene ID."""
     gene_id = validate_gene_id(gene_id)
@@ -411,9 +404,10 @@ def fetch_orthologs_for_gene(gene_id: str) -> Dict[str, Any]:
             gene = item.get("gene") if isinstance(item, dict) else None
             if not isinstance(gene, dict) or item.get("errors"):
                 raise OrthologError("NCBI returned an invalid or unsuccessful ortholog report.")
-            identifier = validate_gene_id(gene.get("gene_id"))
             if str(gene.get("tax_id", "")) != MOUSE_TAX_ID:
-                raise OrthologError("NCBI returned a species outside the requested mouse filter.")
+                # Skip non-mouse reports, such as the human query gene itself.
+                continue
+            identifier = validate_gene_id(gene.get("gene_id"))
             if identifier in reports_by_id and reports_by_id[identifier] != item:
                 raise OrthologError("NCBI returned conflicting reports for the same mouse gene.")
             reports_by_id[identifier] = item
@@ -429,7 +423,12 @@ def fetch_orthologs_for_gene(gene_id: str) -> Dict[str, Any]:
     else:
         raise OrthologError("NCBI ortholog pagination exceeded the configured page limit.")
     if expected_count is not None and len(reports_by_id) != expected_count:
-        raise OrthologError("NCBI did not return the complete ortholog result set.")
+        # total_count may count before the mouse filter, so warn rather than fail.
+        report(
+            f"[WARN] Gene {gene_id}: NCBI total_count={expected_count}, "
+            f"but {len(reports_by_id)} distinct mouse report(s) were retained; "
+            "continuing with the returned mouse records."
+        )
     return {"reports": list(reports_by_id.values())}
 
 
@@ -527,12 +526,9 @@ def build_human_mouse_ortholog_rows(
     return rows
 
 
-# ---------------------------------------------------------------------------
-# Step 2: retain the lecturer's EFetch/XML route as a fallback for missing IDs.
-# Reuse Part 1 human ENSG IDs and mouse IDs already provided by NCBI Datasets.
-# Only remaining gaps need an additional, batched NCBI request.
-# ---------------------------------------------------------------------------
 
+
+# Step 2: fill missing Ensembl IDs from NCBI Gene XML, in batches.
 def strip_namespaces(root: ET.Element) -> None:
     for element in root.iter():
         element.tag = element.tag.rsplit("}", 1)[-1]
@@ -541,8 +537,7 @@ def strip_namespaces(root: ET.Element) -> None:
 def efetch_gene_xml(gene_ids: List[str]) -> Dict[str, Union[ET.Element, OrthologError]]:
     """Return a parsed record or an explicit lookup error for each requested ID.
 
-    Number 2 improvement: a missing record does not discard other valid
-    records. Number 1 checks still reject unexpected or repeated record IDs.
+    A missing record fails only that gene; unexpected or repeated IDs are rejected.
     A failed batch is marked as failed while later batches can still run.
     """
     if isinstance(EFETCH_BATCH_SIZE, bool) or not isinstance(EFETCH_BATCH_SIZE, int) or not 1 <= EFETCH_BATCH_SIZE <= 100:
@@ -590,8 +585,7 @@ def extract_ensembl_ids_from_gene_xml(xml_record: Union[str, ET.Element]) -> Lis
     Searching every Dbtag in the full record can pick up IDs from other linked
     genes. The own-gene Gene-ref_db path follows Part 1's stronger ENSG check.
     Namespace removal supports either namespaced or plain Gene XML.
-    Number 2: reuse an already parsed XML element instead of serialising and
-    parsing it again. Raw XML text is also accepted for compatibility.
+    Accepts a parsed element (to avoid parsing twice) or raw XML text.
     """
     if isinstance(xml_record, ET.Element):
         root = xml_record
@@ -666,12 +660,8 @@ def add_ensembl_ids_to_rows(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return updated
 
 
-# ---------------------------------------------------------------------------
-# Output and reusable entry point: SRT wrapper plus standalone-script strengths.
-# Prepare both exports before replacing either; each replacement is atomic.
-# The pair of replacements is not a database transaction.
-# ---------------------------------------------------------------------------
 
+# Output: write the TSV/JSON files and run the end-to-end workflow.
 def write_results(rows: List[Dict[str, Any]], prefix: Path) -> None:
     prefix.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="ortholog_", dir=prefix.parent) as folder:
@@ -722,7 +712,7 @@ def connect_ncbi_ortholog(
 
 
 def lookup_failures(rows: List[Dict[str, Any]]) -> List[str]:
-    """Number 2: identify the source row and reason for each technical failure.
+    """List each technical failure with its input row and reason.
 
     A successful lookup returning no ortholog or no Ensembl cross-reference
     is a missing biological annotation, not a failed network/API lookup.
@@ -746,7 +736,7 @@ def lookup_failures(rows: List[Dict[str, Any]]) -> List[str]:
 
 
 def has_lookup_failures(rows: List[Dict[str, Any]]) -> bool:
-    """Keep Number 1's boolean helper for callers that only need pass/fail."""
+    """Return True if any row has a technical lookup failure."""
     return bool(lookup_failures(rows))
 
 
@@ -809,3 +799,4 @@ if __name__ == "__main__":
         message = str(error) if isinstance(error, OrthologError) else "Run stopped. Check the input, output paths and ncbi_ortholog.log."
         report(f"[ERROR] {message}", logging.ERROR)
         sys.exit(1)
+
