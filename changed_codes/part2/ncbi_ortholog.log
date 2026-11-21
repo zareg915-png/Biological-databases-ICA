@@ -1,5 +1,0 @@
-2026-11-21 16:24:54,801 ERROR Run stopped: OrthologError
-2026-11-21 16:24:54,802 ERROR first_ortho_script.py:759 in <module>
-2026-11-21 16:24:54,802 ERROR first_ortho_script.py:738 in main
-2026-11-21 16:24:54,802 ERROR first_ortho_script.py:278 in read_part1_results
-2026-11-21 16:24:54,802 ERROR [ERROR] Part 1 input file was not found. Check INPUT_ROOT/PART1_FILENAME or select a file with --input.
