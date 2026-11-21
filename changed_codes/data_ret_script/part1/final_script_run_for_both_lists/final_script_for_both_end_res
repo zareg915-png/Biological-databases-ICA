@@ -757,7 +757,7 @@ def main() -> None:
 
     # 2. Output prefixes (without .tsv/.json); each list has its own folder.
     base_dir = os.path.expanduser(
-        "~/BDB_ICA/OP1_data/final_data"
+        "~/BDB_ICA/OP1_data/part1_data/final_data"
     )
 
     development_prefix = os.path.join(

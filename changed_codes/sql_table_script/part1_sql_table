@@ -45,7 +45,7 @@ INPUT_COLUMNS = (
     "Official_Name", "Chromosome", "Map_Location", "Other_Aliases",
     "Summary", "Same_Gene_Note", "Resolution_Status", "Resolution_Note",
 )
-DATABASE_COLUMNS = ("Dataset",) + INPUT_COLUMNS
+DATABASE_COLUMNS = ("Dataset", "Input_Row") + INPUT_COLUMNS
 
 
 def read_input_tables(base_dir):
@@ -139,24 +139,45 @@ def build_table_data_sql():
     return f"INSERT INTO `{TABLE_NAME}` ({names}) VALUES ({placeholders})"
 
 
-def input_values(dataset, rows):
-    """Return one value tuple per TSV row, unchanged and in file order."""
+def input_values(
+    dataset: str, rows: list[dict[str, str | None]],
+) -> list[tuple[object, ...]]:
     return [
-        (dataset,) + tuple(row[column] for column in INPUT_COLUMNS)
-        for row in rows
-    ]
+        (dataset, input_row)
+        + tuple(row[column] for column in INPUT_COLUMNS)
+        for input_row, row in enumerate(rows, start=1)]
 
 
 def check_table(cursor):
-    """Check an existing table before allowing a replacement import."""
     cursor.execute(f"SHOW COLUMNS FROM `{TABLE_NAME}`")
     found = {row[0] for row in cursor.fetchall()}
+
+    # Add the missing column before checking the schema.
+    if "Input_Row" not in found:
+        cursor.execute(
+            f"ALTER TABLE `{TABLE_NAME}` "
+            "ADD COLUMN `Input_Row` INT UNSIGNED NULL "
+            "AFTER `Dataset`"
+        )
+        found.add("Input_Row")
+        print("[INFO] Added Input_Row column.")
+
     missing = {"Row_ID", *DATABASE_COLUMNS} - found
     if missing:
         raise ValueError(
             f"The existing {TABLE_NAME} table has a different schema. "
             "Missing columns: " + ", ".join(sorted(missing))
         )
+
+    cursor.execute(
+        "SELECT ENGINE FROM information_schema.TABLES "
+        "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = %s",
+        (TABLE_NAME,),
+    )
+    engine = cursor.fetchone()
+
+    if not engine or str(engine[0]).upper() != "INNODB":
+        raise ValueError(f"{TABLE_NAME} must use InnoDB for safe rollback.")
 
     # Rollback requires a transactional engine; check tables created earlier.
     cursor.execute(
