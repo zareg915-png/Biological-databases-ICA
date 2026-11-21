@@ -28,7 +28,7 @@
           "exoncount": 31
         }
       ],
-      "geneweight": 284298,
+      "geneweight": 284308,
       "summary": "This gene encodes a 190 kD nuclear phosphoprotein that plays a role in maintaining genomic stability, and it also acts as a tumor suppressor. The BRCA1 gene contains 22 exons spanning about 110 kb of DNA. The encoded protein combines with other tumor suppressors, DNA damage sensors, and signal transducers to form a large multi-subunit protein complex known as the BRCA1-associated genome surveillance complex (BASC). This gene product associates with RNA polymerase II, and through the C-terminal domain, also interacts with histone deacetylase complexes. This protein thus plays a role in transcription, DNA repair of double-stranded breaks, and recombination. Mutations in this gene are responsible for approximately 40% of inherited breast cancers and more than 80% of inherited breast and ovarian cancers. Alternative splicing plays a role in modulating the subcellular localization and physiological function of this gene. Many alternatively spliced transcript variants, some of which are disease-associated mutations, have been described for this gene, but the full-length natures of only some of these variants has been described. A related pseudogene, which is also located on chromosome 17, has been identified. [provided by RefSeq, May 2020]",
       "chrsort": "17",
       "chrstart": 43044294,
@@ -38,6 +38,20 @@
         "taxid": 9606
       },
       "locationhist": [
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NC_000017.11",
+          "chrstart": 43170326,
+          "chrstop": 43044294
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_009914755.1",
+          "chraccver": "NC_060941.1",
+          "chrstart": 44029083,
+          "chrstop": 43902856
+        },
         {
           "annotationrelease": "RS_2025_08",
           "assemblyaccver": "GCF_000001405.40",
@@ -154,7 +168,10 @@
     },
     "ensembl_gene_ids": [
       "ENSG00000012048"
-    ]
+    ],
+    "resolution_status": "resolved",
+    "resolution_note": "Resolved from one current symbol/alias search match.",
+    "same_gene_note": ""
   },
   {
     "query_symbol": "BRCA2",
@@ -185,7 +202,7 @@
           "exoncount": 29
         }
       ],
-      "geneweight": 197824,
+      "geneweight": 197832,
       "summary": "The product of this gene in involved in maintenance of genome stability. It is involved in double-strand break repair pathways during mitotic and meiotic homologous recombination and functions in protecting DNA replication forks. The encoded protein contains sites for interactions with PALB2 and EMSY and an N-terminal DNA binding domain. It also contains a RAD51 binding domain with multiple components. It has multiple BRC repeats, an alpha helix domain, oligonucleotide binding folds, and a tower-like domain. It has a nuclear localization signal and a phosphorylation site for cyclin-dependent kinase. The C-terminus of the protein can bind single-stranded and double-stranded DNA. The product of this gene interacts with multiple proteins, including RAD51. It is involved in recruiting RAD51 filaments to DNA double-strand break sites and also in cytoplasmic division. It also acts as a tumor suppressor. Mutations in this gene or decreased expression have been implicated in multiple tumor types, including breast, ovarian, pancreatic, prostate and other cancers. [provided by RefSeq, May 2026]",
       "chrsort": "13",
       "chrstart": 32315076,
@@ -195,6 +212,20 @@
         "taxid": 9606
       },
       "locationhist": [
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NC_000013.11",
+          "chrstart": 32315076,
+          "chrstop": 32400267
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_009914755.1",
+          "chraccver": "NC_060937.1",
+          "chrstart": 31532321,
+          "chrstop": 31617509
+        },
         {
           "annotationrelease": "RS_2025_08",
           "assemblyaccver": "GCF_000001405.40",
@@ -311,7 +342,10 @@
     },
     "ensembl_gene_ids": [
       "ENSG00000139618"
-    ]
+    ],
+    "resolution_status": "resolved",
+    "resolution_note": "Resolved from one current symbol/alias search match.",
+    "same_gene_note": ""
   },
   {
     "query_symbol": "TP53",
@@ -342,7 +376,7 @@
           "exoncount": 13
         }
       ],
-      "geneweight": 846462,
+      "geneweight": 846463,
       "summary": "This gene encodes a tumor suppressor protein containing transcriptional activation, DNA binding, and oligomerization domains. The encoded protein responds to diverse cellular stresses to regulate expression of target genes, thereby inducing cell cycle arrest, apoptosis, senescence, DNA repair, or changes in metabolism. Mutations in this gene are associated with a variety of human cancers, including hereditary cancers such as Li-Fraumeni syndrome. Alternative splicing of this gene and the use of alternate promoters result in multiple transcript variants and isoforms. Additional isoforms have also been shown to result from the use of alternate translation initiation codons from identical transcript variants (PMIDs: 12032546, 20937277). [provided by RefSeq, Dec 2016]",
       "chrsort": "17",
       "chrstart": 7668420,
@@ -352,6 +386,20 @@
         "taxid": 9606
       },
       "locationhist": [
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NC_000017.11",
+          "chrstart": 7687489,
+          "chrstop": 7668420
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_009914755.1",
+          "chraccver": "NC_060941.1",
+          "chrstart": 7591593,
+          "chrstop": 7572543
+        },
         {
           "annotationrelease": "RS_2025_08",
           "assemblyaccver": "GCF_000001405.40",
@@ -468,7 +516,10 @@
     },
     "ensembl_gene_ids": [
       "ENSG00000141510"
-    ]
+    ],
+    "resolution_status": "resolved",
+    "resolution_note": "Resolved from one current symbol/alias search match.",
+    "same_gene_note": ""
   },
   {
     "query_symbol": "EGFR",
@@ -509,6 +560,20 @@
         "taxid": 9606
       },
       "locationhist": [
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NC_000007.14",
+          "chrstart": 55019016,
+          "chrstop": 55211627
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_009914755.1",
+          "chraccver": "NC_060931.1",
+          "chrstart": 55178936,
+          "chrstop": 55372055
+        },
         {
           "annotationrelease": "RS_2025_08",
           "assemblyaccver": "GCF_000001405.40",
@@ -632,7 +697,10 @@
     },
     "ensembl_gene_ids": [
       "ENSG00000146648"
-    ]
+    ],
+    "resolution_status": "resolved",
+    "resolution_note": "Resolved from one current symbol/alias search match.",
+    "same_gene_note": ""
   },
   {
     "query_symbol": "MYC",
@@ -663,7 +731,7 @@
           "exoncount": 3
         }
       ],
-      "geneweight": 217386,
+      "geneweight": 217394,
       "summary": "This gene is a proto-oncogene and encodes a nuclear phosphoprotein that plays a role in cell cycle progression, apoptosis and cellular transformation. The encoded protein forms a heterodimer with the related transcription factor MAX. This complex binds to the E box DNA consensus sequence and regulates the transcription of specific target genes. Amplification of this gene is frequently observed in numerous human cancers. Translocations involving this gene are associated with Burkitt lymphoma and multiple myeloma in human patients. There is evidence to show that translation initiates both from an upstream, in-frame non-AUG (CUG) and a downstream AUG start site, resulting in the production of two isoforms with distinct N-termini. [provided by RefSeq, Aug 2017]",
       "chrsort": "08",
       "chrstart": 127735433,
@@ -673,6 +741,20 @@
         "taxid": 9606
       },
       "locationhist": [
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NC_000008.11",
+          "chrstart": 127735433,
+          "chrstop": 127742950
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_009914755.1",
+          "chraccver": "NC_060932.1",
+          "chrstart": 128862887,
+          "chrstop": 128870404
+        },
         {
           "annotationrelease": "RS_2025_08",
           "assemblyaccver": "GCF_000001405.40",
@@ -789,7 +871,10 @@
     },
     "ensembl_gene_ids": [
       "ENSG00000136997"
-    ]
+    ],
+    "resolution_status": "resolved",
+    "resolution_note": "Resolved from one current symbol/alias search match.",
+    "same_gene_note": ""
   },
   {
     "query_symbol": "APOE",
@@ -820,7 +905,7 @@
           "exoncount": 6
         }
       ],
-      "geneweight": 292682,
+      "geneweight": 292693,
       "summary": "The protein encoded by this gene is a major apoprotein of the chylomicron. It binds to a specific liver and peripheral cell receptor, and is essential for the normal catabolism of triglyceride-rich lipoprotein constituents. This gene maps to chromosome 19 in a cluster with the related apolipoprotein C1 and C2 genes. Mutations in this gene result in familial dysbetalipoproteinemia, or type III hyperlipoproteinemia (HLP III), in which increased plasma cholesterol and triglycerides are the consequence of impaired clearance of chylomicron and VLDL remnants. [provided by RefSeq, Jun 2016]",
       "chrsort": "19",
       "chrstart": 44905795,
@@ -830,6 +915,20 @@
         "taxid": 9606
       },
       "locationhist": [
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NC_000019.10",
+          "chrstart": 44905795,
+          "chrstop": 44909392
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_009914755.1",
+          "chraccver": "NC_060943.1",
+          "chrstart": 47730491,
+          "chrstop": 47734088
+        },
         {
           "annotationrelease": "RS_2025_08",
           "assemblyaccver": "GCF_000001405.40",
@@ -946,7 +1045,10 @@
     },
     "ensembl_gene_ids": [
       "ENSG00000130203"
-    ]
+    ],
+    "resolution_status": "resolved",
+    "resolution_note": "Resolved from one current symbol/alias search match.",
+    "same_gene_note": ""
   },
   {
     "query_symbol": "CFTR",
@@ -977,7 +1079,7 @@
           "exoncount": 27
         }
       ],
-      "geneweight": 409231,
+      "geneweight": 409247,
       "summary": "This gene encodes a member of the ATP-binding cassette (ABC) transporter superfamily. The encoded protein functions as a chloride channel, making it unique among members of this protein family, and controls ion and water secretion and absorption in epithelial tissues. Channel activation is mediated by cycles of regulatory domain phosphorylation, ATP-binding by the nucleotide-binding domains, and ATP hydrolysis. Mutations in this gene cause cystic fibrosis, the most common lethal genetic disorder in populations of Northern European descent. The most frequently occurring mutation in cystic fibrosis, DeltaF508, results in impaired folding and trafficking of the encoded protein. Multiple pseudogenes have been identified in the human genome. [provided by RefSeq, Aug 2017]",
       "chrsort": "07",
       "chrstart": 117480024,
@@ -987,6 +1089,20 @@
         "taxid": 9606
       },
       "locationhist": [
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NC_000007.14",
+          "chrstart": 117480024,
+          "chrstop": 117668664
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_009914755.1",
+          "chraccver": "NC_060931.1",
+          "chrstart": 118795360,
+          "chrstop": 118984025
+        },
         {
           "annotationrelease": "RS_2025_08",
           "assemblyaccver": "GCF_000001405.40",
@@ -1110,7 +1226,10 @@
     },
     "ensembl_gene_ids": [
       "ENSG00000001626"
-    ]
+    ],
+    "resolution_status": "resolved",
+    "resolution_note": "Resolved from one current symbol/alias search match.",
+    "same_gene_note": ""
   },
   {
     "query_symbol": "ACE2",
@@ -1141,7 +1260,7 @@
           "exoncount": 22
         }
       ],
-      "geneweight": 253439,
+      "geneweight": 253449,
       "summary": "The protein encoded by this gene belongs to the angiotensin-converting enzyme family of dipeptidyl carboxydipeptidases and has considerable homology to human angiotensin 1 converting enzyme. This secreted protein catalyzes the cleavage of angiotensin I into angiotensin 1-9, and angiotensin II into the vasodilator angiotensin 1-7. ACE2 is known to be expressed in various human organs, and its organ- and cell-specific expression suggests that it may play a role in the regulation of cardiovascular and renal function, as well as fertility. In addition, the encoded protein is a functional receptor for the spike glycoprotein of the human coronavirus HCoV-NL63 and the human severe acute respiratory syndrome coronaviruses, SARS-CoV and SARS-CoV-2, the latter is the causative agent of coronavirus disease-2019 (COVID-19). Multiple splice variants have been found for this gene and the dACE2 (or MIRb-ACE2) splice variant has been found to be interferon inducible. [provided by RefSeq, Nov 2020]",
       "chrsort": "X",
       "chrstart": 15518196,
@@ -1151,6 +1270,20 @@
         "taxid": 9606
       },
       "locationhist": [
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NC_000023.11",
+          "chrstart": 15607210,
+          "chrstop": 15518196
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_009914755.1",
+          "chraccver": "NC_060947.1",
+          "chrstart": 15190202,
+          "chrstop": 15101169
+        },
         {
           "annotationrelease": "RS_2025_08",
           "assemblyaccver": "GCF_000001405.40",
@@ -1267,7 +1400,10 @@
     },
     "ensembl_gene_ids": [
       "ENSG00000130234"
-    ]
+    ],
+    "resolution_status": "resolved",
+    "resolution_note": "Resolved from one current symbol/alias search match.",
+    "same_gene_note": ""
   },
   {
     "query_symbol": "TNF",
@@ -1298,7 +1434,7 @@
           "exoncount": 4
         }
       ],
-      "geneweight": 332155,
+      "geneweight": 332092,
       "summary": "This gene encodes a multifunctional proinflammatory cytokine that belongs to the tumor necrosis factor (TNF) superfamily. This cytokine is mainly secreted by macrophages. It can bind to, and thus functions through its receptors TNFRSF1A/TNFR1 and TNFRSF1B/TNFBR. This cytokine is involved in the regulation of a wide spectrum of biological processes including cell proliferation, differentiation, apoptosis, lipid metabolism, and coagulation. This cytokine has been implicated in a variety of diseases, including autoimmune diseases, insulin resistance, psoriasis, rheumatoid arthritis ankylosing spondylitis, tuberculosis, autosomal dominant polycystic kidney disease, and cancer. Mutations in this gene affect susceptibility to cerebral malaria, septic shock, and Alzheimer disease. Knockout studies in mice also suggested the neuroprotective function of this cytokine. [provided by RefSeq, Aug 2020]",
       "chrsort": "06",
       "chrstart": 31575564,
@@ -1308,6 +1444,69 @@
         "taxid": 9606
       },
       "locationhist": [
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NC_000006.12",
+          "chrstart": 31575564,
+          "chrstop": 31578335
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NT_113891.3",
+          "chrstart": 3052851,
+          "chrstop": 3055622
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NT_167244.2",
+          "chrstart": 2909107,
+          "chrstop": 2910914
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NT_167245.2",
+          "chrstart": 2823297,
+          "chrstop": 2826068
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NT_167246.2",
+          "chrstart": 2880605,
+          "chrstop": 2883376
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NT_167247.2",
+          "chrstart": 2917462,
+          "chrstop": 2920233
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NT_167248.2",
+          "chrstart": 2831383,
+          "chrstop": 2834156
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NT_167249.2",
+          "chrstart": 2874844,
+          "chrstop": 2877615
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_009914755.1",
+          "chraccver": "NC_060930.1",
+          "chrstart": 31428616,
+          "chrstop": 31431387
+        },
         {
           "annotationrelease": "RS_2025_08",
           "assemblyaccver": "GCF_000001405.40",
@@ -1865,7 +2064,10 @@
     },
     "ensembl_gene_ids": [
       "ENSG00000232810"
-    ]
+    ],
+    "resolution_status": "resolved",
+    "resolution_note": "Resolved from one current symbol/alias search match.",
+    "same_gene_note": ""
   },
   {
     "query_symbol": "VEGFA",
@@ -1896,7 +2098,7 @@
           "exoncount": 9
         }
       ],
-      "geneweight": 811497,
+      "geneweight": 811472,
       "summary": "This gene is a member of the PDGF/VEGF growth factor family. It encodes a heparin-binding protein, which exists as a disulfide-linked homodimer. This growth factor induces proliferation and migration of vascular endothelial cells, and is essential for both physiological and pathological angiogenesis. Disruption of this gene in mice resulted in abnormal embryonic blood vessel formation. This gene is upregulated in many known tumors and its expression is correlated with tumor stage and progression. Elevated levels of this protein are found in patients with POEMS syndrome, also known as Crow-Fukase syndrome. Allelic variants of this gene have been associated with microvascular complications of diabetes 1 (MVCD1) and atherosclerosis. Alternatively spliced transcript variants encoding different isoforms have been described. There is also evidence for alternative translation initiation from upstream non-AUG (CUG) codons resulting in additional isoforms. A recent study showed that a C-terminally extended isoform is produced by use of an alternative in-frame translation termination codon via a stop codon readthrough mechanism, and that this isoform is antiangiogenic. Expression of some isoforms derived from the AUG start codon is regulated by a small upstream open reading frame, which is located within an internal ribosome entry site. The levels of VEGF are increased during infection with severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2), thus promoting inflammation by facilitating recruitment of inflammatory cells, and by increasing the level of angiopoietin II (Ang II), one of two products of the SARS-CoV-2 binding target, angiotensin-converting enzyme 2 (ACE2). In turn, Ang II facilitates the elevation of VEGF, thus forming a vicious cycle in the release of inflammatory cytokines. [provided by RefSeq, Jun 2020]",
       "chrsort": "06",
       "chrstart": 43770210,
@@ -1906,6 +2108,20 @@
         "taxid": 9606
       },
       "locationhist": [
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_000001405.40",
+          "chraccver": "NC_000006.12",
+          "chrstart": 43770210,
+          "chrstop": 43786486
+        },
+        {
+          "annotationrelease": "RS_2026_11",
+          "assemblyaccver": "GCF_009914755.1",
+          "chraccver": "NC_060930.1",
+          "chrstart": 43599723,
+          "chrstop": 43616001
+        },
         {
           "annotationrelease": "RS_2025_08",
           "assemblyaccver": "GCF_000001405.40",
@@ -2022,6 +2238,9 @@
     },
     "ensembl_gene_ids": [
       "ENSG00000112715"
-    ]
+    ],
+    "resolution_status": "resolved",
+    "resolution_note": "Resolved from one current symbol/alias search match.",
+    "same_gene_note": ""
   }
 ]
