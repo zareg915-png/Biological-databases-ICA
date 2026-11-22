@@ -1,0 +1,2660 @@
+{
+  "url": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/21926/dataset_report",
+  "retrieved_utc": "2026-11-22T01:48:18+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:48:17 GMT",
+    "server": "Finatra",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "content-security-policy": "upgrade-insecure-requests",
+    "ncbi-phid": "1D3272A174B5F2150000443B3815B4D5.1.1",
+    "content-type": "application/json",
+    "grpc-metadata-via": "h2 linkerd",
+    "x-ratelimit-limit": "5",
+    "x-datasets-version": "18.41.1",
+    "x-ncbi-total-count": "1",
+    "x-ratelimit-remaining": "4",
+    "access-control-expose-headers": "X-RateLimit-Limit,X-RateLimit-Remaining",
+    "vary": "Accept-Encoding",
+    "x-ua-compatible": "IE=Edge",
+    "x-xss-protection": "1; mode=block",
+    "transfer-encoding": "chunked",
+    "via": "1.1 google",
+    "alt-svc": "clear",
+    "connection": "close"
+  },
+  "response": {
+    "reports": [
+      {
+        "gene": {
+          "gene_id": "21926",
+          "symbol": "Tnf",
+          "description": "tumor necrosis factor",
+          "tax_id": "10090",
+          "taxname": "Mus musculus",
+          "common_name": "house mouse",
+          "type": "PROTEIN_CODING",
+          "orientation": "minus",
+          "chromosomes": [
+            "17"
+          ],
+          "nomenclature_authority": {
+            "authority": "MGI",
+            "identifier": "MGI:104798"
+          },
+          "swiss_prot_accessions": [
+            "P06804"
+          ],
+          "ensembl_gene_ids": [
+            "ENSMUSG00000024401"
+          ],
+          "synonyms": [
+            "DIF",
+            "Tnfa",
+            "TNF-a",
+            "TNFSF2",
+            "Tnlg1f",
+            "Tnfsf1a",
+            "TNFalpha",
+            "TNF-alpha"
+          ],
+          "alternate_names": [
+            "cachectin",
+            "tumor necrosis factor ligand 1f",
+            "tumor necrosis factor ligand superfamily member 2",
+            "tumor necrosis factor-alpha"
+          ],
+          "annotations": [
+            {
+              "assembly_accession": "GCF_000001635.27",
+              "assembly_name": "GRCm39",
+              "annotation_name": "GCF_000001635.27-RS_2024_02",
+              "annotation_release_date": "2024-02-01",
+              "genomic_locations": [
+                {
+                  "genomic_accession_version": "NC_000083.7",
+                  "sequence_name": "17",
+                  "genomic_range": {
+                    "begin": "35418343",
+                    "end": "35420983",
+                    "orientation": "minus"
+                  }
+                }
+              ]
+            }
+          ],
+          "transcript_count": 2,
+          "protein_count": 2,
+          "transcript_type_counts": [
+            {
+              "type": "PROTEIN_CODING",
+              "count": 2
+            }
+          ],
+          "gene_groups": [
+            {
+              "id": "7124",
+              "method": "NCBI Ortholog"
+            }
+          ],
+          "summary": [
+            {
+              "description": "This gene encodes a multifunctional proinflammatory cytokine that belongs to the tumor necrosis factor (TNF) superfamily. Members of this family are classified based on primary sequence, function, and structure. This protein is synthesized as a type-II transmembrane protein and is reported to be cleaved into products that exert distinct biological functions. It plays an important role in the innate immune response as well as regulating homeostasis but is also implicated in diseases of chronic inflammation. In mouse deficiency of this gene is associated with defects in response to bacterial infection, with defects in forming organized follicular dendritic cell networks and germinal centers, and with a lack of primary B cell follicles. Alternative splicing results in multiple transcript variants. [provided by RefSeq, Jun 2013]"
+            }
+          ],
+          "gene_ontology": {
+            "assigned_by": "MGI",
+            "molecular_functions": [
+              {
+                "name": "cytokine activity",
+                "go_id": "GO:0005125",
+                "evidence_code": "IBA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "cytokine activity",
+                "go_id": "GO:0005125",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "11588035",
+                    "11894098",
+                    "12867038",
+                    "14985352",
+                    "15790681",
+                    "16260493",
+                    "22089168",
+                    "27830702"
+                  ]
+                }
+              },
+              {
+                "name": "cytokine activity",
+                "go_id": "GO:0005125",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "cytokine activity",
+                "go_id": "GO:0005125",
+                "evidence_code": "IGI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "16260493"
+                  ]
+                }
+              },
+              {
+                "name": "cytokine activity",
+                "go_id": "GO:0005125",
+                "evidence_code": "ISO",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "15790681",
+                    "22089168"
+                  ]
+                }
+              },
+              {
+                "name": "death receptor agonist activity",
+                "go_id": "GO:0038177",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "histone H3K9ac reader activity",
+                "go_id": "GO:0140072",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "identical protein binding",
+                "go_id": "GO:0042802",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "identical protein binding",
+                "go_id": "GO:0042802",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protease binding",
+                "go_id": "GO:0002020",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protease binding",
+                "go_id": "GO:0002020",
+                "evidence_code": "IPI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "12135759"
+                  ]
+                }
+              },
+              {
+                "name": "protease binding",
+                "go_id": "GO:0002020",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protein binding",
+                "go_id": "GO:0005515",
+                "evidence_code": "IPI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "16702408"
+                  ]
+                }
+              },
+              {
+                "name": "receptor ligand activity",
+                "go_id": "GO:0048018",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "2989794"
+                  ]
+                }
+              },
+              {
+                "name": "transcription cis-regulatory region binding",
+                "go_id": "GO:0000976",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "transcription cis-regulatory region binding",
+                "go_id": "GO:0000976",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "tumor necrosis factor receptor binding",
+                "go_id": "GO:0005164",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "11588035"
+                  ]
+                }
+              },
+              {
+                "name": "tumor necrosis factor receptor binding",
+                "go_id": "GO:0005164",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "tumor necrosis factor receptor binding",
+                "go_id": "GO:0005164",
+                "evidence_code": "IPI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "1645445"
+                  ]
+                }
+              },
+              {
+                "name": "tumor necrosis factor receptor binding",
+                "go_id": "GO:0005164",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "tumor necrosis factor receptor binding",
+                "go_id": "GO:0005164",
+                "evidence_code": "TAS",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "8171322",
+                    "8387893",
+                    "8395024",
+                    "9223320",
+                    "9256477",
+                    "9368616",
+                    "9565643"
+                  ]
+                }
+              }
+            ],
+            "biological_processes": [
+              {
+                "name": "JNK cascade",
+                "go_id": "GO:0007254",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17015619"
+                  ]
+                }
+              },
+              {
+                "name": "animal organ morphogenesis",
+                "go_id": "GO:0009887",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "8879212"
+                  ]
+                }
+              },
+              {
+                "name": "antiviral innate immune response",
+                "go_id": "GO:0140374",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "antiviral innate immune response",
+                "go_id": "GO:0140374",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "apoptotic signaling pathway",
+                "go_id": "GO:0097190",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "8208546",
+                    "15629131"
+                  ]
+                }
+              },
+              {
+                "name": "apoptotic signaling pathway",
+                "go_id": "GO:0097190",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "calcium-mediated signaling",
+                "go_id": "GO:0019722",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cell surface receptor signaling pathway via JAK-STAT",
+                "go_id": "GO:0007259",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular extravasation",
+                "go_id": "GO:0045123",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "10528208"
+                  ]
+                }
+              },
+              {
+                "name": "cellular response to amino acid stimulus",
+                "go_id": "GO:0071230",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "20548288"
+                  ]
+                }
+              },
+              {
+                "name": "cellular response to ionizing radiation",
+                "go_id": "GO:0071479",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to ionizing radiation",
+                "go_id": "GO:0071479",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to lipopolysaccharide",
+                "go_id": "GO:0071222",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "19047410",
+                    "20060382",
+                    "21606371"
+                  ]
+                }
+              },
+              {
+                "name": "cellular response to lipopolysaccharide",
+                "go_id": "GO:0071222",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to lipopolysaccharide",
+                "go_id": "GO:0071222",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "29849090"
+                  ]
+                }
+              },
+              {
+                "name": "cellular response to lipopolysaccharide",
+                "go_id": "GO:0071222",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to nicotine",
+                "go_id": "GO:0071316",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to nicotine",
+                "go_id": "GO:0071316",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to type II interferon",
+                "go_id": "GO:0071346",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to type II interferon",
+                "go_id": "GO:0071346",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "29849090"
+                  ]
+                }
+              },
+              {
+                "name": "chromatin organization",
+                "go_id": "GO:0006325",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "chronic inflammatory response to antigenic stimulus",
+                "go_id": "GO:0002439",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "chronic inflammatory response to antigenic stimulus",
+                "go_id": "GO:0002439",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "defense response",
+                "go_id": "GO:0006952",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "8395024",
+                    "9223320"
+                  ]
+                }
+              },
+              {
+                "name": "defense response to Gram-positive bacterium",
+                "go_id": "GO:0050830",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9834074"
+                  ]
+                }
+              },
+              {
+                "name": "defense response to bacterium",
+                "go_id": "GO:0042742",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "10899905"
+                  ]
+                }
+              },
+              {
+                "name": "detection of mechanical stimulus involved in sensory perception of pain",
+                "go_id": "GO:0050966",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "embryonic digestive tract development",
+                "go_id": "GO:0048566",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "endothelial cell apoptotic process",
+                "go_id": "GO:0072577",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "26808574"
+                  ]
+                }
+              },
+              {
+                "name": "epithelial cell proliferation involved in salivary gland morphogenesis",
+                "go_id": "GO:0060664",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "11241200"
+                  ]
+                }
+              },
+              {
+                "name": "extracellular matrix organization",
+                "go_id": "GO:0030198",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "15381731"
+                  ]
+                }
+              },
+              {
+                "name": "extrinsic apoptotic signaling pathway",
+                "go_id": "GO:0097191",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "extrinsic apoptotic signaling pathway",
+                "go_id": "GO:0097191",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "19498109",
+                    "22089168"
+                  ]
+                }
+              },
+              {
+                "name": "extrinsic apoptotic signaling pathway",
+                "go_id": "GO:0097191",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "extrinsic apoptotic signaling pathway via death domain receptors",
+                "go_id": "GO:0008625",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "extrinsic apoptotic signaling pathway via death domain receptors",
+                "go_id": "GO:0008625",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "extrinsic apoptotic signaling pathway via death domain receptors",
+                "go_id": "GO:0008625",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "12431371",
+                    "20080598"
+                  ]
+                }
+              },
+              {
+                "name": "extrinsic apoptotic signaling pathway via death domain receptors",
+                "go_id": "GO:0008625",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "glucose metabolic process",
+                "go_id": "GO:0006006",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "12068289"
+                  ]
+                }
+              },
+              {
+                "name": "humoral immune response",
+                "go_id": "GO:0006959",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "8879212"
+                  ]
+                }
+              },
+              {
+                "name": "immune response",
+                "go_id": "GO:0006955",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "immune response",
+                "go_id": "GO:0006955",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "inflammatory response",
+                "go_id": "GO:0006954",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "inflammatory response",
+                "go_id": "GO:0006954",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "21148126"
+                  ]
+                }
+              },
+              {
+                "name": "inflammatory response",
+                "go_id": "GO:0006954",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "inflammatory response",
+                "go_id": "GO:0006954",
+                "evidence_code": "TAS",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "8171322",
+                    "8387893"
+                  ]
+                }
+              },
+              {
+                "name": "inflammatory response to wounding",
+                "go_id": "GO:0090594",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "27830702"
+                  ]
+                }
+              },
+              {
+                "name": "inflammatory response to wounding",
+                "go_id": "GO:0090594",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "inflammatory response to wounding",
+                "go_id": "GO:0090594",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "intrinsic apoptotic signaling pathway in response to DNA damage",
+                "go_id": "GO:0008630",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17242187"
+                  ]
+                }
+              },
+              {
+                "name": "leukocyte migration",
+                "go_id": "GO:0050900",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "15034066"
+                  ]
+                }
+              },
+              {
+                "name": "leukocyte tethering or rolling",
+                "go_id": "GO:0050901",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "leukocyte tethering or rolling",
+                "go_id": "GO:0050901",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "lipopolysaccharide-mediated signaling pathway",
+                "go_id": "GO:0031663",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "macrophage activation involved in immune response",
+                "go_id": "GO:0002281",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "29849090"
+                  ]
+                }
+              },
+              {
+                "name": "microglial cell activation",
+                "go_id": "GO:0001774",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "22950459"
+                  ]
+                }
+              },
+              {
+                "name": "modulation of chemical synaptic transmission",
+                "go_id": "GO:0050804",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "necroptotic signaling pathway",
+                "go_id": "GO:0097527",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "necroptotic signaling pathway",
+                "go_id": "GO:0097527",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "19498109",
+                    "21052097",
+                    "21368763",
+                    "22037414"
+                  ]
+                }
+              },
+              {
+                "name": "necroptotic signaling pathway",
+                "go_id": "GO:0097527",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "necroptotic signaling pathway",
+                "go_id": "GO:0097527",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of D-glucose import across plasma membrane",
+                "go_id": "GO:0046325",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "12068289"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of D-glucose import across plasma membrane",
+                "go_id": "GO:0046325",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of D-glucose import across plasma membrane",
+                "go_id": "GO:0046325",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of DNA-templated transcription",
+                "go_id": "GO:0045892",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of DNA-templated transcription",
+                "go_id": "GO:0045892",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of L-glutamate import across plasma membrane",
+                "go_id": "GO:0002037",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of amyloid-beta clearance",
+                "go_id": "GO:1900222",
+                "evidence_code": "IGI",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "17255335"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of apoptotic process",
+                "go_id": "GO:0043066",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of apoptotic signaling pathway",
+                "go_id": "GO:2001234",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "negative regulation of bicellular tight junction assembly",
+                "go_id": "GO:1903347",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of bicellular tight junction assembly",
+                "go_id": "GO:1903347",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of bile acid secretion",
+                "go_id": "GO:0120190",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of blood vessel endothelial cell migration",
+                "go_id": "GO:0043537",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of blood vessel endothelial cell migration",
+                "go_id": "GO:0043537",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of branching involved in lung morphogenesis",
+                "go_id": "GO:0061048",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of branching involved in lung morphogenesis",
+                "go_id": "GO:0061048",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of cell population proliferation",
+                "go_id": "GO:0008285",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of cytokine production involved in immune response",
+                "go_id": "GO:0002719",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of cytokine production involved in immune response",
+                "go_id": "GO:0002719",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of endothelial cell proliferation",
+                "go_id": "GO:0001937",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "26808574"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of extrinsic apoptotic signaling pathway in absence of ligand",
+                "go_id": "GO:2001240",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of extrinsic apoptotic signaling pathway in absence of ligand",
+                "go_id": "GO:2001240",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of fat cell differentiation",
+                "go_id": "GO:0045599",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of gene expression",
+                "go_id": "GO:0010629",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "26427354"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of gene expression",
+                "go_id": "GO:0010629",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of gene expression",
+                "go_id": "GO:0010629",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of"
+              },
+              {
+                "name": "negative regulation of gene expression",
+                "go_id": "GO:0010629",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "negative regulation of gene expression",
+                "go_id": "GO:0010629",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of heart rate",
+                "go_id": "GO:0010459",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of insulin receptor signaling pathway",
+                "go_id": "GO:0046627",
+                "evidence_code": "TAS",
+                "qualifier": "acts_upstream_of",
+                "reference": {
+                  "pmids": [
+                    "29849090"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of interleukin-6 production",
+                "go_id": "GO:0032715",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of interleukin-6 production",
+                "go_id": "GO:0032715",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of lipid catabolic process",
+                "go_id": "GO:0050995",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of lipid catabolic process",
+                "go_id": "GO:0050995",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of mitotic cell cycle",
+                "go_id": "GO:0045930",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "26808574"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of myelination",
+                "go_id": "GO:0031642",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of myoblast differentiation",
+                "go_id": "GO:0045662",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "23844157"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of osteoblast differentiation",
+                "go_id": "GO:0045668",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21689636"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of oxidative phosphorylation",
+                "go_id": "GO:0090324",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of protein-containing complex disassembly",
+                "go_id": "GO:0043242",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of systemic arterial blood pressure",
+                "go_id": "GO:0003085",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0000122",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9305915"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0000122",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21689636"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0000122",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0000122",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "1618860"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0000122",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of vascular wound healing",
+                "go_id": "GO:0061044",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of vascular wound healing",
+                "go_id": "GO:0061044",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of viral genome replication",
+                "go_id": "GO:0045071",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of viral genome replication",
+                "go_id": "GO:0045071",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "non-canonical NF-kappaB signal transduction",
+                "go_id": "GO:0038061",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "osteoclast differentiation",
+                "go_id": "GO:0030316",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "15485831"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of DNA biosynthetic process",
+                "go_id": "GO:2000573",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of DNA-templated transcription",
+                "go_id": "GO:0045893",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "12761567"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of DNA-templated transcription",
+                "go_id": "GO:0045893",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of DNA-templated transcription",
+                "go_id": "GO:0045893",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "15790681"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of JNK cascade",
+                "go_id": "GO:0046330",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "16260493",
+                    "20080598"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of JNK cascade",
+                "go_id": "GO:0046330",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of JNK cascade",
+                "go_id": "GO:0046330",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "16260493"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of JNK cascade",
+                "go_id": "GO:0046330",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of JUN kinase activity",
+                "go_id": "GO:0043507",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of MAP kinase activity",
+                "go_id": "GO:0043406",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of MAPK cascade",
+                "go_id": "GO:0043410",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of MAPK cascade",
+                "go_id": "GO:0043410",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of"
+              },
+              {
+                "name": "positive regulation of MAPK cascade",
+                "go_id": "GO:0043410",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of action potential",
+                "go_id": "GO:0045760",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of amyloid-beta formation",
+                "go_id": "GO:1902004",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "17255335"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of apoptotic process",
+                "go_id": "GO:0043065",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of apoptotic process",
+                "go_id": "GO:0043065",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of apoptotic process",
+                "go_id": "GO:0043065",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of blood microparticle formation",
+                "go_id": "GO:2000334",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of blood microparticle formation",
+                "go_id": "GO:2000334",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of calcineurin-NFAT signaling cascade",
+                "go_id": "GO:0070886",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "positive regulation of canonical NF-kappaB signal transduction",
+                "go_id": "GO:0043123",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of canonical NF-kappaB signal transduction",
+                "go_id": "GO:0043123",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "2989794",
+                    "12867038",
+                    "16260493",
+                    "22089168"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of canonical NF-kappaB signal transduction",
+                "go_id": "GO:0043123",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of canonical NF-kappaB signal transduction",
+                "go_id": "GO:0043123",
+                "evidence_code": "IGI",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "7525730"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of canonical NF-kappaB signal transduction",
+                "go_id": "GO:0043123",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "positive regulation of canonical NF-kappaB signal transduction",
+                "go_id": "GO:0043123",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell adhesion",
+                "go_id": "GO:0045785",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell adhesion",
+                "go_id": "GO:0045785",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell population proliferation",
+                "go_id": "GO:0008284",
+                "evidence_code": "TAS",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "8171322"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of chemokine (C-X-C motif) ligand 2 production",
+                "go_id": "GO:2000343",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of chemokine (C-X-C motif) ligand 2 production",
+                "go_id": "GO:2000343",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of chemokine production",
+                "go_id": "GO:0032722",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of chemokine production",
+                "go_id": "GO:0032722",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of chronic inflammatory response to antigenic stimulus",
+                "go_id": "GO:0002876",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9834074"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of cytokine production",
+                "go_id": "GO:0001819",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cytokine production",
+                "go_id": "GO:0001819",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cytokine production involved in inflammatory response",
+                "go_id": "GO:1900017",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of"
+              },
+              {
+                "name": "positive regulation of cytokine production involved in inflammatory response",
+                "go_id": "GO:1900017",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "positive regulation of defense response",
+                "go_id": "GO:0031349",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of extrinsic apoptotic signaling pathway",
+                "go_id": "GO:2001238",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of extrinsic apoptotic signaling pathway",
+                "go_id": "GO:2001238",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of fever generation",
+                "go_id": "GO:0031622",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "19940926"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of fractalkine production",
+                "go_id": "GO:0032724",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of gene expression",
+                "go_id": "GO:0010628",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "17255335",
+                    "18941241"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of gene expression",
+                "go_id": "GO:0010628",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of gene expression",
+                "go_id": "GO:0010628",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of"
+              },
+              {
+                "name": "positive regulation of gene expression",
+                "go_id": "GO:0010628",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "positive regulation of gene expression",
+                "go_id": "GO:0010628",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of glial cell proliferation",
+                "go_id": "GO:0060252",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of glial cell proliferation",
+                "go_id": "GO:0060252",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of hair follicle development",
+                "go_id": "GO:0051798",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "16702408"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of hepatocyte proliferation",
+                "go_id": "GO:2000347",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of heterotypic cell-cell adhesion",
+                "go_id": "GO:0034116",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "26808574"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of heterotypic cell-cell adhesion",
+                "go_id": "GO:0034116",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of heterotypic cell-cell adhesion",
+                "go_id": "GO:0034116",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of humoral immune response mediated by circulating immunoglobulin",
+                "go_id": "GO:0002925",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9834074"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of immune effector process",
+                "go_id": "GO:0002699",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of immunoglobulin production",
+                "go_id": "GO:0002639",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of interleukin-1 beta production",
+                "go_id": "GO:0032731",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of interleukin-1 beta production",
+                "go_id": "GO:0032731",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of interleukin-18 production",
+                "go_id": "GO:0032741",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of interleukin-33 production",
+                "go_id": "GO:0150129",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of"
+              },
+              {
+                "name": "positive regulation of interleukin-6 production",
+                "go_id": "GO:0032755",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "11894098"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of interleukin-6 production",
+                "go_id": "GO:0032755",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of interleukin-6 production",
+                "go_id": "GO:0032755",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "positive regulation of interleukin-6 production",
+                "go_id": "GO:0032755",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of interleukin-8 production",
+                "go_id": "GO:0032757",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of interleukin-8 production",
+                "go_id": "GO:0032757",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "positive regulation of interleukin-8 production",
+                "go_id": "GO:0032757",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of leukocyte adhesion to arterial endothelial cell",
+                "go_id": "GO:1904999",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of leukocyte adhesion to arterial endothelial cell",
+                "go_id": "GO:1904999",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of leukocyte adhesion to vascular endothelial cell",
+                "go_id": "GO:1904996",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of leukocyte adhesion to vascular endothelial cell",
+                "go_id": "GO:1904996",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of macrophage derived foam cell differentiation",
+                "go_id": "GO:0010744",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of macrophage derived foam cell differentiation",
+                "go_id": "GO:0010744",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of membrane protein ectodomain proteolysis",
+                "go_id": "GO:0051044",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of membrane protein ectodomain proteolysis",
+                "go_id": "GO:0051044",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of miRNA transcription",
+                "go_id": "GO:1902895",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of"
+              },
+              {
+                "name": "positive regulation of mitotic nuclear division",
+                "go_id": "GO:0045840",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of neuron apoptotic process",
+                "go_id": "GO:0043525",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "22950459"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of neuron apoptotic process",
+                "go_id": "GO:0043525",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of neuron apoptotic process",
+                "go_id": "GO:0043525",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of neutrophil activation",
+                "go_id": "GO:1902565",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of nitric oxide biosynthetic process",
+                "go_id": "GO:0045429",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of nitric oxide biosynthetic process",
+                "go_id": "GO:0045429",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of nitric-oxide synthase activity",
+                "go_id": "GO:0051000",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of non-canonical NF-kappaB signal transduction",
+                "go_id": "GO:1901224",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of non-canonical NF-kappaB signal transduction",
+                "go_id": "GO:1901224",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21689636"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of non-canonical NF-kappaB signal transduction",
+                "go_id": "GO:1901224",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "positive regulation of non-canonical NF-kappaB signal transduction",
+                "go_id": "GO:1901224",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of osteoclast differentiation",
+                "go_id": "GO:0045672",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of osteoclast differentiation",
+                "go_id": "GO:0045672",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of phosphatidylinositol 3-kinase/protein kinase B signal transduction",
+                "go_id": "GO:0051897",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "20080598"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of phosphatidylinositol 3-kinase/protein kinase B signal transduction",
+                "go_id": "GO:0051897",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of phosphatidylinositol 3-kinase/protein kinase B signal transduction",
+                "go_id": "GO:0051897",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of podosome assembly",
+                "go_id": "GO:0071803",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of podosome assembly",
+                "go_id": "GO:0071803",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of programmed cell death",
+                "go_id": "GO:0043068",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of programmed cell death",
+                "go_id": "GO:0043068",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein catabolic process",
+                "go_id": "GO:0045732",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein catabolic process",
+                "go_id": "GO:0045732",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein localization to cell surface",
+                "go_id": "GO:2000010",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein localization to cell surface",
+                "go_id": "GO:2000010",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein localization to plasma membrane",
+                "go_id": "GO:1903078",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein localization to plasma membrane",
+                "go_id": "GO:1903078",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "16547515"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of protein localization to plasma membrane",
+                "go_id": "GO:1903078",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein phosphorylation",
+                "go_id": "GO:0001934",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein transport",
+                "go_id": "GO:0051222",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein transport",
+                "go_id": "GO:0051222",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein-containing complex assembly",
+                "go_id": "GO:0031334",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein-containing complex assembly",
+                "go_id": "GO:0031334",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein-containing complex disassembly",
+                "go_id": "GO:0043243",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein-containing complex disassembly",
+                "go_id": "GO:0043243",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of smooth muscle cell proliferation",
+                "go_id": "GO:0048661",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of smooth muscle cell proliferation",
+                "go_id": "GO:0048661",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of synaptic transmission",
+                "go_id": "GO:0050806",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "16547515"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of synaptic transmission",
+                "go_id": "GO:0050806",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of synoviocyte proliferation",
+                "go_id": "GO:1901647",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "positive regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0045944",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9305915",
+                    "17670746",
+                    "19404405"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0045944",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0045944",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "18025219"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0045944",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "positive regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0045944",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of translational initiation by iron",
+                "go_id": "GO:0045994",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "11588035"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of type II interferon production",
+                "go_id": "GO:0032729",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9834074"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of vascular associated smooth muscle cell proliferation",
+                "go_id": "GO:1904707",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "26808574"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of vitamin D biosynthetic process",
+                "go_id": "GO:0060557",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of vitamin D biosynthetic process",
+                "go_id": "GO:0060557",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "protein localization to plasma membrane",
+                "go_id": "GO:0072659",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "protein localization to plasma membrane",
+                "go_id": "GO:0072659",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of branching involved in salivary gland morphogenesis",
+                "go_id": "GO:0060693",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "11241200"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of branching involved in salivary gland morphogenesis",
+                "go_id": "GO:0060693",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "11241200"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of canonical NF-kappaB signal transduction",
+                "go_id": "GO:0043122",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of canonical NF-kappaB signal transduction",
+                "go_id": "GO:0043122",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of cell population proliferation",
+                "go_id": "GO:0042127",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "11799106"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of cell population proliferation",
+                "go_id": "GO:0042127",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of developmental process",
+                "go_id": "GO:0050793",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of endothelial cell apoptotic process",
+                "go_id": "GO:2000351",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of endothelial cell apoptotic process",
+                "go_id": "GO:2000351",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of epithelial cell proliferation",
+                "go_id": "GO:0050678",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of establishment of endothelial barrier",
+                "go_id": "GO:1903140",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of establishment of endothelial barrier",
+                "go_id": "GO:1903140",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of immunoglobulin production",
+                "go_id": "GO:0002637",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "12958312"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of immunoglobulin production",
+                "go_id": "GO:0002637",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of inflammatory response",
+                "go_id": "GO:0050727",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "24349514"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of insulin secretion",
+                "go_id": "GO:0050796",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of insulin secretion",
+                "go_id": "GO:0050796",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of mitotic cell cycle",
+                "go_id": "GO:0007346",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of osteoclast differentiation",
+                "go_id": "GO:0045670",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "12490655"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of protein phosphorylation",
+                "go_id": "GO:0001932",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "15169905",
+                    "24349514"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of protein secretion",
+                "go_id": "GO:0050708",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "19293336"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of reactive oxygen species metabolic process",
+                "go_id": "GO:2000377",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "21052097"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of reactive oxygen species metabolic process",
+                "go_id": "GO:2000377",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of reactive oxygen species metabolic process",
+                "go_id": "GO:2000377",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of secretion",
+                "go_id": "GO:0051046",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of synapse organization",
+                "go_id": "GO:0050807",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "16547515"
+                  ]
+                }
+              },
+              {
+                "name": "response to L-glutamate",
+                "go_id": "GO:1902065",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to amino acid",
+                "go_id": "GO:0043200",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to glucocorticoid",
+                "go_id": "GO:0051384",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to glucocorticoid",
+                "go_id": "GO:0051384",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to lipopolysaccharide",
+                "go_id": "GO:0032496",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "17884256"
+                  ]
+                }
+              },
+              {
+                "name": "response to lipopolysaccharide",
+                "go_id": "GO:0032496",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to virus",
+                "go_id": "GO:0009615",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to virus",
+                "go_id": "GO:0009615",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "toll-like receptor 3 signaling pathway",
+                "go_id": "GO:0034138",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "tumor necrosis factor-mediated signaling pathway",
+                "go_id": "GO:0033209",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "tumor necrosis factor-mediated signaling pathway",
+                "go_id": "GO:0033209",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "3898078"
+                  ]
+                }
+              },
+              {
+                "name": "tumor necrosis factor-mediated signaling pathway",
+                "go_id": "GO:0033209",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "10411298",
+                    "14985352"
+                  ]
+                }
+              },
+              {
+                "name": "tumor necrosis factor-mediated signaling pathway",
+                "go_id": "GO:0033209",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "tumor necrosis factor-mediated signaling pathway",
+                "go_id": "GO:0033209",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "tumor necrosis factor-mediated signaling pathway",
+                "go_id": "GO:0033209",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "tumor necrosis factor-mediated signaling pathway",
+                "go_id": "GO:0033209",
+                "evidence_code": "TAS",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "30755793"
+                  ]
+                }
+              },
+              {
+                "name": "vascular endothelial growth factor production",
+                "go_id": "GO:0010573",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vascular endothelial growth factor production",
+                "go_id": "GO:0010573",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vascular endothelial growth factor production",
+                "go_id": "GO:0010573",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vasodilation",
+                "go_id": "GO:0042311",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              }
+            ],
+            "cellular_components": [
+              {
+                "name": "cell surface",
+                "go_id": "GO:0009986",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cell surface",
+                "go_id": "GO:0009986",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "external side of plasma membrane",
+                "go_id": "GO:0009897",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "16282525",
+                    "21606376"
+                  ]
+                }
+              },
+              {
+                "name": "external side of plasma membrane",
+                "go_id": "GO:0009897",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "IBA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "IDA",
+                "qualifier": "is_active_in",
+                "reference": {
+                  "pmids": [
+                    "14985352",
+                    "25049354",
+                    "27830702"
+                  ]
+                }
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "1577194",
+                    "10545106",
+                    "10549626",
+                    "10899905",
+                    "11168643",
+                    "11728336",
+                    "11894098",
+                    "12855817",
+                    "12872135",
+                    "14764707",
+                    "15220916",
+                    "15843532",
+                    "16236719",
+                    "16239543",
+                    "16275384",
+                    "17693256",
+                    "18261938",
+                    "18997793",
+                    "23892723",
+                    "24740015",
+                    "25084278"
+                  ]
+                }
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "ISO",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "membrane",
+                "go_id": "GO:0016020",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "membrane raft",
+                "go_id": "GO:0045121",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "17010968"
+                  ]
+                }
+              },
+              {
+                "name": "membrane raft",
+                "go_id": "GO:0045121",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "membrane raft",
+                "go_id": "GO:0045121",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "neuronal cell body",
+                "go_id": "GO:0043025",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "phagocytic cup",
+                "go_id": "GO:0001891",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "16282525"
+                  ]
+                }
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "15155767"
+                  ]
+                }
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "TAS",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "8879212"
+                  ]
+                }
+              },
+              {
+                "name": "recycling endosome",
+                "go_id": "GO:0055037",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "16282525"
+                  ]
+                }
+              },
+              {
+                "name": "secretory granule",
+                "go_id": "GO:0030141",
+                "evidence_code": "TAS",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "8879212"
+                  ]
+                }
+              }
+            ]
+          },
+          "map_locations": [
+            {
+              "map_type": "Cytogenetic",
+              "map_value": "17 B1"
+            },
+            {
+              "map_type": "Genetic",
+              "map_value": "17 18.59 cM"
+            }
+          ]
+        },
+        "query": [
+          "21926"
+        ]
+      }
+    ],
+    "total_count": 1
+  }
+}

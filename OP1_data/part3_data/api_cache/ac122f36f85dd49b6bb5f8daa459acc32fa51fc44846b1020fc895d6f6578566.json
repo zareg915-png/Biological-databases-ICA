@@ -1,0 +1,2606 @@
+{
+  "url": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/22339/dataset_report",
+  "retrieved_utc": "2026-11-22T01:48:25+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:48:25 GMT",
+    "server": "Finatra",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "content-security-policy": "upgrade-insecure-requests",
+    "ncbi-phid": "1D340A36BF5C2DD50000484C8DE10D5F.1.1",
+    "content-type": "application/json",
+    "grpc-metadata-via": "h2 linkerd",
+    "x-ratelimit-limit": "5",
+    "x-datasets-version": "18.41.1",
+    "x-ncbi-total-count": "1",
+    "x-ratelimit-remaining": "4",
+    "access-control-expose-headers": "X-RateLimit-Limit,X-RateLimit-Remaining",
+    "vary": "Accept-Encoding",
+    "x-ua-compatible": "IE=Edge",
+    "x-xss-protection": "1; mode=block",
+    "transfer-encoding": "chunked",
+    "via": "1.1 google",
+    "alt-svc": "clear",
+    "connection": "close"
+  },
+  "response": {
+    "reports": [
+      {
+        "gene": {
+          "gene_id": "22339",
+          "symbol": "Vegfa",
+          "description": "vascular endothelial growth factor A",
+          "tax_id": "10090",
+          "taxname": "Mus musculus",
+          "common_name": "house mouse",
+          "type": "PROTEIN_CODING",
+          "orientation": "minus",
+          "chromosomes": [
+            "17"
+          ],
+          "nomenclature_authority": {
+            "authority": "MGI",
+            "identifier": "MGI:103178"
+          },
+          "swiss_prot_accessions": [
+            "Q00731"
+          ],
+          "ensembl_gene_ids": [
+            "ENSMUSG00000023951"
+          ],
+          "synonyms": [
+            "Vpf",
+            "Vegf",
+            "L-VEGF"
+          ],
+          "alternate_names": [
+            "vascular endothelial growth factor A, long form",
+            "vascular permeability factor"
+          ],
+          "annotations": [
+            {
+              "assembly_accession": "GCF_000001635.27",
+              "assembly_name": "GRCm39",
+              "annotation_name": "GCF_000001635.27-RS_2024_02",
+              "annotation_release_date": "2024-02-01",
+              "genomic_locations": [
+                {
+                  "genomic_accession_version": "NC_000083.7",
+                  "sequence_name": "17",
+                  "genomic_range": {
+                    "begin": "46327919",
+                    "end": "46343303",
+                    "orientation": "minus"
+                  }
+                }
+              ]
+            }
+          ],
+          "transcript_count": 10,
+          "protein_count": 10,
+          "transcript_type_counts": [
+            {
+              "type": "PROTEIN_CODING",
+              "count": 10
+            }
+          ],
+          "gene_groups": [
+            {
+              "id": "7422",
+              "method": "NCBI Ortholog"
+            }
+          ],
+          "summary": [
+            {
+              "description": "This gene is a member of the PDGF/VEGF growth factor family. It encodes a heparin-binding protein, which exists as a disulfide-linked homodimer. This growth factor induces proliferation and migration of vascular endothelial cells, and is essential for both physiological and pathological angiogenesis. Disruption of this gene in mice resulted in abnormal embryonic blood vessel formation. This gene is upregulated in many known tumors and its expression is correlated with tumor stage and progression. Alternatively spliced transcript variants encoding different isoforms have been found for this gene. There is also evidence for alternative translation initiation from upstream non-AUG (CUG) codons resulting in additional isoforms. A recent study showed that a C-terminally extended isoform is produced by use of an alternative in-frame translation termination codon via a stop codon readthrough mechanism, and that this isoform is antiangiogenic. Expression of some isoforms derived from the AUG start codon is regulated by a small upstream open reading frame, which is located within an internal ribosome entry site.[provided by RefSeq, Nov 2015]"
+            }
+          ],
+          "gene_ontology": {
+            "assigned_by": "MGI",
+            "molecular_functions": [
+              {
+                "name": "chemoattractant activity",
+                "go_id": "GO:0042056",
+                "evidence_code": "IBA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "chemoattractant activity",
+                "go_id": "GO:0042056",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "21658587"
+                  ]
+                }
+              },
+              {
+                "name": "chemoattractant activity",
+                "go_id": "GO:0042056",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "chemoattractant activity",
+                "go_id": "GO:0042056",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "chemoattractant activity",
+                "go_id": "GO:0042056",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "cytokine activity",
+                "go_id": "GO:0005125",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "cytokine activity",
+                "go_id": "GO:0005125",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "cytokine activity",
+                "go_id": "GO:0005125",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "extracellular matrix binding",
+                "go_id": "GO:0050840",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "17626017"
+                  ]
+                }
+              },
+              {
+                "name": "fibronectin binding",
+                "go_id": "GO:0001968",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "fibronectin binding",
+                "go_id": "GO:0001968",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "fibronectin binding",
+                "go_id": "GO:0001968",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "growth factor activity",
+                "go_id": "GO:0008083",
+                "evidence_code": "IBA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "growth factor activity",
+                "go_id": "GO:0008083",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "9446618"
+                  ]
+                }
+              },
+              {
+                "name": "growth factor activity",
+                "go_id": "GO:0008083",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "growth factor activity",
+                "go_id": "GO:0008083",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "growth factor activity",
+                "go_id": "GO:0008083",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "growth factor binding",
+                "go_id": "GO:0019838",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "heparin binding",
+                "go_id": "GO:0008201",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "8614412",
+                    "17626017"
+                  ]
+                }
+              },
+              {
+                "name": "heparin binding",
+                "go_id": "GO:0008201",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "heparin binding",
+                "go_id": "GO:0008201",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "heparin binding",
+                "go_id": "GO:0008201",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "identical protein binding",
+                "go_id": "GO:0042802",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "identical protein binding",
+                "go_id": "GO:0042802",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "neuropilin binding",
+                "go_id": "GO:0038191",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "platelet-derived growth factor receptor binding",
+                "go_id": "GO:0005161",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "platelet-derived growth factor receptor binding",
+                "go_id": "GO:0005161",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "platelet-derived growth factor receptor binding",
+                "go_id": "GO:0005161",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protein binding",
+                "go_id": "GO:0005515",
+                "evidence_code": "IPI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "10705382",
+                    "26503042"
+                  ]
+                }
+              },
+              {
+                "name": "receptor ligand activity",
+                "go_id": "GO:0048018",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "receptor ligand activity",
+                "go_id": "GO:0048018",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "receptor ligand activity",
+                "go_id": "GO:0048018",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "signaling receptor binding",
+                "go_id": "GO:0005102",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "17626017"
+                  ]
+                }
+              },
+              {
+                "name": "transmembrane receptor protein tyrosine kinase activator activity",
+                "go_id": "GO:0030297",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "transmembrane receptor protein tyrosine kinase activator activity",
+                "go_id": "GO:0030297",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "vascular endothelial growth factor receptor 1 binding",
+                "go_id": "GO:0043183",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "17626017"
+                  ]
+                }
+              },
+              {
+                "name": "vascular endothelial growth factor receptor 1 binding",
+                "go_id": "GO:0043183",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "vascular endothelial growth factor receptor 1 binding",
+                "go_id": "GO:0043183",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "vascular endothelial growth factor receptor 1 binding",
+                "go_id": "GO:0043183",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "vascular endothelial growth factor receptor 2 binding",
+                "go_id": "GO:0043184",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "17626017"
+                  ]
+                }
+              },
+              {
+                "name": "vascular endothelial growth factor receptor 2 binding",
+                "go_id": "GO:0043184",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "vascular endothelial growth factor receptor 2 binding",
+                "go_id": "GO:0043184",
+                "evidence_code": "IPI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "10705382"
+                  ]
+                }
+              },
+              {
+                "name": "vascular endothelial growth factor receptor 2 binding",
+                "go_id": "GO:0043184",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "vascular endothelial growth factor receptor 2 binding",
+                "go_id": "GO:0043184",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "vascular endothelial growth factor receptor binding",
+                "go_id": "GO:0005172",
+                "evidence_code": "IBA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "vascular endothelial growth factor receptor binding",
+                "go_id": "GO:0005172",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "vascular endothelial growth factor receptor binding",
+                "go_id": "GO:0005172",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "vascular endothelial growth factor receptor binding",
+                "go_id": "GO:0005172",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              }
+            ],
+            "biological_processes": [
+              {
+                "name": "T-helper 1 type immune response",
+                "go_id": "GO:0042088",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "VEGF-activated neuropilin signaling pathway",
+                "go_id": "GO:0038190",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21828096"
+                  ]
+                }
+              },
+              {
+                "name": "VEGF-activated neuropilin signaling pathway",
+                "go_id": "GO:0038190",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21658587"
+                  ]
+                }
+              },
+              {
+                "name": "VEGF-activated neuropilin signaling pathway",
+                "go_id": "GO:0038190",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "angiogenesis",
+                "go_id": "GO:0001525",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "10617467",
+                    "12975317",
+                    "14998491",
+                    "17626017"
+                  ]
+                }
+              },
+              {
+                "name": "angiogenesis",
+                "go_id": "GO:0001525",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "angiogenesis",
+                "go_id": "GO:0001525",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "16778080"
+                  ]
+                }
+              },
+              {
+                "name": "angiogenesis",
+                "go_id": "GO:0001525",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "12890722",
+                    "14722611",
+                    "15073147",
+                    "17625068"
+                  ]
+                }
+              },
+              {
+                "name": "angiogenesis",
+                "go_id": "GO:0001525",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "angiogenesis involved in coronary vascular morphogenesis",
+                "go_id": "GO:0060978",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "artery morphogenesis",
+                "go_id": "GO:0048844",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "10229225"
+                  ]
+                }
+              },
+              {
+                "name": "basophil chemotaxis",
+                "go_id": "GO:0002575",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "blood vessel development",
+                "go_id": "GO:0001568",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "15927453",
+                    "16251428"
+                  ]
+                }
+              },
+              {
+                "name": "blood vessel morphogenesis",
+                "go_id": "GO:0048514",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "15919073"
+                  ]
+                }
+              },
+              {
+                "name": "blood vessel morphogenesis",
+                "go_id": "GO:0048514",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "15919073"
+                  ]
+                }
+              },
+              {
+                "name": "blood vessel morphogenesis",
+                "go_id": "GO:0048514",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "16027358"
+                  ]
+                }
+              },
+              {
+                "name": "blood vessel remodeling",
+                "go_id": "GO:0001974",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "bone trabecula formation",
+                "go_id": "GO:0060346",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "22886301"
+                  ]
+                }
+              },
+              {
+                "name": "bone trabecula morphogenesis",
+                "go_id": "GO:0061430",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "22886301"
+                  ]
+                }
+              },
+              {
+                "name": "branching involved in blood vessel morphogenesis",
+                "go_id": "GO:0001569",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "branching involved in blood vessel morphogenesis",
+                "go_id": "GO:0001569",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17428830"
+                  ]
+                }
+              },
+              {
+                "name": "branching involved in blood vessel morphogenesis",
+                "go_id": "GO:0001569",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "branching involved in blood vessel morphogenesis",
+                "go_id": "GO:0001569",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "branching morphogenesis of an epithelial tube",
+                "go_id": "GO:0048754",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "16375885"
+                  ]
+                }
+              },
+              {
+                "name": "camera-type eye morphogenesis",
+                "go_id": "GO:0048593",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "16251428"
+                  ]
+                }
+              },
+              {
+                "name": "cardiac muscle cell development",
+                "go_id": "GO:0055013",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "10229225"
+                  ]
+                }
+              },
+              {
+                "name": "cardiac vascular smooth muscle cell development",
+                "go_id": "GO:0060948",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "18093989"
+                  ]
+                }
+              },
+              {
+                "name": "cell chemotaxis",
+                "go_id": "GO:0060326",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cell maturation",
+                "go_id": "GO:0048469",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "12053176"
+                  ]
+                }
+              },
+              {
+                "name": "cell migration",
+                "go_id": "GO:0016477",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "15601856"
+                  ]
+                }
+              },
+              {
+                "name": "cell migration",
+                "go_id": "GO:0016477",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "15601856"
+                  ]
+                }
+              },
+              {
+                "name": "cell migration involved in sprouting angiogenesis",
+                "go_id": "GO:0002042",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cell migration involved in sprouting angiogenesis",
+                "go_id": "GO:0002042",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cell migration involved in sprouting angiogenesis",
+                "go_id": "GO:0002042",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cell population proliferation",
+                "go_id": "GO:0008283",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "14722611"
+                  ]
+                }
+              },
+              {
+                "name": "cellular response to hypoxia",
+                "go_id": "GO:0071456",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "10575000"
+                  ]
+                }
+              },
+              {
+                "name": "cellular response to hypoxia",
+                "go_id": "GO:0071456",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to hypoxia",
+                "go_id": "GO:0071456",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to vascular endothelial growth factor stimulus",
+                "go_id": "GO:0035924",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to vascular endothelial growth factor stimulus",
+                "go_id": "GO:0035924",
+                "evidence_code": "IGI",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "24401374"
+                  ]
+                }
+              },
+              {
+                "name": "cellular response to vascular endothelial growth factor stimulus",
+                "go_id": "GO:0035924",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular stress response to acid chemical",
+                "go_id": "GO:0097533",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular stress response to acid chemical",
+                "go_id": "GO:0097533",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "commissural neuron axon guidance",
+                "go_id": "GO:0071679",
+                "evidence_code": "IDA",
+                "qualifier": "NOT involved_in",
+                "reference": {
+                  "pmids": [
+                    "21658587"
+                  ]
+                }
+              },
+              {
+                "name": "commissural neuron axon guidance",
+                "go_id": "GO:0071679",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21658587"
+                  ]
+                }
+              },
+              {
+                "name": "commissural neuron axon guidance",
+                "go_id": "GO:0071679",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21658587"
+                  ]
+                }
+              },
+              {
+                "name": "coronary artery morphogenesis",
+                "go_id": "GO:0060982",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "18093989"
+                  ]
+                }
+              },
+              {
+                "name": "coronary vasculature morphogenesis",
+                "go_id": "GO:0060977",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "coronary vein morphogenesis",
+                "go_id": "GO:0003169",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "18093989"
+                  ]
+                }
+              },
+              {
+                "name": "dopaminergic neuron differentiation",
+                "go_id": "GO:0071542",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17215402"
+                  ]
+                }
+              },
+              {
+                "name": "endothelial cell chemotaxis",
+                "go_id": "GO:0035767",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "endothelial cell chemotaxis",
+                "go_id": "GO:0035767",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "endothelial cell chemotaxis",
+                "go_id": "GO:0035767",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "endothelial cell migration",
+                "go_id": "GO:0043542",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "24403062"
+                  ]
+                }
+              },
+              {
+                "name": "endothelial cell proliferation",
+                "go_id": "GO:0001935",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "31698979"
+                  ]
+                }
+              },
+              {
+                "name": "epithelial cell differentiation",
+                "go_id": "GO:0030855",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "16251428"
+                  ]
+                }
+              },
+              {
+                "name": "eye photoreceptor cell development",
+                "go_id": "GO:0042462",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "16251428"
+                  ]
+                }
+              },
+              {
+                "name": "heart morphogenesis",
+                "go_id": "GO:0003007",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "10229225"
+                  ]
+                }
+              },
+              {
+                "name": "homeostasis of number of cells within a tissue",
+                "go_id": "GO:0048873",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "22886301"
+                  ]
+                }
+              },
+              {
+                "name": "in utero embryonic development",
+                "go_id": "GO:0001701",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "10229225"
+                  ]
+                }
+              },
+              {
+                "name": "induction of positive chemotaxis",
+                "go_id": "GO:0050930",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "induction of positive chemotaxis",
+                "go_id": "GO:0050930",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "kidney development",
+                "go_id": "GO:0001822",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "10229225"
+                  ]
+                }
+              },
+              {
+                "name": "lactation",
+                "go_id": "GO:0007595",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17625068"
+                  ]
+                }
+              },
+              {
+                "name": "lung alveolus development",
+                "go_id": "GO:0048286",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "lung development",
+                "go_id": "GO:0030324",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "16375885"
+                  ]
+                }
+              },
+              {
+                "name": "lung development",
+                "go_id": "GO:0030324",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "lung development",
+                "go_id": "GO:0030324",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "12053176",
+                    "15927453"
+                  ]
+                }
+              },
+              {
+                "name": "lung vasculature development",
+                "go_id": "GO:0060426",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "11066091"
+                  ]
+                }
+              },
+              {
+                "name": "lung vasculature development",
+                "go_id": "GO:0060426",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "11169844"
+                  ]
+                }
+              },
+              {
+                "name": "lymph vessel morphogenesis",
+                "go_id": "GO:0036303",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "18093989"
+                  ]
+                }
+              },
+              {
+                "name": "lymphangiogenesis",
+                "go_id": "GO:0001946",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "19233265"
+                  ]
+                }
+              },
+              {
+                "name": "mRNA stabilization",
+                "go_id": "GO:0048255",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "macrophage differentiation",
+                "go_id": "GO:0030225",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "macrophage differentiation",
+                "go_id": "GO:0030225",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "macrophage differentiation",
+                "go_id": "GO:0030225",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "mammary gland alveolus development",
+                "go_id": "GO:0060749",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17625068"
+                  ]
+                }
+              },
+              {
+                "name": "mesoderm development",
+                "go_id": "GO:0007498",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "12890722"
+                  ]
+                }
+              },
+              {
+                "name": "monocyte differentiation",
+                "go_id": "GO:0030224",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "monocyte differentiation",
+                "go_id": "GO:0030224",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "monocyte differentiation",
+                "go_id": "GO:0030224",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "motor neuron migration",
+                "go_id": "GO:0097475",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "26503042"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of adherens junction organization",
+                "go_id": "GO:1903392",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of adherens junction organization",
+                "go_id": "GO:1903392",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of apoptotic process",
+                "go_id": "GO:0043066",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of apoptotic process",
+                "go_id": "GO:0043066",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "15073147"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of apoptotic process",
+                "go_id": "GO:0043066",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of apoptotic process",
+                "go_id": "GO:0043066",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of blood-brain barrier permeability",
+                "go_id": "GO:1905604",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of blood-brain barrier permeability",
+                "go_id": "GO:1905604",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of bone resorption",
+                "go_id": "GO:0045779",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of cell-cell adhesion",
+                "go_id": "GO:0022408",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "24367707"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of cell-cell adhesion mediated by cadherin",
+                "go_id": "GO:2000048",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of cell-cell adhesion mediated by cadherin",
+                "go_id": "GO:2000048",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of epithelial to mesenchymal transition",
+                "go_id": "GO:0010719",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "23863481"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of establishment of endothelial barrier",
+                "go_id": "GO:1903141",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of establishment of endothelial barrier",
+                "go_id": "GO:1903141",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of extrinsic apoptotic signaling pathway",
+                "go_id": "GO:2001237",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21828096"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of fat cell differentiation",
+                "go_id": "GO:0045599",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "22886301"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of gene expression",
+                "go_id": "GO:0010629",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of gene expression",
+                "go_id": "GO:0010629",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "22886301"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of gene expression",
+                "go_id": "GO:0010629",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of neuron apoptotic process",
+                "go_id": "GO:0043524",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21828096"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of nitric oxide-cGMP mediated signal transduction",
+                "go_id": "GO:0141151",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "16150726"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of programmed cell death",
+                "go_id": "GO:0043069",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0000122",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0000122",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "nervous system development",
+                "go_id": "GO:0007399",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "neuron apoptotic process",
+                "go_id": "GO:0051402",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "neuron development",
+                "go_id": "GO:0048666",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21828096"
+                  ]
+                }
+              },
+              {
+                "name": "outflow tract morphogenesis",
+                "go_id": "GO:0003151",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "18093989"
+                  ]
+                }
+              },
+              {
+                "name": "ovarian follicle development",
+                "go_id": "GO:0001541",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17050862"
+                  ]
+                }
+              },
+              {
+                "name": "phospholipase C-activating G protein-coupled receptor signaling pathway",
+                "go_id": "GO:0007200",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "phospholipase C-activating G protein-coupled receptor signaling pathway",
+                "go_id": "GO:0007200",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "phospholipase C-activating G protein-coupled receptor signaling pathway",
+                "go_id": "GO:0007200",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive chemotaxis",
+                "go_id": "GO:0050918",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21658587"
+                  ]
+                }
+              },
+              {
+                "name": "positive chemotaxis",
+                "go_id": "GO:0050918",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive chemotaxis",
+                "go_id": "GO:0050918",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of DNA biosynthetic process",
+                "go_id": "GO:2000573",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of ERK1 and ERK2 cascade",
+                "go_id": "GO:0070374",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21828096"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of ERK1 and ERK2 cascade",
+                "go_id": "GO:0070374",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of MAPK cascade",
+                "go_id": "GO:0043410",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of MAPK cascade",
+                "go_id": "GO:0043410",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of MAPK cascade",
+                "go_id": "GO:0043410",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of angiogenesis",
+                "go_id": "GO:0045766",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "20133819"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of angiogenesis",
+                "go_id": "GO:0045766",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of angiogenesis",
+                "go_id": "GO:0045766",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of angiogenesis",
+                "go_id": "GO:0045766",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of axon extension involved in axon guidance",
+                "go_id": "GO:0048842",
+                "evidence_code": "IDA",
+                "qualifier": "NOT involved_in",
+                "reference": {
+                  "pmids": [
+                    "21658587"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of axon extension involved in axon guidance",
+                "go_id": "GO:0048842",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21658587"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of axon extension involved in axon guidance",
+                "go_id": "GO:0048842",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21658587"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of blood vessel branching",
+                "go_id": "GO:1905555",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of blood vessel branching",
+                "go_id": "GO:1905555",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of blood vessel endothelial cell migration",
+                "go_id": "GO:0043536",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of blood vessel endothelial cell migration",
+                "go_id": "GO:0043536",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of blood vessel endothelial cell migration",
+                "go_id": "GO:0043536",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of blood vessel endothelial cell proliferation involved in sprouting angiogenesis",
+                "go_id": "GO:1903589",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of"
+              },
+              {
+                "name": "positive regulation of blood vessel endothelial cell proliferation involved in sprouting angiogenesis",
+                "go_id": "GO:1903589",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of branching involved in ureteric bud morphogenesis",
+                "go_id": "GO:0090190",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "16291795"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of cell adhesion",
+                "go_id": "GO:0045785",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell adhesion",
+                "go_id": "GO:0045785",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell adhesion",
+                "go_id": "GO:0045785",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell migration",
+                "go_id": "GO:0030335",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell migration",
+                "go_id": "GO:0030335",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell migration involved in sprouting angiogenesis",
+                "go_id": "GO:0090050",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell migration involved in sprouting angiogenesis",
+                "go_id": "GO:0090050",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell migration involved in sprouting angiogenesis",
+                "go_id": "GO:0090050",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell population proliferation",
+                "go_id": "GO:0008284",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17475663"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of cell population proliferation",
+                "go_id": "GO:0008284",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell population proliferation",
+                "go_id": "GO:0008284",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell proliferation by VEGF-activated platelet derived growth factor receptor signaling pathway",
+                "go_id": "GO:0038091",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell proliferation by VEGF-activated platelet derived growth factor receptor signaling pathway",
+                "go_id": "GO:0038091",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell proliferation by VEGF-activated platelet derived growth factor receptor signaling pathway",
+                "go_id": "GO:0038091",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cold-induced thermogenesis",
+                "go_id": "GO:0120162",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "26683794"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of endothelial cell chemotaxis",
+                "go_id": "GO:2001028",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of endothelial cell chemotaxis",
+                "go_id": "GO:2001028",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of endothelial cell chemotaxis by VEGF-activated vascular endothelial growth factor receptor signaling pathway",
+                "go_id": "GO:0038033",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of endothelial cell chemotaxis by VEGF-activated vascular endothelial growth factor receptor signaling pathway",
+                "go_id": "GO:0038033",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of endothelial cell migration",
+                "go_id": "GO:0010595",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of endothelial cell migration",
+                "go_id": "GO:0010595",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of endothelial cell migration",
+                "go_id": "GO:0010595",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of endothelial cell proliferation",
+                "go_id": "GO:0001938",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "1592003",
+                    "9446618"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of endothelial cell proliferation",
+                "go_id": "GO:0001938",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of endothelial cell proliferation",
+                "go_id": "GO:0001938",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "12714610"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of endothelial cell proliferation",
+                "go_id": "GO:0001938",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of epithelial cell proliferation",
+                "go_id": "GO:0050679",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "15927453"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of epithelial tube formation",
+                "go_id": "GO:1905278",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of focal adhesion assembly",
+                "go_id": "GO:0051894",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of focal adhesion assembly",
+                "go_id": "GO:0051894",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of focal adhesion assembly",
+                "go_id": "GO:0051894",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of gene expression",
+                "go_id": "GO:0010628",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of lymphangiogenesis",
+                "go_id": "GO:1901492",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "20133819"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of mast cell chemotaxis",
+                "go_id": "GO:0060754",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of mast cell chemotaxis",
+                "go_id": "GO:0060754",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of mesenchymal cell proliferation",
+                "go_id": "GO:0002053",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "16375885"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of neuroblast proliferation",
+                "go_id": "GO:0002052",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17215402"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of osteoblast differentiation",
+                "go_id": "GO:0045669",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "22886301"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of peptidyl-tyrosine phosphorylation",
+                "go_id": "GO:0050731",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "18772315"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of peptidyl-tyrosine phosphorylation",
+                "go_id": "GO:0050731",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of phosphatidylinositol 3-kinase/protein kinase B signal transduction",
+                "go_id": "GO:0051897",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21828096"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of phosphatidylinositol 3-kinase/protein kinase B signal transduction",
+                "go_id": "GO:0051897",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of positive chemotaxis",
+                "go_id": "GO:0050927",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of positive chemotaxis",
+                "go_id": "GO:0050927",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of positive chemotaxis",
+                "go_id": "GO:0050927",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein autophosphorylation",
+                "go_id": "GO:0031954",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein localization to early endosome",
+                "go_id": "GO:1902966",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein phosphorylation",
+                "go_id": "GO:0001934",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein phosphorylation",
+                "go_id": "GO:0001934",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein-containing complex assembly",
+                "go_id": "GO:0031334",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of protein-containing complex assembly",
+                "go_id": "GO:0031334",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of receptor internalization",
+                "go_id": "GO:0002092",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of receptor internalization",
+                "go_id": "GO:0002092",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of receptor internalization",
+                "go_id": "GO:0002092",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of signal transduction",
+                "go_id": "GO:0009967",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of smooth muscle cell proliferation",
+                "go_id": "GO:0048661",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of sprouting angiogenesis",
+                "go_id": "GO:1903672",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of sprouting angiogenesis",
+                "go_id": "GO:1903672",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0045944",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0045944",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0045944",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of trophoblast cell migration",
+                "go_id": "GO:1901165",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of trophoblast cell migration",
+                "go_id": "GO:1901165",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of vascular endothelial growth factor signaling pathway",
+                "go_id": "GO:1900748",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of vascular endothelial growth factor signaling pathway",
+                "go_id": "GO:1900748",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of vascular permeability",
+                "go_id": "GO:0043117",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "10617467",
+                    "24403062"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of vascular permeability",
+                "go_id": "GO:0043117",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of vascular permeability",
+                "go_id": "GO:0043117",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "post-embryonic camera-type eye development",
+                "go_id": "GO:0031077",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "10229225"
+                  ]
+                }
+              },
+              {
+                "name": "primitive erythrocyte differentiation",
+                "go_id": "GO:0060319",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "14729577"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of cell shape",
+                "go_id": "GO:0008360",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of cell shape",
+                "go_id": "GO:0008360",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of cell shape",
+                "go_id": "GO:0008360",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of endothelial cell differentiation",
+                "go_id": "GO:0045601",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "18772315"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of growth",
+                "go_id": "GO:0040008",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "10229225"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of hematopoietic progenitor cell differentiation",
+                "go_id": "GO:1901532",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "18772315"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0006357",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to hypoxia",
+                "go_id": "GO:0001666",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to hypoxia",
+                "go_id": "GO:0001666",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to hypoxia",
+                "go_id": "GO:0001666",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to hypoxia",
+                "go_id": "GO:0001666",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "retinal ganglion cell axon guidance",
+                "go_id": "GO:0031290",
+                "evidence_code": "IDA",
+                "qualifier": "NOT involved_in",
+                "reference": {
+                  "pmids": [
+                    "21658587"
+                  ]
+                }
+              },
+              {
+                "name": "retinal ganglion cell axon guidance",
+                "go_id": "GO:0031290",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21658587"
+                  ]
+                }
+              },
+              {
+                "name": "signal transduction",
+                "go_id": "GO:0007165",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "sprouting angiogenesis",
+                "go_id": "GO:0002040",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "sprouting angiogenesis",
+                "go_id": "GO:0002040",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "24401374"
+                  ]
+                }
+              },
+              {
+                "name": "surfactant homeostasis",
+                "go_id": "GO:0043129",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "12053176"
+                  ]
+                }
+              },
+              {
+                "name": "tube formation",
+                "go_id": "GO:0035148",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "tube formation",
+                "go_id": "GO:0035148",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "tube formation",
+                "go_id": "GO:0035148",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vascular endothelial growth factor receptor signaling pathway",
+                "go_id": "GO:0048010",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vascular endothelial growth factor receptor signaling pathway",
+                "go_id": "GO:0048010",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "1592003"
+                  ]
+                }
+              },
+              {
+                "name": "vascular endothelial growth factor receptor signaling pathway",
+                "go_id": "GO:0048010",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vascular endothelial growth factor receptor signaling pathway",
+                "go_id": "GO:0048010",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vascular endothelial growth factor receptor signaling pathway",
+                "go_id": "GO:0048010",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vascular endothelial growth factor receptor-2 signaling pathway",
+                "go_id": "GO:0036324",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vascular endothelial growth factor receptor-2 signaling pathway",
+                "go_id": "GO:0036324",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vascular endothelial growth factor signaling pathway",
+                "go_id": "GO:0038084",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vascular endothelial growth factor signaling pathway",
+                "go_id": "GO:0038084",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vascular endothelial growth factor signaling pathway",
+                "go_id": "GO:0038084",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vascular wound healing",
+                "go_id": "GO:0061042",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vascular wound healing",
+                "go_id": "GO:0061042",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vasculature development",
+                "go_id": "GO:0001944",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "10229225"
+                  ]
+                }
+              },
+              {
+                "name": "vasodilation",
+                "go_id": "GO:0042311",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "31698979"
+                  ]
+                }
+              }
+            ],
+            "cellular_components": [
+              {
+                "name": "Golgi apparatus",
+                "go_id": "GO:0005794",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "Golgi apparatus",
+                "go_id": "GO:0005794",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "Golgi apparatus",
+                "go_id": "GO:0005794",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "VEGF-A complex",
+                "go_id": "GO:1990150",
+                "evidence_code": "IEA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "VEGF-A complex",
+                "go_id": "GO:1990150",
+                "evidence_code": "ISO",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "adherens junction",
+                "go_id": "GO:0005912",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "adherens junction",
+                "go_id": "GO:0005912",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "basement membrane",
+                "go_id": "GO:0005604",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cell surface",
+                "go_id": "GO:0009986",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cell surface",
+                "go_id": "GO:0009986",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cell surface",
+                "go_id": "GO:0009986",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cytoplasm",
+                "go_id": "GO:0005737",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "12975317",
+                    "22886301"
+                  ]
+                }
+              },
+              {
+                "name": "cytoplasm",
+                "go_id": "GO:0005737",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cytoplasm",
+                "go_id": "GO:0005737",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cytoplasm",
+                "go_id": "GO:0005737",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "endoplasmic reticulum",
+                "go_id": "GO:0005783",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "endoplasmic reticulum",
+                "go_id": "GO:0005783",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "endoplasmic reticulum",
+                "go_id": "GO:0005783",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "HDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "24006456"
+                  ]
+                }
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "IBA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "1592003",
+                    "8614412",
+                    "9446618",
+                    "12053176",
+                    "17475663",
+                    "18559975",
+                    "18753609",
+                    "18772315",
+                    "22009797",
+                    "25184477"
+                  ]
+                }
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "membrane",
+                "go_id": "GO:0016020",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "nucleus",
+                "go_id": "GO:0005634",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "22886301"
+                  ]
+                }
+              },
+              {
+                "name": "nucleus",
+                "go_id": "GO:0005634",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "nucleus",
+                "go_id": "GO:0005634",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "nucleus",
+                "go_id": "GO:0005634",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "secretory granule",
+                "go_id": "GO:0030141",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "secretory granule",
+                "go_id": "GO:0030141",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "secretory granule",
+                "go_id": "GO:0030141",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "vesicle",
+                "go_id": "GO:0031982",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              }
+            ]
+          },
+          "map_locations": [
+            {
+              "map_type": "Cytogenetic",
+              "map_value": "17 C"
+            },
+            {
+              "map_type": "Genetic",
+              "map_value": "17 22.79 cM"
+            }
+          ]
+        },
+        "query": [
+          "22339"
+        ]
+      }
+    ],
+    "total_count": 1
+  }
+}

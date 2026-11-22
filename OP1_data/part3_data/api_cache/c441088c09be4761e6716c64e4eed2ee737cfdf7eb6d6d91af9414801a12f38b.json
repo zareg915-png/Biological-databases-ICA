@@ -1,0 +1,207 @@
+{
+  "url": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/349633/dataset_report",
+  "retrieved_utc": "2026-11-22T01:48:36+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:48:36 GMT",
+    "server": "Finatra",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "content-security-policy": "upgrade-insecure-requests",
+    "ncbi-phid": "1D3272A174B5F21500005B3B571FFC91.1.1",
+    "content-type": "application/json",
+    "grpc-metadata-via": "h2 linkerd",
+    "x-ratelimit-limit": "5",
+    "x-datasets-version": "18.41.1",
+    "x-ncbi-total-count": "1",
+    "x-ratelimit-remaining": "4",
+    "access-control-expose-headers": "X-RateLimit-Limit,X-RateLimit-Remaining",
+    "vary": "Accept-Encoding",
+    "x-ua-compatible": "IE=Edge",
+    "x-xss-protection": "1; mode=block",
+    "transfer-encoding": "chunked",
+    "via": "1.1 google",
+    "alt-svc": "clear",
+    "connection": "close"
+  },
+  "response": {
+    "reports": [
+      {
+        "gene": {
+          "gene_id": "349633",
+          "symbol": "PLET1",
+          "description": "placenta expressed transcript 1",
+          "tax_id": "9606",
+          "taxname": "Homo sapiens",
+          "common_name": "human",
+          "type": "PROTEIN_CODING",
+          "orientation": "minus",
+          "chromosomes": [
+            "11"
+          ],
+          "nomenclature_authority": {
+            "authority": "HGNC",
+            "identifier": "HGNC:30053"
+          },
+          "swiss_prot_accessions": [
+            "Q6UQ28"
+          ],
+          "ensembl_gene_ids": [
+            "ENSG00000188771"
+          ],
+          "omim_ids": [
+            "611904"
+          ],
+          "synonyms": [
+            "C11orf34"
+          ],
+          "alternate_names": [
+            "placenta-expressed transcript 1 protein"
+          ],
+          "annotations": [
+            {
+              "assembly_accession": "GCF_000001405.40",
+              "assembly_name": "GRCh38.p14",
+              "annotation_name": "GCF_000001405.40-RS_2025_08",
+              "annotation_release_date": "2025-08-01",
+              "genomic_locations": [
+                {
+                  "genomic_accession_version": "NC_000011.10",
+                  "sequence_name": "11",
+                  "genomic_range": {
+                    "begin": "112248153",
+                    "end": "112260860",
+                    "orientation": "minus"
+                  }
+                }
+              ]
+            },
+            {
+              "assembly_accession": "GCF_009914755.1",
+              "assembly_name": "T2T-CHM13v2.0",
+              "annotation_name": "GCF_009914755.1-RS_2025_08",
+              "annotation_release_date": "2025-08-01",
+              "genomic_locations": [
+                {
+                  "genomic_accession_version": "NC_060935.1",
+                  "sequence_name": "11",
+                  "genomic_range": {
+                    "begin": "112258488",
+                    "end": "112271159",
+                    "orientation": "minus"
+                  }
+                }
+              ]
+            }
+          ],
+          "transcript_count": 1,
+          "protein_count": 1,
+          "transcript_type_counts": [
+            {
+              "type": "PROTEIN_CODING",
+              "count": 1
+            }
+          ],
+          "gene_groups": [
+            {
+              "id": "349633",
+              "method": "NCBI Ortholog"
+            }
+          ],
+          "summary": [
+            {
+              "description": "Predicted to be involved in negative regulation of cell-matrix adhesion; positive regulation of cell migration; and wound healing, spreading of epidermal cells. Predicted to be located in extracellular region and plasma membrane. Predicted to be active in apical plasma membrane and external side of plasma membrane. [provided by Alliance of Genome Resources, Jul 2025]"
+            }
+          ],
+          "gene_ontology": {
+            "assigned_by": "GOA",
+            "biological_processes": [
+              {
+                "name": "negative regulation of cell-matrix adhesion",
+                "go_id": "GO:0001953",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of cell-matrix adhesion",
+                "go_id": "GO:0001953",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell migration",
+                "go_id": "GO:0030335",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cell migration",
+                "go_id": "GO:0030335",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "wound healing, spreading of epidermal cells",
+                "go_id": "GO:0035313",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "wound healing, spreading of epidermal cells",
+                "go_id": "GO:0035313",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              }
+            ],
+            "cellular_components": [
+              {
+                "name": "apical plasma membrane",
+                "go_id": "GO:0016324",
+                "evidence_code": "IBA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "apical plasma membrane",
+                "go_id": "GO:0016324",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "apical plasma membrane",
+                "go_id": "GO:0016324",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "external side of plasma membrane",
+                "go_id": "GO:0009897",
+                "evidence_code": "IBA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "TAS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "TAS",
+                "qualifier": "located_in"
+              }
+            ]
+          },
+          "map_locations": [
+            {
+              "map_type": "Cytogenetic",
+              "map_value": "11q23.1"
+            }
+          ]
+        },
+        "query": [
+          "349633"
+        ]
+      }
+    ],
+    "total_count": 1
+  }
+}

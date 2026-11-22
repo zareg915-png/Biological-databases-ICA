@@ -1,0 +1,1649 @@
+{
+  "url": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/1956/dataset_report",
+  "retrieved_utc": "2026-11-22T01:47:34+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:47:33 GMT",
+    "server": "Finatra",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "content-security-policy": "upgrade-insecure-requests",
+    "ncbi-phid": "1D3272A174B5F21500002C3B15B0C53C.1.1",
+    "content-type": "application/json",
+    "grpc-metadata-via": "h2 linkerd",
+    "x-ratelimit-limit": "5",
+    "x-datasets-version": "18.41.1",
+    "x-ncbi-total-count": "1",
+    "x-ratelimit-remaining": "4",
+    "access-control-expose-headers": "X-RateLimit-Limit,X-RateLimit-Remaining",
+    "vary": "Accept-Encoding",
+    "x-ua-compatible": "IE=Edge",
+    "x-xss-protection": "1; mode=block",
+    "transfer-encoding": "chunked",
+    "via": "1.1 google",
+    "alt-svc": "clear",
+    "connection": "close"
+  },
+  "response": {
+    "reports": [
+      {
+        "gene": {
+          "gene_id": "1956",
+          "symbol": "EGFR",
+          "description": "epidermal growth factor receptor",
+          "tax_id": "9606",
+          "taxname": "Homo sapiens",
+          "common_name": "human",
+          "type": "PROTEIN_CODING",
+          "orientation": "plus",
+          "reference_standards": [
+            {
+              "gene_range": {
+                "accession_version": "NG_007726.3",
+                "range": [
+                  {
+                    "begin": "5001",
+                    "end": "193307",
+                    "orientation": "plus"
+                  }
+                ]
+              },
+              "type": "REFSEQ_GENE"
+            }
+          ],
+          "chromosomes": [
+            "7"
+          ],
+          "nomenclature_authority": {
+            "authority": "HGNC",
+            "identifier": "HGNC:3236"
+          },
+          "swiss_prot_accessions": [
+            "P00533"
+          ],
+          "ensembl_gene_ids": [
+            "ENSG00000146648"
+          ],
+          "omim_ids": [
+            "131550"
+          ],
+          "synonyms": [
+            "ERBB",
+            "ERRP",
+            "HER1",
+            "mENA",
+            "ERBB1",
+            "NNCIS",
+            "PIG61",
+            "NISBD2"
+          ],
+          "alternate_names": [
+            "avian erythroblastic leukemia viral (v-erb-b) oncogene homolog",
+            "cell growth inhibiting protein 40",
+            "cell proliferation-inducing protein 61",
+            "epidermal growth factor receptor tyrosine kinase domain",
+            "erb-b2 receptor tyrosine kinase 1",
+            "proto-oncogene c-ErbB-1",
+            "receptor tyrosine-protein kinase erbB-1"
+          ],
+          "annotations": [
+            {
+              "assembly_accession": "GCF_000001405.40",
+              "assembly_name": "GRCh38.p14",
+              "annotation_name": "GCF_000001405.40-RS_2025_08",
+              "annotation_release_date": "2025-08-01",
+              "genomic_locations": [
+                {
+                  "genomic_accession_version": "NC_000007.14",
+                  "sequence_name": "7",
+                  "genomic_range": {
+                    "begin": "55019017",
+                    "end": "55211628",
+                    "orientation": "plus"
+                  }
+                }
+              ]
+            },
+            {
+              "assembly_accession": "GCF_009914755.1",
+              "assembly_name": "T2T-CHM13v2.0",
+              "annotation_name": "GCF_009914755.1-RS_2025_08",
+              "annotation_release_date": "2025-08-01",
+              "genomic_locations": [
+                {
+                  "genomic_accession_version": "NC_060931.1",
+                  "sequence_name": "7",
+                  "genomic_range": {
+                    "begin": "55178937",
+                    "end": "55372056",
+                    "orientation": "plus"
+                  }
+                }
+              ]
+            }
+          ],
+          "transcript_count": 13,
+          "protein_count": 13,
+          "transcript_type_counts": [
+            {
+              "type": "PROTEIN_CODING",
+              "count": 9
+            },
+            {
+              "type": "PROTEIN_CODING_MODEL",
+              "count": 4
+            }
+          ],
+          "gene_groups": [
+            {
+              "id": "1956",
+              "method": "NCBI Ortholog"
+            }
+          ],
+          "summary": [
+            {
+              "description": "The protein encoded by this gene is a transmembrane glycoprotein that is a member of the protein kinase superfamily. This protein is a receptor for members of the epidermal growth factor family. EGFR is a cell surface protein that binds to epidermal growth factor, thus inducing receptor dimerization and tyrosine autophosphorylation leading to cell proliferation. Mutations in this gene are associated with lung cancer. EGFR is a component of the cytokine storm which contributes to a severe form of Coronavirus Disease 2019 (COVID-19) resulting from infection with severe acute respiratory syndrome coronavirus-2 (SARS-CoV-2). [provided by RefSeq, Jul 2020]"
+            }
+          ],
+          "gene_ontology": {
+            "assigned_by": "GOA",
+            "molecular_functions": [
+              {
+                "name": "ATP binding",
+                "go_id": "GO:0005524",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "ATPase binding",
+                "go_id": "GO:0051117",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "MAP kinase kinase kinase activity",
+                "go_id": "GO:0004709",
+                "evidence_code": "NAS",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "15542601"
+                  ]
+                }
+              },
+              {
+                "name": "actin filament binding",
+                "go_id": "GO:0051015",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "14702346"
+                  ]
+                }
+              },
+              {
+                "name": "cadherin binding",
+                "go_id": "GO:0045296",
+                "evidence_code": "HDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "25468996"
+                  ]
+                }
+              },
+              {
+                "name": "chromatin binding",
+                "go_id": "GO:0003682",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "20551055"
+                  ]
+                }
+              },
+              {
+                "name": "double-stranded DNA binding",
+                "go_id": "GO:0003690",
+                "evidence_code": "NAS",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "6325948"
+                  ]
+                }
+              },
+              {
+                "name": "enzyme binding",
+                "go_id": "GO:0019899",
+                "evidence_code": "IPI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "12009895"
+                  ]
+                }
+              },
+              {
+                "name": "epidermal growth factor binding",
+                "go_id": "GO:0048408",
+                "evidence_code": "IBA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "epidermal growth factor binding",
+                "go_id": "GO:0048408",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "epidermal growth factor receptor activity",
+                "go_id": "GO:0005006",
+                "evidence_code": "IDA",
+                "qualifier": "contributes_to",
+                "reference": {
+                  "pmids": [
+                    "12828935"
+                  ]
+                }
+              },
+              {
+                "name": "epidermal growth factor receptor activity",
+                "go_id": "GO:0005006",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "2176151",
+                    "11336639",
+                    "12435727",
+                    "17115032"
+                  ]
+                }
+              },
+              {
+                "name": "epidermal growth factor receptor activity",
+                "go_id": "GO:0005006",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "epidermal growth factor receptor activity",
+                "go_id": "GO:0005006",
+                "evidence_code": "IMP",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "22732145"
+                  ]
+                }
+              },
+              {
+                "name": "epidermal growth factor receptor activity",
+                "go_id": "GO:0005006",
+                "evidence_code": "NAS",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "2790960",
+                    "6325948"
+                  ]
+                }
+              },
+              {
+                "name": "identical protein binding",
+                "go_id": "GO:0042802",
+                "evidence_code": "IPI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "16777603",
+                    "17148612",
+                    "18042729",
+                    "19563760",
+                    "19650109",
+                    "20007378",
+                    "20029029",
+                    "20359299",
+                    "21278786",
+                    "21480528",
+                    "21482778",
+                    "22232519",
+                    "22579287",
+                    "23273428",
+                    "23374349",
+                    "23436906",
+                    "23636329",
+                    "24135280",
+                    "28988771",
+                    "31980649",
+                    "35512704",
+                    "38572507"
+                  ]
+                }
+              },
+              {
+                "name": "kinase activity",
+                "go_id": "GO:0016301",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "kinase binding",
+                "go_id": "GO:0019900",
+                "evidence_code": "IPI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "18722344",
+                    "22732145"
+                  ]
+                }
+              },
+              {
+                "name": "protein binding",
+                "go_id": "GO:0005515",
+                "evidence_code": "IPI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "2176151",
+                    "2790960",
+                    "7518560",
+                    "7542744",
+                    "7657591",
+                    "7685104",
+                    "7693694",
+                    "7797556",
+                    "7993895",
+                    "8034616",
+                    "8305738",
+                    "8621392",
+                    "8887653",
+                    "8940013",
+                    "9020117",
+                    "9050838",
+                    "9135143",
+                    "9355745",
+                    "9419975",
+                    "9506989",
+                    "9544989",
+                    "9852145",
+                    "10026169",
+                    "10229072",
+                    "10572067",
+                    "10805725",
+                    "11279102",
+                    "11896612",
+                    "12070153",
+                    "12297049",
+                    "12297050",
+                    "12577067",
+                    "12620237",
+                    "14568990",
+                    "14679214",
+                    "14966128",
+                    "15225635",
+                    "15282549",
+                    "15345710",
+                    "15590694",
+                    "15611079",
+                    "15657067",
+                    "15962011",
+                    "16253990",
+                    "16273093",
+                    "16499958",
+                    "16516204",
+                    "16799092",
+                    "16843263",
+                    "16914641",
+                    "16954185",
+                    "17115032",
+                    "17126326",
+                    "17148612",
+                    "17182860",
+                    "17284441",
+                    "17334392",
+                    "17403676",
+                    "17599051",
+                    "17697999",
+                    "17726113",
+                    "17909029",
+                    "18046415",
+                    "18273061",
+                    "18455122",
+                    "18542056",
+                    "18602463",
+                    "18722344",
+                    "18776048",
+                    "18824549",
+                    "19167335",
+                    "19172738",
+                    "19509291",
+                    "19602593",
+                    "19650109",
+                    "19798056",
+                    "20029029",
+                    "20153921",
+                    "20308550",
+                    "20403327",
+                    "20462955",
+                    "20473329",
+                    "20551055",
+                    "20562913",
+                    "20624308",
+                    "20878056",
+                    "20935677",
+                    "21203579",
+                    "21258405",
+                    "21266349",
+                    "21278786",
+                    "21278788",
+                    "21349850",
+                    "21376233",
+                    "21439278",
+                    "21706016",
+                    "21822280",
+                    "21951318",
+                    "22298428",
+                    "22411794",
+                    "22439932",
+                    "22939624",
+                    "23178489",
+                    "23178716",
+                    "23273428",
+                    "23397142",
+                    "23436906",
+                    "23520446",
+                    "23597562",
+                    "23636329",
+                    "23764002",
+                    "23799367",
+                    "23866081",
+                    "23912460",
+                    "24034250",
+                    "24076656",
+                    "24135280",
+                    "24189400",
+                    "24557338",
+                    "24658140",
+                    "24780295",
+                    "24854121",
+                    "24947832",
+                    "25036637",
+                    "25136068",
+                    "25187647",
+                    "25241761",
+                    "25311788",
+                    "25353163",
+                    "25594178",
+                    "25666625",
+                    "25796184",
+                    "25873175",
+                    "25970784",
+                    "26005835",
+                    "26280537",
+                    "26551075",
+                    "26751287",
+                    "26988023",
+                    "27059931",
+                    "27569582",
+                    "27872189",
+                    "27956147",
+                    "28065597",
+                    "28479384",
+                    "28988771",
+                    "29455656",
+                    "29844572",
+                    "30083275",
+                    "30662352",
+                    "31585087",
+                    "31862538",
+                    "31980649",
+                    "33420426",
+                    "34591612",
+                    "34591642",
+                    "34718348",
+                    "35384245",
+                    "35512704",
+                    "37100772",
+                    "39073202"
+                  ]
+                }
+              },
+              {
+                "name": "protein kinase activity",
+                "go_id": "GO:0004672",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protein phosphatase binding",
+                "go_id": "GO:0019903",
+                "evidence_code": "IPI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "15899872",
+                    "28759036"
+                  ]
+                }
+              },
+              {
+                "name": "protein tyrosine kinase activator activity",
+                "go_id": "GO:0030296",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "2176151",
+                    "11336639"
+                  ]
+                }
+              },
+              {
+                "name": "protein tyrosine kinase activity",
+                "go_id": "GO:0004713",
+                "evidence_code": "EXP",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "15374980",
+                    "17349580",
+                    "19560417",
+                    "19563760"
+                  ]
+                }
+              },
+              {
+                "name": "protein tyrosine kinase activity",
+                "go_id": "GO:0004713",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "2472218",
+                    "9890893",
+                    "17115032",
+                    "17599051",
+                    "32926474"
+                  ]
+                }
+              },
+              {
+                "name": "protein tyrosine kinase activity",
+                "go_id": "GO:0004713",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protein tyrosine kinase activity",
+                "go_id": "GO:0004713",
+                "evidence_code": "IMP",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "14702346",
+                    "20878056"
+                  ]
+                }
+              },
+              {
+                "name": "protein tyrosine kinase activity",
+                "go_id": "GO:0004713",
+                "evidence_code": "TAS",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "16076471"
+                  ]
+                }
+              },
+              {
+                "name": "transmembrane receptor protein tyrosine kinase activity",
+                "go_id": "GO:0004714",
+                "evidence_code": "IBA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "transmembrane receptor protein tyrosine kinase activity",
+                "go_id": "GO:0004714",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "transmembrane receptor protein tyrosine kinase activity",
+                "go_id": "GO:0004714",
+                "evidence_code": "TAS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "transmembrane signaling receptor activity",
+                "go_id": "GO:0004888",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "7736574"
+                  ]
+                }
+              },
+              {
+                "name": "ubiquitin protein ligase binding",
+                "go_id": "GO:0031625",
+                "evidence_code": "IPI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "23418353"
+                  ]
+                }
+              }
+            ],
+            "biological_processes": [
+              {
+                "name": "ERBB2-EGFR signaling pathway",
+                "go_id": "GO:0038134",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "11336639"
+                  ]
+                }
+              },
+              {
+                "name": "ERBB2-EGFR signaling pathway",
+                "go_id": "GO:0038134",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "11336639"
+                  ]
+                }
+              },
+              {
+                "name": "ERBB2-EGFR signaling pathway",
+                "go_id": "GO:0038134",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "MAPK cascade",
+                "go_id": "GO:0000165",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cell surface receptor protein tyrosine kinase signaling pathway",
+                "go_id": "GO:0007169",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cell surface receptor signaling pathway",
+                "go_id": "GO:0007166",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "7736574"
+                  ]
+                }
+              },
+              {
+                "name": "cell-cell adhesion",
+                "go_id": "GO:0098609",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "12435727"
+                  ]
+                }
+              },
+              {
+                "name": "cellular response to amino acid stimulus",
+                "go_id": "GO:0071230",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to epidermal growth factor stimulus",
+                "go_id": "GO:0071364",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to estradiol stimulus",
+                "go_id": "GO:0071392",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "20551055"
+                  ]
+                }
+              },
+              {
+                "name": "epidermal growth factor receptor signaling pathway",
+                "go_id": "GO:0007173",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "epidermal growth factor receptor signaling pathway",
+                "go_id": "GO:0007173",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "7736574",
+                    "9890893"
+                  ]
+                }
+              },
+              {
+                "name": "epidermal growth factor receptor signaling pathway",
+                "go_id": "GO:0007173",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "9890893",
+                    "12435727",
+                    "12828935",
+                    "24854121"
+                  ]
+                }
+              },
+              {
+                "name": "epidermal growth factor receptor signaling pathway",
+                "go_id": "GO:0007173",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "17655843",
+                    "18483258",
+                    "20878056"
+                  ]
+                }
+              },
+              {
+                "name": "epidermal growth factor receptor signaling pathway",
+                "go_id": "GO:0007173",
+                "evidence_code": "TAS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "learning or memory",
+                "go_id": "GO:0007611",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of apoptotic process",
+                "go_id": "GO:0043066",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of apoptotic process",
+                "go_id": "GO:0043066",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "18070883"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of cardiocyte differentiation",
+                "go_id": "GO:1905208",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "23069713"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of epidermal growth factor receptor signaling pathway",
+                "go_id": "GO:0042059",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of epidermal growth factor receptor signaling pathway",
+                "go_id": "GO:0042059",
+                "evidence_code": "TAS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of macroautophagy",
+                "go_id": "GO:0016242",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "32926474"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of protein catabolic process",
+                "go_id": "GO:0042177",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "17115032"
+                  ]
+                }
+              },
+              {
+                "name": "neuron differentiation",
+                "go_id": "GO:0030182",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "ossification",
+                "go_id": "GO:0001503",
+                "evidence_code": "NAS",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "12925580"
+                  ]
+                }
+              },
+              {
+                "name": "phosphatidylinositol 3-kinase/protein kinase B signal transduction",
+                "go_id": "GO:0043491",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "18483258"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of DNA repair",
+                "go_id": "GO:0045739",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "17115032"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of DNA replication",
+                "go_id": "GO:0045740",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "17115032"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of ERK1 and ERK2 cascade",
+                "go_id": "GO:0070374",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "20551055"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of ERK1 and ERK2 cascade",
+                "go_id": "GO:0070374",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of ERK1 and ERK2 cascade",
+                "go_id": "GO:0070374",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21673316"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of G1/S transition of mitotic cell cycle",
+                "go_id": "GO:1900087",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of",
+                "reference": {
+                  "pmids": [
+                    "18483258"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of MAPK cascade",
+                "go_id": "GO:0043410",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of MAPK cascade",
+                "go_id": "GO:0043410",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "24854121"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of cGAS/STING signaling pathway",
+                "go_id": "GO:0141111",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "32926474"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of canonical Wnt signaling pathway",
+                "go_id": "GO:0090263",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "20302655"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of cell growth",
+                "go_id": "GO:0030307",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "15467833"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of cell migration",
+                "go_id": "GO:0030335",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "12435727",
+                    "25678558"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of cell population proliferation",
+                "go_id": "GO:0008284",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "7736574"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of cell population proliferation",
+                "go_id": "GO:0008284",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "27057632"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of epithelial cell proliferation",
+                "go_id": "GO:0050679",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of epithelial cell proliferation",
+                "go_id": "GO:0050679",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "10572067"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of epithelial cell proliferation",
+                "go_id": "GO:0050679",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of fibroblast proliferation",
+                "go_id": "GO:0048146",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of miRNA transcription",
+                "go_id": "GO:1902895",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21673316"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of peptidyl-serine phosphorylation",
+                "go_id": "GO:0033138",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "20878056"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of phosphatidylinositol 3-kinase/protein kinase B signal transduction",
+                "go_id": "GO:0051897",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "17655843"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of phosphorylation",
+                "go_id": "GO:0042327",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "15082764"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of protein kinase C signaling",
+                "go_id": "GO:0090037",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "22732145"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of protein localization to plasma membrane",
+                "go_id": "GO:1903078",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "22732145"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of protein phosphorylation",
+                "go_id": "GO:0001934",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "20551055"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of toll-like receptor 9 signaling pathway",
+                "go_id": "GO:0034165",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "40980882"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0045944",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "20551055"
+                  ]
+                }
+              },
+              {
+                "name": "protein insertion into membrane",
+                "go_id": "GO:0051205",
+                "evidence_code": "TAS",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "12435727"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of peptidyl-tyrosine phosphorylation",
+                "go_id": "GO:0050730",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "12435727"
+                  ]
+                }
+              },
+              {
+                "name": "response to UV-A",
+                "go_id": "GO:0070141",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "18483258"
+                  ]
+                }
+              },
+              {
+                "name": "signal transduction",
+                "go_id": "GO:0007165",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "10572067"
+                  ]
+                }
+              },
+              {
+                "name": "signal transduction",
+                "go_id": "GO:0007165",
+                "evidence_code": "TAS",
+                "qualifier": "involved_in"
+              }
+            ],
+            "cellular_components": [
+              {
+                "name": "Golgi apparatus",
+                "go_id": "GO:0005794",
+                "evidence_code": "IDA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "Golgi membrane",
+                "go_id": "GO:0000139",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "Shc-EGFR complex",
+                "go_id": "GO:0070435",
+                "evidence_code": "ISS",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "basal plasma membrane",
+                "go_id": "GO:0009925",
+                "evidence_code": "IBA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "basolateral plasma membrane",
+                "go_id": "GO:0016323",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "12646923"
+                  ]
+                }
+              },
+              {
+                "name": "basolateral plasma membrane",
+                "go_id": "GO:0016323",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cell junction",
+                "go_id": "GO:0030054",
+                "evidence_code": "IDA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cell surface",
+                "go_id": "GO:0009986",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "25666625"
+                  ]
+                }
+              },
+              {
+                "name": "cell surface",
+                "go_id": "GO:0009986",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "clathrin-coated endocytic vesicle membrane",
+                "go_id": "GO:0030669",
+                "evidence_code": "TAS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cytoplasm",
+                "go_id": "GO:0005737",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "7588596",
+                    "12435727",
+                    "22298428"
+                  ]
+                }
+              },
+              {
+                "name": "early endosome membrane",
+                "go_id": "GO:0031901",
+                "evidence_code": "IDA",
+                "qualifier": "is_active_in",
+                "reference": {
+                  "pmids": [
+                    "40980882"
+                  ]
+                }
+              },
+              {
+                "name": "early endosome membrane",
+                "go_id": "GO:0031901",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "17714434"
+                  ]
+                }
+              },
+              {
+                "name": "endocytic vesicle",
+                "go_id": "GO:0030139",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "endoplasmic reticulum membrane",
+                "go_id": "GO:0005789",
+                "evidence_code": "EXP",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "27153536"
+                  ]
+                }
+              },
+              {
+                "name": "endoplasmic reticulum membrane",
+                "go_id": "GO:0005789",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "endosome",
+                "go_id": "GO:0005768",
+                "evidence_code": "EXP",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "27153536"
+                  ]
+                }
+              },
+              {
+                "name": "endosome",
+                "go_id": "GO:0005768",
+                "evidence_code": "IDA",
+                "qualifier": "colocalizes_with",
+                "reference": {
+                  "pmids": [
+                    "16554368"
+                  ]
+                }
+              },
+              {
+                "name": "endosome",
+                "go_id": "GO:0005768",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "14702346",
+                    "17182860",
+                    "22732145"
+                  ]
+                }
+              },
+              {
+                "name": "endosome",
+                "go_id": "GO:0005768",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "endosome membrane",
+                "go_id": "GO:0010008",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "22719997"
+                  ]
+                }
+              },
+              {
+                "name": "endosome membrane",
+                "go_id": "GO:0010008",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "endosome membrane",
+                "go_id": "GO:0010008",
+                "evidence_code": "TAS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "NAS",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "9103388"
+                  ]
+                }
+              },
+              {
+                "name": "focal adhesion",
+                "go_id": "GO:0005925",
+                "evidence_code": "HDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "21423176"
+                  ]
+                }
+              },
+              {
+                "name": "intracellular vesicle",
+                "go_id": "GO:0097708",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "11331309"
+                  ]
+                }
+              },
+              {
+                "name": "membrane",
+                "go_id": "GO:0016020",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "12435727"
+                  ]
+                }
+              },
+              {
+                "name": "membrane",
+                "go_id": "GO:0016020",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "membrane raft",
+                "go_id": "GO:0045121",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "12009895"
+                  ]
+                }
+              },
+              {
+                "name": "membrane raft",
+                "go_id": "GO:0045121",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "multivesicular body, internal vesicle lumen",
+                "go_id": "GO:0097489",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "17714434"
+                  ]
+                }
+              },
+              {
+                "name": "nuclear membrane",
+                "go_id": "GO:0031965",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "nucleus",
+                "go_id": "GO:0005634",
+                "evidence_code": "EXP",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "17909029",
+                    "20674546"
+                  ]
+                }
+              },
+              {
+                "name": "nucleus",
+                "go_id": "GO:0005634",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "12828935",
+                    "17115032",
+                    "20551055"
+                  ]
+                }
+              },
+              {
+                "name": "nucleus",
+                "go_id": "GO:0005634",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "perinuclear region of cytoplasm",
+                "go_id": "GO:0048471",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "perinuclear region of cytoplasm",
+                "go_id": "GO:0048471",
+                "evidence_code": "IMP",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "24854121"
+                  ]
+                }
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "EXP",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "2790960",
+                    "17182860",
+                    "23589287",
+                    "27153536",
+                    "35538033"
+                  ]
+                }
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "IBA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "IDA",
+                "qualifier": "is_active_in",
+                "reference": {
+                  "pmids": [
+                    "11331309",
+                    "11336639",
+                    "15611079"
+                  ]
+                }
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "11336639",
+                    "15465819",
+                    "15611079",
+                    "20462955",
+                    "22298428",
+                    "22732145",
+                    "26918609"
+                  ]
+                }
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "TAS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "protein-containing complex",
+                "go_id": "GO:0032991",
+                "evidence_code": "IDA",
+                "qualifier": "part_of",
+                "reference": {
+                  "pmids": [
+                    "20878056"
+                  ]
+                }
+              },
+              {
+                "name": "ruffle membrane",
+                "go_id": "GO:0032587",
+                "evidence_code": "IDA",
+                "qualifier": "is_active_in",
+                "reference": {
+                  "pmids": [
+                    "11331309"
+                  ]
+                }
+              },
+              {
+                "name": "signaling receptor complex",
+                "go_id": "GO:0043235",
+                "evidence_code": "IBA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "signaling receptor complex",
+                "go_id": "GO:0043235",
+                "evidence_code": "IDA",
+                "qualifier": "part_of",
+                "reference": {
+                  "pmids": [
+                    "23382219"
+                  ]
+                }
+              }
+            ]
+          },
+          "map_locations": [
+            {
+              "map_type": "Cytogenetic",
+              "map_value": "7p11.2"
+            }
+          ]
+        },
+        "query": [
+          "1956"
+        ]
+      }
+    ],
+    "total_count": 1
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "url": "https://www.bgee.org/api/?page=gene&action=expression&gene_id=ENSG00000112715&species_id=9606&display_type=json&cond_param=anat_entity&expr_type=NOT_EXPRESSED",
+  "retrieved_utc": "2026-11-22T01:48:25+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:48:25 GMT",
+    "content-type": "application/json;charset=UTF-8",
+    "transfer-encoding": "chunked",
+    "connection": "close",
+    "strict-transport-security": "max-age=63072000; includeSubDomains",
+    "access-control-allow-origin": "*",
+    "access-control-allow-methods": "POST, GET, OPTIONS, DELETE",
+    "access-control-max-age": "3600",
+    "access-control-allow-headers": "Origin, Accept, X-Requested-With, Content-Type,Access-Control-Request-Method, Access-Control-Request-Headers",
+    "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "server": "cloudflare",
+    "x-frame-options": "DENY",
+    "x-content-type-options": "nosniff",
+    "x-xss-protection": "1; mode=block",
+    "cache-control": "no-cache",
+    "set-cookie": "__Host-bgeeUUID=772528ef-011c-3430-8ad5-02c30e04a769--1795312104827; Max-Age=63072000; Expires=Tue, 21-Nov-2028 01:48:25 GMT; Path=/;HttpOnly;Secure;SameSite=Strict",
+    "cf-cache-status": "DYNAMIC",
+    "vary": "accept-encoding",
+    "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=coUsGci4r0EIa0RIveJS%2FwccPUqGk9IpS83JRV5P4HANkrIxqOA%2Fe122oF1ZaIWchEchFeRg3lgT1hOaHPaitvl7esOl4UPqSL1jz7sU2yrE64E5ejbH7PUV9qb3NA%3D%3D\"}]}",
+    "cf-ray": "a5e4458eadd660f9-LHR"
+  },
+  "response": {
+    "code": 200,
+    "status": "SUCCESS",
+    "message": "Reported absence of expression",
+    "data": {
+      "requestedCallType": "NOT_EXPRESSED",
+      "requestedDataTypes": [
+        "Affymetrix",
+        "EST",
+        "in situ hybridization",
+        "single-cell RNA-Seq",
+        "RNA-Seq"
+      ],
+      "requestedConditionParameters": [
+        "Anat. entity"
+      ],
+      "calls": [
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002264",
+              "name": "olfactory bulb"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "89.03",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.055",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        }
+      ],
+      "gene": {
+        "geneId": "ENSG00000112715",
+        "name": "VEGFA",
+        "species": {
+          "id": 9606,
+          "name": "human",
+          "genus": "Homo",
+          "speciesName": "sapiens",
+          "preferredDisplayOrder": 1,
+          "sourcesOfDataPerDataType": [
+            {
+              "dataType": "Affymetrix",
+              "sources": [
+                {
+                  "name": "ArrayExpress",
+                  "description": "Affymetrix data source for various species",
+                  "baseUrl": "https://www.ebi.ac.uk/arrayexpress/"
+                },
+                {
+                  "name": "GEO",
+                  "description": "Affymetrix data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/geo/"
+                }
+              ]
+            }
+          ],
+          "sourcesOfAnnotationsPerDataType": [
+            {
+              "dataType": "Affymetrix",
+              "sources": [
+                {
+                  "name": "Bgee",
+                  "description": "Gene expression data in animals",
+                  "baseUrl": "https://www.bgee.org/"
+                }
+              ]
+            }
+          ]
+        },
+        "geneMappedToSameGeneIdCount": 1
+      }
+    }
+  }
+}

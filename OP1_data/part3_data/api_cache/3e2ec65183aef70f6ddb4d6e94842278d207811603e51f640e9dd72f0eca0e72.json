@@ -1,0 +1,298 @@
+{
+  "url": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/244653/dataset_report",
+  "retrieved_utc": "2026-11-22T01:48:47+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:48:46 GMT",
+    "server": "Finatra",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "content-security-policy": "upgrade-insecure-requests",
+    "ncbi-phid": "1D340A36BF5C2DD500005D4C9EA1A6E8.1.1",
+    "content-type": "application/json",
+    "grpc-metadata-via": "h2 linkerd",
+    "x-ratelimit-limit": "5",
+    "x-datasets-version": "18.41.1",
+    "x-ncbi-total-count": "1",
+    "x-ratelimit-remaining": "4",
+    "access-control-expose-headers": "X-RateLimit-Limit,X-RateLimit-Remaining",
+    "vary": "Accept-Encoding",
+    "x-ua-compatible": "IE=Edge",
+    "x-xss-protection": "1; mode=block",
+    "transfer-encoding": "chunked",
+    "via": "1.1 google",
+    "alt-svc": "clear",
+    "connection": "close"
+  },
+  "response": {
+    "reports": [
+      {
+        "gene": {
+          "gene_id": "244653",
+          "symbol": "Hydin",
+          "description": "HYDIN, axonemal central pair apparatus protein",
+          "tax_id": "10090",
+          "taxname": "Mus musculus",
+          "common_name": "house mouse",
+          "type": "PROTEIN_CODING",
+          "orientation": "plus",
+          "chromosomes": [
+            "8"
+          ],
+          "nomenclature_authority": {
+            "authority": "MGI",
+            "identifier": "MGI:2389007"
+          },
+          "swiss_prot_accessions": [
+            "Q80W93"
+          ],
+          "ensembl_gene_ids": [
+            "ENSMUSG00000059854"
+          ],
+          "synonyms": [
+            "hy3",
+            "hy-3",
+            "hyrh",
+            "672398",
+            "Gm9558",
+            "4932703P14",
+            "A830061H17",
+            "1700034M11Rik",
+            "4930545D19Rik",
+            "AC069308.21gm4"
+          ],
+          "alternate_names": [
+            "axonemal central pair apparatus protein HYDIN",
+            "hydrocephalus 3",
+            "hydrocephalus-inducing protein",
+            "protein Hy-3"
+          ],
+          "annotations": [
+            {
+              "assembly_accession": "GCF_000001635.27",
+              "assembly_name": "GRCm39",
+              "annotation_name": "GCF_000001635.27-RS_2024_02",
+              "annotation_release_date": "2024-02-01",
+              "genomic_locations": [
+                {
+                  "genomic_accession_version": "NC_000074.7",
+                  "sequence_name": "8",
+                  "genomic_range": {
+                    "begin": "110993600",
+                    "end": "111336885",
+                    "orientation": "plus"
+                  }
+                }
+              ]
+            }
+          ],
+          "transcript_count": 11,
+          "protein_count": 11,
+          "transcript_type_counts": [
+            {
+              "type": "PROTEIN_CODING",
+              "count": 1
+            },
+            {
+              "type": "PROTEIN_CODING_MODEL",
+              "count": 10
+            }
+          ],
+          "gene_groups": [
+            {
+              "id": "54768",
+              "method": "NCBI Ortholog"
+            }
+          ],
+          "summary": [
+            {
+              "description": "Acts upstream of or within several processes, including axonemal central apparatus assembly; trachea development; and ventricular system development. Located in axonemal central pair projection. Is expressed in choroid invagination; diencephalon roof plate; medulla oblongata part of 4th ventricle choroid plexus; and metencephalon part of 4th ventricle choroid plexus. Used to study hydrocephalus. Human ortholog(s) of this gene implicated in primary ciliary dyskinesia 5. Orthologous to human HYDIN (HYDIN axonemal central pair apparatus protein). [provided by Alliance of Genome Resources, Jun 2026]"
+            }
+          ],
+          "gene_ontology": {
+            "assigned_by": "MGI",
+            "molecular_functions": [
+              {
+                "name": "protein binding",
+                "go_id": "GO:0005515",
+                "evidence_code": "IPI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "32072696"
+                  ]
+                }
+              }
+            ],
+            "biological_processes": [
+              {
+                "name": "axonemal central apparatus assembly",
+                "go_id": "GO:1904158",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "axonemal central apparatus assembly",
+                "go_id": "GO:1904158",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "18250199"
+                  ]
+                }
+              },
+              {
+                "name": "brain development",
+                "go_id": "GO:0007420",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "26234751"
+                  ]
+                }
+              },
+              {
+                "name": "cilium movement",
+                "go_id": "GO:0003341",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cilium movement",
+                "go_id": "GO:0003341",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "18250199",
+                    "29891944"
+                  ]
+                }
+              },
+              {
+                "name": "epithelial cell development",
+                "go_id": "GO:0002064",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "18250199"
+                  ]
+                }
+              },
+              {
+                "name": "trachea development",
+                "go_id": "GO:0060438",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "18250199"
+                  ]
+                }
+              },
+              {
+                "name": "ventricular system development",
+                "go_id": "GO:0021591",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "4732188",
+                    "18250199"
+                  ]
+                }
+              }
+            ],
+            "cellular_components": [
+              {
+                "name": "axonemal central apparatus",
+                "go_id": "GO:1990716",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "30535028"
+                  ]
+                }
+              },
+              {
+                "name": "axonemal central pair projection",
+                "go_id": "GO:1990718",
+                "evidence_code": "IMP",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "18250199"
+                  ]
+                }
+              },
+              {
+                "name": "axoneme",
+                "go_id": "GO:0005930",
+                "evidence_code": "IBA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "axoneme",
+                "go_id": "GO:0005930",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cilium",
+                "go_id": "GO:0005929",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cilium",
+                "go_id": "GO:0005929",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "motile cilium",
+                "go_id": "GO:0031514",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "sperm flagellum",
+                "go_id": "GO:0036126",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "sperm flagellum",
+                "go_id": "GO:0036126",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "sperm flagellum",
+                "go_id": "GO:0036126",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              }
+            ]
+          },
+          "map_locations": [
+            {
+              "map_type": "Cytogenetic",
+              "map_value": "8 D3- E1"
+            },
+            {
+              "map_type": "Genetic",
+              "map_value": "8 57.5 cM"
+            }
+          ]
+        },
+        "query": [
+          "244653"
+        ]
+      }
+    ],
+    "total_count": 1
+  }
+}

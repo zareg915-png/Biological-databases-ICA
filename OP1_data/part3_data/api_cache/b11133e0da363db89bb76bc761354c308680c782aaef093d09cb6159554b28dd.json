@@ -1,0 +1,3599 @@
+{
+  "url": "https://www.bgee.org/api/?page=gene&action=expression&gene_id=ENSG00000229807&species_id=9606&display_type=json&cond_param=anat_entity&expr_type=EXPRESSED",
+  "retrieved_utc": "2026-11-22T01:48:53+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:48:53 GMT",
+    "content-type": "application/json;charset=UTF-8",
+    "transfer-encoding": "chunked",
+    "connection": "close",
+    "strict-transport-security": "max-age=63072000; includeSubDomains",
+    "access-control-allow-origin": "*",
+    "access-control-allow-methods": "POST, GET, OPTIONS, DELETE",
+    "access-control-max-age": "3600",
+    "access-control-allow-headers": "Origin, Accept, X-Requested-With, Content-Type,Access-Control-Request-Method, Access-Control-Request-Headers",
+    "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "server": "cloudflare",
+    "x-frame-options": "DENY",
+    "x-content-type-options": "nosniff",
+    "x-xss-protection": "1; mode=block",
+    "cache-control": "no-cache",
+    "set-cookie": "__Host-bgeeUUID=db1ac2e4-e0cf-3d86-a40f-2ae6ed48049c--1795312132846; Max-Age=63072000; Expires=Tue, 21-Nov-2028 01:48:53 GMT; Path=/;HttpOnly;Secure;SameSite=Strict",
+    "cf-cache-status": "DYNAMIC",
+    "vary": "accept-encoding",
+    "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=F35D135uG7mU6jQbU%2FbbBYAHYai%2F%2BctwXWsRe%2Bcvhbys4roxXUVPHHONwrrEEhwmlaOU2ioKlpvsuOZNHEQxuEI8hSsrzQ44I97iCSE4jmYMCKxKNHsZWjob%2FD49EQ%3D%3D\"}]}",
+    "cf-ray": "a5e4463dd831bf0e-LHR"
+  },
+  "response": {
+    "code": 200,
+    "status": "SUCCESS",
+    "message": "Gene expression for gene: ENSG00000229807 - XIST",
+    "data": {
+      "requestedCallType": "EXPRESSED",
+      "requestedDataTypes": [
+        "Affymetrix",
+        "EST",
+        "in situ hybridization",
+        "single-cell RNA-Seq",
+        "RNA-Seq"
+      ],
+      "requestedConditionParameters": [
+        "Anat. entity"
+      ],
+      "calls": [
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000979",
+              "name": "tibia"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.79",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001554",
+              "name": "skin of hip"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.79",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.01",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000331",
+              "name": "ileal mucosa"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.78",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.01",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001302",
+              "name": "right uterine tube"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.70",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000997",
+              "name": "mammalian vulva"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.67",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001304",
+              "name": "germinal epithelium of ovary"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.60",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002407",
+              "name": "pericardium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.60",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0003244",
+              "name": "epithelium of mammary gland"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.56",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001765",
+              "name": "mammary duct"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.56",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002119",
+              "name": "left ovary"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.40",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002118",
+              "name": "right ovary"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.36",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0035834",
+              "name": "lower esophagus mucosa"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.30",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0009853",
+              "name": "body of uterus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.29",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000002",
+              "name": "uterine cervix"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.26",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000458",
+              "name": "endocervix"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.26",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0004511",
+              "name": "skeletal muscle tissue of rectus abdominis"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.23",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001296",
+              "name": "myometrium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.21",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001303",
+              "name": "left uterine tube"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.12",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001295",
+              "name": "endometrium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "99.05",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0012249",
+              "name": "ectocervix"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "98.99",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001199",
+              "name": "mucosa of stomach"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "98.84",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0005386",
+              "name": "olfactory segment of nasal mucosa"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "98.59",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000996",
+              "name": "vagina"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "98.36",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002450",
+              "name": "decidua"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "98.24",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0007023",
+              "name": "adult organism"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "98.00",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0002092",
+              "name": "bone marrow cell"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "97.55",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "3.96e-9",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000094",
+              "name": "granulocyte"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "97.45",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "4.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0006566",
+              "name": "left ventricle myocardium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "97.40",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0002255",
+              "name": "stromal cell of endometrium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "97.23",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0015488",
+              "name": "sural nerve"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "96.01",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "3.72e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0002336",
+              "name": "buccal mucosa cell"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "95.96",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0004993",
+              "name": "mucosa of sigmoid colon"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "95.76",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000576",
+              "name": "monocyte"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "95.46",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001135",
+              "name": "smooth muscle tissue"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "95.45",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0004804",
+              "name": "oviduct epithelium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "94.69",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0003379",
+              "name": "cardiac muscle of right atrium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "92.53",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.004",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0005351",
+              "name": "paraflocculus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "92.34",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.004",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000044",
+              "name": "dorsal root ganglion"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "90.99",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000397",
+              "name": "colonic epithelium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "90.38",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "6.83e-8",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000399",
+              "name": "jejunal mucosa"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "90.30",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001476",
+              "name": "deltoid"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "89.86",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.006",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001675",
+              "name": "trigeminal ganglion"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "89.79",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0006920",
+              "name": "esophagus squamous epithelium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "89.59",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0006483",
+              "name": "Brodmann (1909) area 46"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "89.28",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000029",
+              "name": "lymph node"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "89.07",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001385",
+              "name": "tibialis anterior"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "88.53",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.02",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0004252",
+              "name": "hindlimb stylopod muscle"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "88.30",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001951",
+              "name": "epithelium of nasopharynx"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "87.80",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0005343",
+              "name": "cortical plate"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "87.24",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0003053",
+              "name": "ventricular zone"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "86.39",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0008949",
+              "name": "lower lobe of lung"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "86.10",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.013",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0005030",
+              "name": "mucosa of paranasal sinus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "85.27",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.004",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001153",
+              "name": "caecum"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "84.90",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0004023",
+              "name": "ganglionic eminence"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "84.89",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0004263",
+              "name": "upper arm skin"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "84.65",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.004",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001906",
+              "name": "subthalamic nucleus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "84.07",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001828",
+              "name": "gingiva"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "83.84",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001507",
+              "name": "biceps brachii"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "83.27",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0007616",
+              "name": "layer of synovial tissue"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "83.24",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.004",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0004502",
+              "name": "skeletal muscle tissue of biceps brachii"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "83.17",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001896",
+              "name": "medulla oblongata"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "82.58",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001154",
+              "name": "vermiform appendix"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "81.96",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0035805",
+              "name": "muscle layer of sigmoid colon"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "81.93",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0005363",
+              "name": "inferior vagus X ganglion"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "81.65",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002336",
+              "name": "corpus callosum"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "81.64",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.004",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002476",
+              "name": "lateral globus pallidus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "81.58",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001831",
+              "name": "parotid gland"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "81.56",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002691",
+              "name": "ventral tegmental area"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "81.52",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001966",
+              "name": "substantia nigra pars reticulata"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "81.48",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002370",
+              "name": "thymus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "81.34",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.013",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0007227",
+              "name": "superior vestibular nucleus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "81.31",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002736",
+              "name": "lateral nuclear group of thalamus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "81.23",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0004819",
+              "name": "kidney epithelium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "81.13",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.004",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000178",
+              "name": "blood"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "80.93",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001782",
+              "name": "pigmented layer of retina"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "80.72",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002114",
+              "name": "duodenum"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "80.70",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002771",
+              "name": "middle temporal gyrus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "80.37",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000655",
+              "name": "secondary oocyte"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "80.31",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0035841",
+              "name": "esophagogastric junction muscularis propria"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "80.13",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001949",
+              "name": "gingival epithelium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "80.06",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.004",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001965",
+              "name": "substantia nigra pars compacta"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "80.02",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.004",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001614",
+              "name": "superficial temporal artery"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "79.97",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.005",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001162",
+              "name": "cardia of stomach"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "79.80",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.005",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002030",
+              "name": "nipple"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "79.57",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.007",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002372",
+              "name": "tonsil"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "79.38",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001626",
+              "name": "left coronary artery"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "78.88",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001377",
+              "name": "quadriceps femoris"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "78.77",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.005",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001872",
+              "name": "parietal lobe"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "78.63",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0035833",
+              "name": "lower esophagus muscularis layer"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "78.62",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001013",
+              "name": "adipose tissue"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "78.59",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002107",
+              "name": "liver"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "78.36",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002661",
+              "name": "superior frontal gyrus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "78.23",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001625",
+              "name": "right coronary artery"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "78.20",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001379",
+              "name": "vastus lateralis"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "77.77",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.005",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0006631",
+              "name": "right atrium auricular region"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "77.62",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002581",
+              "name": "postcentral gyrus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "77.56",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0003126",
+              "name": "trachea"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "77.30",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.005",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000083",
+              "name": "epithelial cell of pancreas"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "77.21",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.012",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001157",
+              "name": "transverse colon"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "76.81",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001166",
+              "name": "pylorus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "76.79",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.006",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001812",
+              "name": "palpebral conjunctiva"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "76.72",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.004",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001388",
+              "name": "gastrocnemius"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "76.58",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000173",
+              "name": "amniotic fluid"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "76.08",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001161",
+              "name": "body of stomach"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "76.05",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001496",
+              "name": "ascending aorta"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "75.92",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0007318",
+              "name": "saphenous vein"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "75.72",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.005",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001114",
+              "name": "right lobe of liver"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "75.50",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000082",
+              "name": "adult mammalian kidney"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "75.48",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002190",
+              "name": "subcutaneous adipose tissue"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "75.45",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002369",
+              "name": "adrenal gland"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "75.45",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001160",
+              "name": "fundus of stomach"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "75.36",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001255",
+              "name": "urinary bladder"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "75.22",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001150",
+              "name": "body of pancreas"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "75.12",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0005384",
+              "name": "nasal cavity epithelium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "74.81",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.006",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001234",
+              "name": "left adrenal gland"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "74.66",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002080",
+              "name": "heart right ventricle"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "74.56",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.005",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0007610",
+              "name": "tibial artery"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "74.47",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002345",
+              "name": "descending thoracic aorta"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "74.40",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000167",
+              "name": "oral cavity"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "74.33",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.006",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0003454",
+              "name": "small intestine Peyer's patch"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "74.27",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0002328",
+              "name": "bronchial epithelial cell"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "74.18",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.004",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0013554",
+              "name": "Brodmann (1909) area 23"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "74.17",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.004",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002106",
+              "name": "spleen"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "74.07",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001723",
+              "name": "tongue"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "74.01",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.006",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0007371",
+              "name": "superior surface of tongue"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "72.52",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.007",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002021",
+              "name": "occipital lobe"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "72.41",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000362",
+              "name": "renal medulla"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "72.32",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.007",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001511",
+              "name": "skin of leg"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "72.21",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0011876",
+              "name": "body of tongue"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "72.12",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.007",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000355",
+              "name": "pharyngeal mucosa"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "72.08",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.007",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002046",
+              "name": "thyroid gland"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "71.81",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002728",
+              "name": "entorhinal cortex"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "71.63",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.004",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002358",
+              "name": "peritoneum"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "71.61",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0035825",
+              "name": "left adrenal gland cortex"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "71.58",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0007808",
+              "name": "adipose tissue of abdominal region"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "71.58",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0003701",
+              "name": "calcaneal tendon"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "71.56",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0010414",
+              "name": "omental fat pad"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "71.54",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001120",
+              "name": "left lobe of thyroid gland"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "71.38",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002240",
+              "name": "spinal cord"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "71.11",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0004534",
+              "name": "right testis"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "70.83",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "4.27e-7",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001416",
+              "name": "skin of abdomen"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "70.39",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001119",
+              "name": "right lobe of thyroid gland"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "70.25",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0006469",
+              "name": "C1 segment of cervical spinal cord"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "70.08",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001876",
+              "name": "amygdala"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "69.72",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002436",
+              "name": "primary visual cortex"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "69.51",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0004533",
+              "name": "left testis"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "69.25",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "7.87e-7",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001954",
+              "name": "Ammon's horn"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "69.11",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000006",
+              "name": "islet of Langerhans"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "68.98",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001830",
+              "name": "minor salivary gland"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "67.53",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002810",
+              "name": "right frontal lobe"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "66.90",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0018303",
+              "name": "adrenal tissue"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "66.54",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "1.09e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000998",
+              "name": "seminal vesicle"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "66.53",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.008",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002110",
+              "name": "gall bladder"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "66.32",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001233",
+              "name": "right adrenal gland"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "66.28",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0035827",
+              "name": "right adrenal gland cortex"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "65.88",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001898",
+              "name": "hypothalamus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "65.73",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001873",
+              "name": "caudate nucleus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "65.58",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001882",
+              "name": "nucleus accumbens"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "65.52",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001874",
+              "name": "putamen"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "65.39",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000081",
+              "name": "metanephros"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "65.15",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.004",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000007",
+              "name": "pituitary gland"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "65.04",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0009834",
+              "name": "dorsolateral prefrontal cortex"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "64.86",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002401",
+              "name": "visceral pleura"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "64.75",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.007",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002418",
+              "name": "cartilage tissue"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "64.21",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.009",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000451",
+              "name": "prefrontal cortex"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "63.96",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0008948",
+              "name": "upper lobe of lung"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "63.83",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0003027",
+              "name": "cingulate cortex"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "62.87",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0009835",
+              "name": "anterior cingulate cortex"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "62.47",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0014890",
+              "name": "right hemisphere of cerebellum"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "62.01",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0008952",
+              "name": "upper lobe of left lung"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "61.91",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001225",
+              "name": "cortex of kidney"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "60.52",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002098",
+              "name": "apex of heart"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "60.22",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "5.47e-5",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002477",
+              "name": "medial globus pallidus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "60.18",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.007",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002400",
+              "name": "parietal pleura"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "60.07",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.012",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002196",
+              "name": "adenohypophysis"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "59.83",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "<= 1.00e-14",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002367",
+              "name": "prostate gland"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "55.64",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "1.59e-5",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002167",
+              "name": "right lung"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "54.85",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "3.14e-4",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001052",
+              "name": "rectum"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "54.35",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "1.27e-4",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0010533",
+              "name": "metanephros cortex"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "46.78",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "8.32e-4",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0013540",
+              "name": "Brodmann (1909) area 9"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "45.41",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0004991",
+              "name": "mucosa of transverse colon"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "43.73",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.012",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        }
+      ],
+      "gene": {
+        "geneId": "ENSG00000229807",
+        "name": "XIST",
+        "species": {
+          "id": 9606,
+          "name": "human",
+          "genus": "Homo",
+          "speciesName": "sapiens",
+          "preferredDisplayOrder": 1,
+          "sourcesOfDataPerDataType": [
+            {
+              "dataType": "Affymetrix",
+              "sources": [
+                {
+                  "name": "ArrayExpress",
+                  "description": "Affymetrix data source for various species",
+                  "baseUrl": "https://www.ebi.ac.uk/arrayexpress/"
+                },
+                {
+                  "name": "GEO",
+                  "description": "Affymetrix data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/geo/"
+                }
+              ]
+            },
+            {
+              "dataType": "RNA-Seq",
+              "sources": [
+                {
+                  "name": "GEO",
+                  "description": "RNA-Seq data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/geo/"
+                },
+                {
+                  "name": "GTEx - dbGAP",
+                  "description": "GTEx RNA-Seq data",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs000424"
+                },
+                {
+                  "name": "SRA",
+                  "description": "RNA-Seq data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/sra/"
+                }
+              ]
+            }
+          ],
+          "sourcesOfAnnotationsPerDataType": [
+            {
+              "dataType": "Affymetrix",
+              "sources": [
+                {
+                  "name": "Bgee",
+                  "description": "Gene expression data in animals",
+                  "baseUrl": "https://www.bgee.org/"
+                }
+              ]
+            },
+            {
+              "dataType": "RNA-Seq",
+              "sources": [
+                {
+                  "name": "Bgee",
+                  "description": "Gene expression data in animals",
+                  "baseUrl": "https://www.bgee.org/"
+                }
+              ]
+            }
+          ]
+        },
+        "geneMappedToSameGeneIdCount": 1
+      }
+    }
+  }
+}

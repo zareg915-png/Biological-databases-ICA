@@ -1,0 +1,12 @@
+Dataset	Species	Tax_ID	Gene_ID	Symbol	Ensembl_IDs	Gene_Type	Gene_Type_Source	Metadata_Status	Metadata_Note	UniProt_Status	UniProt_Note	Bgee_Status	Bgee_Note
+challenge	human	9606	4609	MYC	"[""ENSG00000136997""]"	PROTEIN_CODING	NCBI Datasets Gene	retrieved		reviewed_found	Match route: exact_GeneID_cross_reference.	retrieved	
+challenge	mouse	10090	17869	Myc	"[""ENSMUSG00000022346""]"	PROTEIN_CODING	NCBI Datasets Gene	retrieved		reviewed_found	Match route: exact_GeneID_cross_reference.	retrieved	
+challenge	human	9606	344752	AADACL2	"[""ENSG00000197953""]"	PROTEIN_CODING	NCBI Datasets Gene	retrieved		reviewed_found	Match route: exact_GeneID_cross_reference.	retrieved	
+challenge	mouse	10090	639634	Aadacl2	"[""ENSMUSG00000091376""]"	PROTEIN_CODING	NCBI Datasets Gene	retrieved		unreviewed_only	Match route: exact_GeneID_cross_reference.	retrieved	
+challenge	human	9606	349633	PLET1	"[""ENSG00000188771""]"	PROTEIN_CODING	NCBI Datasets Gene	retrieved		reviewed_found	Match route: exact_GeneID_cross_reference.	retrieved	
+challenge	mouse	10090	76509	Plet1	"[""ENSMUSG00000032068""]"	PROTEIN_CODING	NCBI Datasets Gene	retrieved		reviewed_found	Match route: exact_GeneID_cross_reference.	retrieved	
+challenge	human	9606	54768	HYDIN	"[""ENSG00000157423""]"	PROTEIN_CODING	NCBI Datasets Gene	retrieved		reviewed_found	Match route: exact_GeneID_cross_reference.	retrieved	
+challenge	mouse	10090	244653	Hydin	"[""ENSMUSG00000059854""]"	PROTEIN_CODING	NCBI Datasets Gene	retrieved		reviewed_found	Match route: exact_GeneID_cross_reference.	retrieved	
+challenge	human	9606	7503	XIST	"[""ENSG00000229807""]"	ncRNA	NCBI Datasets Gene	retrieved		not_applicable_gene_type	NCBI gene type ncRNA; no protein expected.	retrieved	
+challenge	human	9606	378938	MALAT1	"[""ENSG00000251562""]"	ncRNA	NCBI Datasets Gene	retrieved		not_applicable_gene_type	NCBI gene type ncRNA; no protein expected.	retrieved	
+challenge	mouse	10090	72289	Malat1	"[""ENSMUSG00000092341""]"	ncRNA	NCBI Datasets Gene	retrieved		not_applicable_gene_type	NCBI gene type ncRNA; no protein expected.	retrieved	

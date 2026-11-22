@@ -1,0 +1,45 @@
+{
+  "url": "https://www.bgee.org/api/?page=gene&action=expression&gene_id=ENSG00000251562&species_id=9606&display_type=json&cond_param=anat_entity&expr_type=NOT_EXPRESSED",
+  "retrieved_utc": "2026-11-22T01:48:56+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:48:56 GMT",
+    "content-type": "application/json;charset=UTF-8",
+    "transfer-encoding": "chunked",
+    "connection": "close",
+    "strict-transport-security": "max-age=63072000; includeSubDomains",
+    "access-control-allow-origin": "*",
+    "access-control-allow-methods": "POST, GET, OPTIONS, DELETE",
+    "access-control-max-age": "3600",
+    "access-control-allow-headers": "Origin, Accept, X-Requested-With, Content-Type,Access-Control-Request-Method, Access-Control-Request-Headers",
+    "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "server": "cloudflare",
+    "x-frame-options": "DENY",
+    "x-content-type-options": "nosniff",
+    "x-xss-protection": "1; mode=block",
+    "cache-control": "no-cache",
+    "set-cookie": "__Host-bgeeUUID=1c0ae069-a6d8-3ec9-a423-ec65bc7da252--1795312135732; Max-Age=63072000; Expires=Tue, 21-Nov-2028 01:48:56 GMT; Path=/;HttpOnly;Secure;SameSite=Strict",
+    "cf-cache-status": "DYNAMIC",
+    "vary": "accept-encoding",
+    "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=pdVsdSL%2Bfe0bkMnLrIhoPjSym5BPMY53BgBJwzUazan8xjjaN6qk%2FHR%2Fg7yb36CY2%2BY5A9EtbmY9%2Fc8bSWGX9sOzvFTsctb9rOXZgg9eGBjAHwH0gVTzoyVJ0W%2BaxA%3D%3D\"}]}",
+    "cf-ray": "a5e446503febb6d8-LHR"
+  },
+  "response": {
+    "code": 200,
+    "status": "SUCCESS",
+    "message": "Reported absence of expression",
+    "data": {
+      "requestedCallType": "NOT_EXPRESSED",
+      "requestedDataTypes": [
+        "Affymetrix",
+        "EST",
+        "in situ hybridization",
+        "single-cell RNA-Seq",
+        "RNA-Seq"
+      ],
+      "requestedConditionParameters": [
+        "Anat. entity"
+      ],
+      "calls": []
+    }
+  }
+}

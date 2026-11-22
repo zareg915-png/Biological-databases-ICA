@@ -1,0 +1,1210 @@
+{
+  "url": "https://rest.uniprot.org/uniprotkb/search?query=organism_id%3A9606+AND+xref%3Ageneid-349633&format=json&size=500",
+  "retrieved_utc": "2026-11-22T01:48:37+00:00",
+  "headers": {
+    "vary": "accept,accept-encoding,x-uniprot-release,x-api-deployment-date, User-Agent",
+    "cache-control": "public, max-age=43200",
+    "x-cache": "miss cached",
+    "content-type": "application/json",
+    "access-control-allow-credentials": "true",
+    "access-control-expose-headers": "Link, X-Total-Results, X-UniProt-Release, X-UniProt-Release-Date, X-API-Deployment-Date",
+    "x-api-deployment-date": "10-November-2026",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "date": "Sun, 22 Nov 2026 01:48:37 GMT",
+    "access-control-max-age": "1728000",
+    "x-uniprot-release": "2026_04",
+    "x-total-results": "1",
+    "transfer-encoding": "chunked",
+    "access-control-allow-origin": "*",
+    "connection": "close",
+    "access-control-allow-methods": "GET, PUT, POST, DELETE, PATCH, OPTIONS",
+    "access-control-allow-headers": "DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization",
+    "x-uniprot-release-date": "04-November-2026"
+  },
+  "response": {
+    "results": [
+      {
+        "entryType": "UniProtKB reviewed (Swiss-Prot)",
+        "primaryAccession": "Q6UQ28",
+        "secondaryAccessions": [
+          "Q6UQ24",
+          "Q6UQ25",
+          "Q6UQ27"
+        ],
+        "uniProtkbId": "PLET1_HUMAN",
+        "entryAudit": {
+          "firstPublicDate": "2008-02-26",
+          "lastAnnotationUpdateDate": "2026-11-04",
+          "lastSequenceUpdateDate": "2008-02-26",
+          "entryVersion": 129,
+          "sequenceVersion": 2
+        },
+        "annotationScore": 3.0,
+        "organism": {
+          "scientificName": "Homo sapiens",
+          "commonName": "Human",
+          "taxonId": 9606,
+          "lineage": [
+            "Eukaryota",
+            "Metazoa",
+            "Chordata",
+            "Craniata",
+            "Vertebrata",
+            "Euteleostomi",
+            "Mammalia",
+            "Eutheria",
+            "Euarchontoglires",
+            "Primates",
+            "Haplorrhini",
+            "Catarrhini",
+            "Hominidae",
+            "Homo"
+          ]
+        },
+        "proteinExistence": "2: Evidence at transcript level",
+        "proteinDescription": {
+          "recommendedName": {
+            "fullName": {
+              "value": "Placenta-expressed transcript 1 protein"
+            }
+          },
+          "flag": "Precursor"
+        },
+        "genes": [
+          {
+            "geneName": {
+              "value": "PLET1"
+            },
+            "synonyms": [
+              {
+                "value": "C11orf34"
+              }
+            ]
+          }
+        ],
+        "comments": [
+          {
+            "texts": [
+              {
+                "evidences": [
+                  {
+                    "evidenceCode": "ECO:0000250"
+                  }
+                ],
+                "value": "Modulates leading keratinocyte migration and cellular adhesion to matrix proteins during a wound-healing response and promotes wound repair. May play a role during trichilemmal differentiation of the hair follicle (By similarity)"
+              }
+            ],
+            "commentType": "FUNCTION"
+          },
+          {
+            "commentType": "SUBCELLULAR LOCATION",
+            "note": {
+              "texts": [
+                {
+                  "evidences": [
+                    {
+                      "evidenceCode": "ECO:0000250"
+                    }
+                  ],
+                  "value": "Localized at the apical membrane of the most differentiated keratinocytes of the outer root sheath (ORS), clustered mainly in planar regions of the plasma membrane at the base of microvilli"
+                }
+              ]
+            },
+            "subcellularLocations": [
+              {
+                "location": {
+                  "evidences": [
+                    {
+                      "evidenceCode": "ECO:0000250"
+                    }
+                  ],
+                  "value": "Apical cell membrane",
+                  "id": "SL-0015"
+                },
+                "topology": {
+                  "evidences": [
+                    {
+                      "evidenceCode": "ECO:0000250"
+                    }
+                  ],
+                  "value": "Lipid-anchor, GPI-anchor",
+                  "id": "SL-9902"
+                }
+              }
+            ]
+          },
+          {
+            "texts": [
+              {
+                "evidences": [
+                  {
+                    "evidenceCode": "ECO:0000250"
+                  }
+                ],
+                "value": "N-glycosylated"
+              }
+            ],
+            "commentType": "PTM"
+          },
+          {
+            "texts": [
+              {
+                "evidences": [
+                  {
+                    "evidenceCode": "ECO:0000250"
+                  }
+                ],
+                "value": "GPI-anchored"
+              }
+            ],
+            "commentType": "PTM"
+          }
+        ],
+        "features": [
+          {
+            "type": "Signal",
+            "location": {
+              "start": {
+                "value": 1,
+                "modifier": "EXACT"
+              },
+              "end": {
+                "value": 25,
+                "modifier": "EXACT"
+              }
+            },
+            "description": "",
+            "evidences": [
+              {
+                "evidenceCode": "ECO:0000255"
+              }
+            ]
+          },
+          {
+            "type": "Chain",
+            "location": {
+              "start": {
+                "value": 26,
+                "modifier": "EXACT"
+              },
+              "end": {
+                "value": 187,
+                "modifier": "EXACT"
+              }
+            },
+            "description": "Placenta-expressed transcript 1 protein",
+            "featureId": "PRO_0000320952"
+          },
+          {
+            "type": "Propeptide",
+            "location": {
+              "start": {
+                "value": 188,
+                "modifier": "EXACT"
+              },
+              "end": {
+                "value": 207,
+                "modifier": "EXACT"
+              }
+            },
+            "description": "Removed in mature form",
+            "evidences": [
+              {
+                "evidenceCode": "ECO:0000255"
+              }
+            ],
+            "featureId": "PRO_0000424667"
+          },
+          {
+            "type": "Lipidation",
+            "location": {
+              "start": {
+                "value": 187,
+                "modifier": "EXACT"
+              },
+              "end": {
+                "value": 187,
+                "modifier": "EXACT"
+              }
+            },
+            "description": "GPI-anchor amidated serine",
+            "evidences": [
+              {
+                "evidenceCode": "ECO:0000255"
+              }
+            ]
+          },
+          {
+            "type": "Glycosylation",
+            "location": {
+              "start": {
+                "value": 67,
+                "modifier": "EXACT"
+              },
+              "end": {
+                "value": 67,
+                "modifier": "EXACT"
+              }
+            },
+            "description": "N-linked (GlcNAc...) asparagine",
+            "evidences": [
+              {
+                "evidenceCode": "ECO:0000255"
+              }
+            ],
+            "featureId": ""
+          },
+          {
+            "type": "Glycosylation",
+            "location": {
+              "start": {
+                "value": 122,
+                "modifier": "EXACT"
+              },
+              "end": {
+                "value": 122,
+                "modifier": "EXACT"
+              }
+            },
+            "description": "N-linked (GlcNAc...) asparagine",
+            "evidences": [
+              {
+                "evidenceCode": "ECO:0000255"
+              }
+            ],
+            "featureId": ""
+          },
+          {
+            "type": "Natural variant",
+            "location": {
+              "start": {
+                "value": 142,
+                "modifier": "EXACT"
+              },
+              "end": {
+                "value": 142,
+                "modifier": "EXACT"
+              }
+            },
+            "description": "in dbSNP:rs2564872",
+            "featureCrossReferences": [
+              {
+                "database": "dbSNP",
+                "id": "rs2564872"
+              }
+            ],
+            "evidences": [
+              {
+                "evidenceCode": "ECO:0000269",
+                "source": "PubMed",
+                "id": "15203209"
+              }
+            ],
+            "featureId": "VAR_039321",
+            "alternativeSequence": {
+              "originalSequence": "S",
+              "alternativeSequences": [
+                "P"
+              ]
+            }
+          }
+        ],
+        "keywords": [
+          {
+            "id": "KW-1003",
+            "category": "Cellular component",
+            "name": "Cell membrane"
+          },
+          {
+            "id": "KW-0221",
+            "category": "Biological process",
+            "name": "Differentiation"
+          },
+          {
+            "id": "KW-0325",
+            "category": "PTM",
+            "name": "Glycoprotein"
+          },
+          {
+            "id": "KW-0336",
+            "category": "PTM",
+            "name": "GPI-anchor"
+          },
+          {
+            "id": "KW-0449",
+            "category": "PTM",
+            "name": "Lipoprotein"
+          },
+          {
+            "id": "KW-0472",
+            "category": "Cellular component",
+            "name": "Membrane"
+          },
+          {
+            "id": "KW-1185",
+            "category": "Technical term",
+            "name": "Reference proteome"
+          },
+          {
+            "id": "KW-0732",
+            "category": "Domain",
+            "name": "Signal"
+          }
+        ],
+        "references": [
+          {
+            "referenceNumber": 1,
+            "citation": {
+              "id": "16554811",
+              "citationType": "journal article",
+              "authors": [
+                "Taylor T.D.",
+                "Noguchi H.",
+                "Totoki Y.",
+                "Toyoda A.",
+                "Kuroki Y.",
+                "Dewar K.",
+                "Lloyd C.",
+                "Itoh T.",
+                "Takeda T.",
+                "Kim D.-W.",
+                "She X.",
+                "Barlow K.F.",
+                "Bloom T.",
+                "Bruford E.",
+                "Chang J.L.",
+                "Cuomo C.A.",
+                "Eichler E.",
+                "FitzGerald M.G.",
+                "Jaffe D.B.",
+                "LaButti K.",
+                "Nicol R.",
+                "Park H.-S.",
+                "Seaman C.",
+                "Sougnez C.",
+                "Yang X.",
+                "Zimmer A.R.",
+                "Zody M.C.",
+                "Birren B.W.",
+                "Nusbaum C.",
+                "Fujiyama A.",
+                "Hattori M.",
+                "Rogers J.",
+                "Lander E.S.",
+                "Sakaki Y."
+              ],
+              "citationCrossReferences": [
+                {
+                  "database": "PubMed",
+                  "id": "16554811"
+                },
+                {
+                  "database": "DOI",
+                  "id": "10.1038/nature04632"
+                }
+              ],
+              "title": "Human chromosome 11 DNA sequence and analysis including novel gene identification.",
+              "publicationDate": "2006",
+              "journal": "Nature",
+              "firstPage": "497",
+              "lastPage": "500",
+              "volume": "440"
+            },
+            "referencePositions": [
+              "NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]"
+            ]
+          },
+          {
+            "referenceNumber": 2,
+            "citation": {
+              "id": "15203209",
+              "citationType": "journal article",
+              "authors": [
+                "Zhao S.-H.",
+                "Simmons D.G.",
+                "Cross J.C.",
+                "Scheetz T.E.",
+                "Casavant T.L.",
+                "Soares M.B.",
+                "Tuggle C.K."
+              ],
+              "citationCrossReferences": [
+                {
+                  "database": "PubMed",
+                  "id": "15203209"
+                },
+                {
+                  "database": "DOI",
+                  "id": "10.1016/j.ygeno.2004.02.006"
+                }
+              ],
+              "title": "PLET1 (C11orf34), a highly expressed and processed novel gene in pig and mouse placenta, is transcribed but poorly spliced in human.",
+              "publicationDate": "2004",
+              "journal": "Genomics",
+              "firstPage": "114",
+              "lastPage": "125",
+              "volume": "84"
+            },
+            "referencePositions": [
+              "NUCLEOTIDE SEQUENCE [MRNA] OF 1-149",
+              "VARIANT PRO-142"
+            ]
+          }
+        ],
+        "uniProtKBCrossReferences": [
+          {
+            "database": "EMBL",
+            "id": "AP002884",
+            "properties": [
+              {
+                "key": "ProteinId",
+                "value": "-"
+              },
+              {
+                "key": "Status",
+                "value": "NOT_ANNOTATED_CDS"
+              },
+              {
+                "key": "MoleculeType",
+                "value": "Genomic_DNA"
+              }
+            ]
+          },
+          {
+            "database": "EMBL",
+            "id": "AY364431",
+            "properties": [
+              {
+                "key": "ProteinId",
+                "value": "AAQ72434.1"
+              },
+              {
+                "key": "Status",
+                "value": "-"
+              },
+              {
+                "key": "MoleculeType",
+                "value": "mRNA"
+              }
+            ]
+          },
+          {
+            "database": "EMBL",
+            "id": "AY364432",
+            "properties": [
+              {
+                "key": "ProteinId",
+                "value": "AAQ72435.1"
+              },
+              {
+                "key": "Status",
+                "value": "-"
+              },
+              {
+                "key": "MoleculeType",
+                "value": "Transcribed_RNA"
+              }
+            ]
+          },
+          {
+            "database": "EMBL",
+            "id": "AY364434",
+            "properties": [
+              {
+                "key": "ProteinId",
+                "value": "AAQ72437.1"
+              },
+              {
+                "key": "Status",
+                "value": "-"
+              },
+              {
+                "key": "MoleculeType",
+                "value": "mRNA"
+              }
+            ]
+          },
+          {
+            "database": "EMBL",
+            "id": "AY364435",
+            "properties": [
+              {
+                "key": "ProteinId",
+                "value": "AAQ72438.1"
+              },
+              {
+                "key": "Status",
+                "value": "-"
+              },
+              {
+                "key": "MoleculeType",
+                "value": "mRNA"
+              }
+            ]
+          },
+          {
+            "database": "CCDS",
+            "id": "CCDS44732.1",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "RefSeq",
+            "id": "NP_001138496.1",
+            "properties": [
+              {
+                "key": "NucleotideSequenceId",
+                "value": "NM_001145024.1"
+              }
+            ]
+          },
+          {
+            "database": "AlphaFoldDB",
+            "id": "Q6UQ28",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "FunCoup",
+            "id": "Q6UQ28",
+            "properties": [
+              {
+                "key": "Number of interactors",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "database": "STRING",
+            "id": "9606.ENSP00000341412",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "GlyCosmos",
+            "id": "Q6UQ28",
+            "properties": [
+              {
+                "key": "glycosylation",
+                "value": "2 sites, No reported glycans"
+              }
+            ]
+          },
+          {
+            "database": "GlyGen",
+            "id": "Q6UQ28",
+            "properties": [
+              {
+                "key": "glycosylation",
+                "value": "2 sites"
+              }
+            ]
+          },
+          {
+            "database": "iPTMnet",
+            "id": "Q6UQ28",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "PhosphoSitePlus",
+            "id": "Q6UQ28",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "BioMuta",
+            "id": "PLET1",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "DMDM",
+            "id": "172046151",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "PaxDb",
+            "id": "9606-ENSP00000341412",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "ProteomicsDB",
+            "id": "67420",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "Antibodypedia",
+            "id": "51858",
+            "properties": [
+              {
+                "key": "antibodies",
+                "value": "88 antibodies from 19 providers"
+              }
+            ]
+          },
+          {
+            "database": "DNASU",
+            "id": "349633",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "Ensembl",
+            "id": "ENST00000338832.4",
+            "properties": [
+              {
+                "key": "ProteinId",
+                "value": "ENSP00000341412.2"
+              },
+              {
+                "key": "GeneId",
+                "value": "ENSG00000188771.5"
+              }
+            ]
+          },
+          {
+            "database": "GeneID",
+            "id": "349633",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "KEGG",
+            "id": "hsa:349633",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "MANE-Select",
+            "id": "ENST00000338832.4",
+            "properties": [
+              {
+                "key": "ProteinId",
+                "value": "ENSP00000341412.2"
+              },
+              {
+                "key": "RefSeqNucleotideId",
+                "value": "NM_001145024.1"
+              },
+              {
+                "key": "RefSeqProteinId",
+                "value": "NP_001138496.1"
+              }
+            ]
+          },
+          {
+            "database": "UCSC",
+            "id": "uc009yyp.3",
+            "properties": [
+              {
+                "key": "OrganismName",
+                "value": "human"
+              }
+            ]
+          },
+          {
+            "database": "AGR",
+            "id": "HGNC:30053",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "ClinPGx",
+            "id": "PA134915529",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "CTD",
+            "id": "349633",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "DisGeNET",
+            "id": "349633",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "GeneCards",
+            "id": "PLET1",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "HGNC",
+            "id": "HGNC:30053",
+            "properties": [
+              {
+                "key": "GeneName",
+                "value": "PLET1"
+              }
+            ]
+          },
+          {
+            "database": "HPA",
+            "id": "ENSG00000188771",
+            "properties": [
+              {
+                "key": "ExpressionPatterns",
+                "value": "Not detected"
+              }
+            ]
+          },
+          {
+            "database": "MIM",
+            "id": "611904",
+            "properties": [
+              {
+                "key": "Type",
+                "value": "gene"
+              }
+            ]
+          },
+          {
+            "database": "OpenTargets",
+            "id": "ENSG00000188771",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "VEuPathDB",
+            "id": "HostDB:ENSG00000188771",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "eggNOG",
+            "id": "ENOG502RTZP",
+            "properties": [
+              {
+                "key": "ToxonomicScope",
+                "value": "Eukaryota"
+              }
+            ]
+          },
+          {
+            "database": "GeneTree",
+            "id": "ENSGT00390000014690",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "HOGENOM",
+            "id": "CLU_099483_0_0_1",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "InParanoid",
+            "id": "Q6UQ28",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "OMA",
+            "id": "ACHFTEV",
+            "properties": [
+              {
+                "key": "Fingerprint",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "OrthoDB",
+            "id": "9446289at2759",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "PAN-GO",
+            "id": "Q6UQ28",
+            "properties": [
+              {
+                "key": "Number of GO annotations",
+                "value": "5 GO annotations based on evolutionary models"
+              }
+            ]
+          },
+          {
+            "database": "PhylomeDB",
+            "id": "Q6UQ28",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "PathwayCommons",
+            "id": "Q6UQ28",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "Reactome",
+            "id": "R-HSA-163125",
+            "properties": [
+              {
+                "key": "PathwayName",
+                "value": "Post-translational modification: synthesis of GPI-anchored proteins"
+              }
+            ]
+          },
+          {
+            "database": "Agora",
+            "id": "ENSG00000188771",
+            "properties": [
+              {
+                "key": "NominatedTarget",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "BioGRID-ORCS",
+            "id": "349633",
+            "properties": [
+              {
+                "key": "hits",
+                "value": "8 hits in 238 CRISPR screens"
+              }
+            ]
+          },
+          {
+            "database": "ChiTaRS",
+            "id": "PLET1",
+            "properties": [
+              {
+                "key": "OrganismName",
+                "value": "human"
+              }
+            ]
+          },
+          {
+            "database": "GenomeRNAi",
+            "id": "349633",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "Pharos",
+            "id": "Q6UQ28",
+            "properties": [
+              {
+                "key": "DevelopmentLevel",
+                "value": "Tbio"
+              }
+            ]
+          },
+          {
+            "database": "PRO",
+            "id": "PR:Q6UQ28",
+            "properties": [
+              {
+                "key": "Description",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "database": "Proteomes",
+            "id": "UP000005640",
+            "properties": [
+              {
+                "key": "Component",
+                "value": "Chromosome 11"
+              }
+            ]
+          },
+          {
+            "database": "RNAct",
+            "id": "Q6UQ28",
+            "properties": [
+              {
+                "key": "moleculeType",
+                "value": "protein"
+              }
+            ]
+          },
+          {
+            "database": "Bgee",
+            "id": "ENSG00000188771",
+            "properties": [
+              {
+                "key": "ExpressionPatterns",
+                "value": "Expressed in male germ line stem cell (sensu Vertebrata) in testis and 20 other cell types or tissues"
+              }
+            ]
+          },
+          {
+            "database": "GO",
+            "id": "GO:0016324",
+            "properties": [
+              {
+                "key": "GoTerm",
+                "value": "C:apical plasma membrane"
+              },
+              {
+                "key": "GoEvidenceType",
+                "value": "ISS:UniProtKB"
+              }
+            ]
+          },
+          {
+            "database": "GO",
+            "id": "GO:0009897",
+            "properties": [
+              {
+                "key": "GoTerm",
+                "value": "C:external side of plasma membrane"
+              },
+              {
+                "key": "GoEvidenceType",
+                "value": "IBA:GO_Central"
+              }
+            ]
+          },
+          {
+            "database": "GO",
+            "id": "GO:0005576",
+            "properties": [
+              {
+                "key": "GoTerm",
+                "value": "C:extracellular region"
+              },
+              {
+                "key": "GoEvidenceType",
+                "value": "TAS:Reactome"
+              }
+            ]
+          },
+          {
+            "database": "GO",
+            "id": "GO:0005886",
+            "properties": [
+              {
+                "key": "GoTerm",
+                "value": "C:plasma membrane"
+              },
+              {
+                "key": "GoEvidenceType",
+                "value": "TAS:Reactome"
+              }
+            ]
+          },
+          {
+            "database": "GO",
+            "id": "GO:0001953",
+            "properties": [
+              {
+                "key": "GoTerm",
+                "value": "P:negative regulation of cell-matrix adhesion"
+              },
+              {
+                "key": "GoEvidenceType",
+                "value": "ISS:UniProtKB"
+              }
+            ]
+          },
+          {
+            "database": "GO",
+            "id": "GO:0030335",
+            "properties": [
+              {
+                "key": "GoTerm",
+                "value": "P:positive regulation of cell migration"
+              },
+              {
+                "key": "GoEvidenceType",
+                "value": "ISS:UniProtKB"
+              }
+            ]
+          },
+          {
+            "database": "GO",
+            "id": "GO:0035313",
+            "properties": [
+              {
+                "key": "GoTerm",
+                "value": "P:wound healing, spreading of epidermal cells"
+              },
+              {
+                "key": "GoEvidenceType",
+                "value": "ISS:UniProtKB"
+              }
+            ]
+          },
+          {
+            "database": "InterPro",
+            "id": "IPR026184",
+            "properties": [
+              {
+                "key": "EntryName",
+                "value": "PLET1"
+              }
+            ]
+          },
+          {
+            "database": "PANTHER",
+            "id": "PTHR22527",
+            "properties": [
+              {
+                "key": "EntryName",
+                "value": "PLACENTA-EXPRESSED TRANSCRIPT 1 PROTEIN"
+              },
+              {
+                "key": "MatchStatus",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "database": "PANTHER",
+            "id": "PTHR22527:SF2",
+            "properties": [
+              {
+                "key": "EntryName",
+                "value": "PLACENTA-EXPRESSED TRANSCRIPT 1 PROTEIN"
+              },
+              {
+                "key": "MatchStatus",
+                "value": "1"
+              }
+            ]
+          }
+        ],
+        "sequence": {
+          "value": "MAVFHDMLLQPLGMFLCLSLQLSSATFIRYSSTCFTFDEYYTITLDIKASSHIYESNAVYSVFVPVNDSVYAVVMKTLDENSDSAGLWQRADKNCYSNSTYYVKDQYMTVLEAQWQAPEPENITEVEIQAFTVQIRALPILSTLKLREKLSTLALAAKIPQSSAFKPFFMITPKSIRLEGLANQVFSSPITEAIYILLAFLTSTLLF",
+          "length": 207,
+          "molWeight": 23385,
+          "crc64": "F607E6D5A7EE1B02",
+          "md5": "2D6A2A17C8EC7B892AB4B60685593A09"
+        },
+        "extraAttributes": {
+          "countByCommentType": {
+            "FUNCTION": 1,
+            "SUBCELLULAR LOCATION": 1,
+            "PTM": 2
+          },
+          "countByFeatureType": {
+            "Signal": 1,
+            "Chain": 1,
+            "Propeptide": 1,
+            "Lipidation": 1,
+            "Glycosylation": 2,
+            "Natural variant": 1
+          },
+          "uniParcId": "UPI000023753A"
+        }
+      }
+    ]
+  }
+}

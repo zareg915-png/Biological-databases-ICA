@@ -1,0 +1,372 @@
+{
+  "url": "https://www.bgee.org/api/?page=gene&action=expression&gene_id=ENSG00000130203&species_id=9606&display_type=json&cond_param=anat_entity&expr_type=NOT_EXPRESSED",
+  "retrieved_utc": "2026-11-22T01:47:52+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:47:52 GMT",
+    "content-type": "application/json;charset=UTF-8",
+    "transfer-encoding": "chunked",
+    "connection": "close",
+    "strict-transport-security": "max-age=63072000; includeSubDomains",
+    "access-control-allow-origin": "*",
+    "access-control-allow-methods": "POST, GET, OPTIONS, DELETE",
+    "access-control-max-age": "3600",
+    "access-control-allow-headers": "Origin, Accept, X-Requested-With, Content-Type,Access-Control-Request-Method, Access-Control-Request-Headers",
+    "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "server": "cloudflare",
+    "x-frame-options": "DENY",
+    "x-content-type-options": "nosniff",
+    "x-xss-protection": "1; mode=block",
+    "cache-control": "no-cache",
+    "set-cookie": "__Host-bgeeUUID=f477aea2-832d-33da-a77f-13a864e02799--1795312071705; Max-Age=63072000; Expires=Tue, 21-Nov-2028 01:47:52 GMT; Path=/;HttpOnly;Secure;SameSite=Strict",
+    "cf-cache-status": "DYNAMIC",
+    "vary": "accept-encoding",
+    "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=UDrVwaSBCIJrbKXeO0fYbgUNQOWrsERs%2FKbBiwSSapZykbm22kGAkLjIs%2FvTJxM7vj4dsgjC%2BrNnZ59f0EZi9HdOCxdwJQQDPbuNSAsuclST%2B%2FVcgJCYJsYu%2FrmO%2Bw%3D%3D\"}]}",
+    "cf-ray": "a5e444bfff4050f1-LHR"
+  },
+  "response": {
+    "code": 200,
+    "status": "SUCCESS",
+    "message": "Reported absence of expression",
+    "data": {
+      "requestedCallType": "NOT_EXPRESSED",
+      "requestedDataTypes": [
+        "Affymetrix",
+        "EST",
+        "in situ hybridization",
+        "single-cell RNA-Seq",
+        "RNA-Seq"
+      ],
+      "requestedConditionParameters": [
+        "Anat. entity"
+      ],
+      "calls": [
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000019",
+              "name": "sperm"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "40.87",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.672",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000655",
+              "name": "secondary oocyte"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "42.57",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.857",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0005030",
+              "name": "mucosa of paranasal sinus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "42.92",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.278",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0006920",
+              "name": "esophagus squamous epithelium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "44.53",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.388",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001103",
+              "name": "diaphragm"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "47.05",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.857",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0006919",
+              "name": "tongue squamous epithelium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "47.92",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.962",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0006922",
+              "name": "cervix squamous epithelium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "49.20",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.876",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0002079",
+              "name": "pancreatic ductal cell"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "50.38",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.1",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001385",
+              "name": "tibialis anterior"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "53.25",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.1",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001951",
+              "name": "epithelium of nasopharynx"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "55.11",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.126",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001949",
+              "name": "gingival epithelium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "57.27",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.319",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000115",
+              "name": "endothelial cell"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "66.63",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.267",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002073",
+              "name": "hair follicle"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "68.50",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.09",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0006566",
+              "name": "left ventricle myocardium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "74.71",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.328",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000169",
+              "name": "type B pancreatic cell"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "76.52",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.893",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        }
+      ],
+      "gene": {
+        "geneId": "ENSG00000130203",
+        "name": "APOE",
+        "species": {
+          "id": 9606,
+          "name": "human",
+          "genus": "Homo",
+          "speciesName": "sapiens",
+          "preferredDisplayOrder": 1,
+          "sourcesOfDataPerDataType": [
+            {
+              "dataType": "Affymetrix",
+              "sources": [
+                {
+                  "name": "ArrayExpress",
+                  "description": "Affymetrix data source for various species",
+                  "baseUrl": "https://www.ebi.ac.uk/arrayexpress/"
+                },
+                {
+                  "name": "GEO",
+                  "description": "Affymetrix data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/geo/"
+                }
+              ]
+            }
+          ],
+          "sourcesOfAnnotationsPerDataType": [
+            {
+              "dataType": "Affymetrix",
+              "sources": [
+                {
+                  "name": "Bgee",
+                  "description": "Gene expression data in animals",
+                  "baseUrl": "https://www.bgee.org/"
+                }
+              ]
+            }
+          ]
+        },
+        "geneMappedToSameGeneIdCount": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,706 @@
+{
+  "url": "https://www.bgee.org/api/?page=gene&action=expression&gene_id=ENSMUSG00000023951&species_id=10090&display_type=json&cond_param=anat_entity&expr_type=NOT_EXPRESSED",
+  "retrieved_utc": "2026-11-22T01:48:31+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:48:31 GMT",
+    "content-type": "application/json;charset=UTF-8",
+    "transfer-encoding": "chunked",
+    "connection": "close",
+    "strict-transport-security": "max-age=63072000; includeSubDomains",
+    "access-control-allow-origin": "*",
+    "access-control-allow-methods": "POST, GET, OPTIONS, DELETE",
+    "access-control-max-age": "3600",
+    "access-control-allow-headers": "Origin, Accept, X-Requested-With, Content-Type,Access-Control-Request-Method, Access-Control-Request-Headers",
+    "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "server": "cloudflare",
+    "x-frame-options": "DENY",
+    "x-content-type-options": "nosniff",
+    "x-xss-protection": "1; mode=block",
+    "cache-control": "no-cache",
+    "set-cookie": "__Host-bgeeUUID=c3319c76-25ea-3bc5-9dd4-f1190a8542a6--1795312109983; Max-Age=63072000; Expires=Tue, 21-Nov-2028 01:48:31 GMT; Path=/;HttpOnly;Secure;SameSite=Strict",
+    "cf-cache-status": "DYNAMIC",
+    "vary": "accept-encoding",
+    "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Bm4aKEk1IbiH1ZI9ycdivIditNqB6rjBvM7%2Ft1xqPWwtNfmgbmPcPGEJxvLMrWD2Hpn%2FYjjttecPD9C8iXhrf%2BR7XIdNzc2TUBcuudUXvd4eLdqkXEkQVvx2prEB4A%3D%3D\"}]}",
+    "cf-ray": "a5e445aefe1e0ffd-LHR"
+  },
+  "response": {
+    "code": 200,
+    "status": "SUCCESS",
+    "message": "Reported absence of expression",
+    "data": {
+      "requestedCallType": "NOT_EXPRESSED",
+      "requestedDataTypes": [
+        "Affymetrix",
+        "EST",
+        "in situ hybridization",
+        "single-cell RNA-Seq",
+        "RNA-Seq"
+      ],
+      "requestedConditionParameters": [
+        "Anat. entity"
+      ],
+      "calls": [
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000365",
+              "name": "animal zygote"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "37.06",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.976",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000655",
+              "name": "secondary oocyte"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "47.44",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.476",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0007371",
+              "name": "superior surface of tongue"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "48.12",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.933",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:1000015",
+              "name": "skin of snout"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "48.19",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.998",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000654",
+              "name": "primary oocyte"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "48.92",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.65",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001777",
+              "name": "substantia propria of cornea"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "48.92",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.999",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001343",
+              "name": "seminiferous tubule of testis"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "49.21",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.571",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "in situ hybridization"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000453",
+              "name": "decidua basalis"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "49.99",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.5",
+          "dataTypesWithData": [
+            "in situ hybridization"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0010849",
+              "name": "tibia cartilage element"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "49.99",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.5",
+          "dataTypesWithData": [
+            "in situ hybridization"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0004643",
+              "name": "lateral ventricle ependyma"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "50.00",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.5",
+          "dataTypesWithData": [
+            "in situ hybridization"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0008345",
+              "name": "ileal epithelium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "51.45",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.1",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0006517",
+              "name": "kidney calyx"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "52.90",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.5",
+          "dataTypesWithData": [
+            "in situ hybridization"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0005333",
+              "name": "mammary bud"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "56.66",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.571",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0010415",
+              "name": "barrel cortex"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "58.20",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.186",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0004027",
+              "name": "chorionic plate"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "58.33",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.5",
+          "dataTypesWithData": [
+            "in situ hybridization"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001236",
+              "name": "adrenal medulla"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "59.07",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.5",
+          "dataTypesWithData": [
+            "in situ hybridization"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0008881",
+              "name": "rostral migratory stream"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "59.12",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.32",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0003069",
+              "name": "otic placode"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "59.56",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.124",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0034996",
+              "name": "outer renal medulla loop of Henle"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "59.97",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.5",
+          "dataTypesWithData": [
+            "in situ hybridization"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002015",
+              "name": "kidney capsule"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "61.10",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.5",
+          "dataTypesWithData": [
+            "in situ hybridization"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002110",
+              "name": "gall bladder"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "61.16",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.679",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000178",
+              "name": "blood"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "62.49",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.17",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0012238",
+              "name": "ureteric bud trunk"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "63.32",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.5",
+          "dataTypesWithData": [
+            "in situ hybridization"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002320",
+              "name": "glomerular mesangium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "63.63",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.5",
+          "dataTypesWithData": [
+            "in situ hybridization"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0005213",
+              "name": "outer renal medulla interstitium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "64.28",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.5",
+          "dataTypesWithData": [
+            "in situ hybridization"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001070",
+              "name": "external carotid artery"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "64.72",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.107",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001532",
+              "name": "internal carotid artery"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "64.78",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.143",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001241",
+              "name": "crypt of Lieberkuhn of small intestine"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "67.29",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.113",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0002353",
+              "name": "fetal liver hematopoietic progenitor cell"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "67.94",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.187",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000100",
+              "name": "motor neuron"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "72.29",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.124",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        }
+      ],
+      "gene": {
+        "geneId": "ENSMUSG00000023951",
+        "name": "Vegfa",
+        "species": {
+          "id": 10090,
+          "name": "mouse",
+          "genus": "Mus",
+          "speciesName": "musculus",
+          "preferredDisplayOrder": 2,
+          "sourcesOfDataPerDataType": [
+            {
+              "dataType": "Affymetrix",
+              "sources": [
+                {
+                  "name": "ArrayExpress",
+                  "description": "Affymetrix data source for various species",
+                  "baseUrl": "https://www.ebi.ac.uk/arrayexpress/"
+                },
+                {
+                  "name": "GEO",
+                  "description": "Affymetrix data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/geo/"
+                }
+              ]
+            },
+            {
+              "dataType": "in situ hybridization",
+              "sources": [
+                {
+                  "name": "MGI",
+                  "description": "Mouse in situ data source",
+                  "baseUrl": "http://www.informatics.jax.org/expression.shtml"
+                }
+              ]
+            },
+            {
+              "dataType": "RNA-Seq",
+              "sources": [
+                {
+                  "name": "GEO",
+                  "description": "RNA-Seq data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/geo/"
+                },
+                {
+                  "name": "SRA",
+                  "description": "RNA-Seq data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/sra/"
+                }
+              ]
+            }
+          ],
+          "sourcesOfAnnotationsPerDataType": [
+            {
+              "dataType": "Affymetrix",
+              "sources": [
+                {
+                  "name": "Bgee",
+                  "description": "Gene expression data in animals",
+                  "baseUrl": "https://www.bgee.org/"
+                }
+              ]
+            },
+            {
+              "dataType": "in situ hybridization",
+              "sources": [
+                {
+                  "name": "MGI",
+                  "description": "Mouse in situ data source",
+                  "baseUrl": "http://www.informatics.jax.org/expression.shtml"
+                }
+              ]
+            },
+            {
+              "dataType": "RNA-Seq",
+              "sources": [
+                {
+                  "name": "Bgee",
+                  "description": "Gene expression data in animals",
+                  "baseUrl": "https://www.bgee.org/"
+                }
+              ]
+            }
+          ]
+        },
+        "geneMappedToSameGeneIdCount": 1
+      }
+    }
+  }
+}

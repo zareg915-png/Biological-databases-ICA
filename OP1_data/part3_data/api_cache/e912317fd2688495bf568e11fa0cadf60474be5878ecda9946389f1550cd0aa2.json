@@ -1,0 +1,673 @@
+{
+  "url": "https://www.bgee.org/api/?page=gene&action=expression&gene_id=ENSMUSG00000059854&species_id=10090&display_type=json&cond_param=anat_entity&expr_type=EXPRESSED",
+  "retrieved_utc": "2026-11-22T01:48:49+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:48:49 GMT",
+    "content-type": "application/json;charset=UTF-8",
+    "transfer-encoding": "chunked",
+    "connection": "close",
+    "strict-transport-security": "max-age=63072000; includeSubDomains",
+    "access-control-allow-origin": "*",
+    "access-control-allow-methods": "POST, GET, OPTIONS, DELETE",
+    "access-control-max-age": "3600",
+    "access-control-allow-headers": "Origin, Accept, X-Requested-With, Content-Type,Access-Control-Request-Method, Access-Control-Request-Headers",
+    "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "server": "cloudflare",
+    "x-frame-options": "DENY",
+    "x-content-type-options": "nosniff",
+    "x-xss-protection": "1; mode=block",
+    "cache-control": "no-cache",
+    "set-cookie": "__Host-bgeeUUID=1c0ae069-a6d8-3ec9-a423-ec65bc7da252--1795312127698; Max-Age=63072000; Expires=Tue, 21-Nov-2028 01:48:49 GMT; Path=/;HttpOnly;Secure;SameSite=Strict",
+    "cf-cache-status": "DYNAMIC",
+    "vary": "accept-encoding",
+    "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=A5nCjMsazZXs4A1ephMkoDGKNhZrEgY935FWDyJNkGSVLPlyoKPWsTOb5CoQ3ZzIbOs9357M0kAn1oyuUKULCI9PsGWawh4yTvLqOcv3lUeDffo8BGbDceKcU0HUGQ%3D%3D\"}]}",
+    "cf-ray": "a5e4461dbb7a2547-LHR"
+  },
+  "response": {
+    "code": 200,
+    "status": "SUCCESS",
+    "message": "Gene expression for gene: ENSMUSG00000059854 - Hydin",
+    "data": {
+      "requestedCallType": "EXPRESSED",
+      "requestedDataTypes": [
+        "Affymetrix",
+        "EST",
+        "in situ hybridization",
+        "single-cell RNA-Seq",
+        "RNA-Seq"
+      ],
+      "requestedConditionParameters": [
+        "Anat. entity"
+      ],
+      "calls": [
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000018",
+              "name": "spermatid"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "84.19",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "7.53e-6",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000365",
+              "name": "animal zygote"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "81.14",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "1.85e-4",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001343",
+              "name": "seminiferous tubule of testis"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "80.77",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000017",
+              "name": "spermatocyte"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "79.58",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "1.37e-4",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002518",
+              "name": "otolith organ"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "78.95",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.033",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001853",
+              "name": "utricle of membranous labyrinth"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "78.32",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.033",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000655",
+              "name": "secondary oocyte"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "75.73",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "1.70e-4",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002290",
+              "name": "choroid plexus of fourth ventricle"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "74.55",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "in situ hybridization"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002192",
+              "name": "ventricular system choroidal fissure"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "72.90",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.001",
+          "dataTypesWithData": [
+            "in situ hybridization"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0000654",
+              "name": "primary oocyte"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "70.03",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.001",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0006518",
+              "name": "right lung lobe"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "67.12",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.007",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001997",
+              "name": "olfactory epithelium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "66.83",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.003",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0003301",
+              "name": "roof plate of diencephalon"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "66.66",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.01",
+          "dataTypesWithData": [
+            "in situ hybridization"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0006932",
+              "name": "vestibular epithelium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "64.24",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.004",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001736",
+              "name": "submandibular gland"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "62.12",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.02",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0007626",
+              "name": "subparaventricular zone"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "57.06",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.021",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000358",
+              "name": "blastocyst"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "55.70",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.001",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "single-cell RNA-Seq",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002129",
+              "name": "cerebellar cortex"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "49.33",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.033",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002421",
+              "name": "hippocampal formation"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "49.28",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.039",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001844",
+              "name": "cochlea"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "48.74",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.047",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001954",
+              "name": "Ammon's horn"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "48.13",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.033",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001043",
+              "name": "esophagus"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "46.52",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "8.80e-4",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001416",
+              "name": "skin of abdomen"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "45.93",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.04",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:6001060",
+              "name": "embryonic brain"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "45.87",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.04",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000992",
+              "name": "ovary"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "44.38",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.004",
+          "dataTypesWithData": [
+            "Affymetrix",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001928",
+              "name": "preoptic area"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "39.35",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.033",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0007769",
+              "name": "medial preoptic region"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "39.31",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.016",
+          "dataTypesWithData": [
+            "Affymetrix"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        }
+      ],
+      "gene": {
+        "geneId": "ENSMUSG00000059854",
+        "name": "Hydin",
+        "species": {
+          "id": 10090,
+          "name": "mouse",
+          "genus": "Mus",
+          "speciesName": "musculus",
+          "preferredDisplayOrder": 2,
+          "sourcesOfDataPerDataType": [
+            {
+              "dataType": "Affymetrix",
+              "sources": [
+                {
+                  "name": "ArrayExpress",
+                  "description": "Affymetrix data source for various species",
+                  "baseUrl": "https://www.ebi.ac.uk/arrayexpress/"
+                },
+                {
+                  "name": "GEO",
+                  "description": "Affymetrix data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/geo/"
+                }
+              ]
+            },
+            {
+              "dataType": "in situ hybridization",
+              "sources": [
+                {
+                  "name": "MGI",
+                  "description": "Mouse in situ data source",
+                  "baseUrl": "http://www.informatics.jax.org/expression.shtml"
+                }
+              ]
+            },
+            {
+              "dataType": "single-cell RNA-Seq",
+              "sources": [
+                {
+                  "name": "SRA",
+                  "description": "Single-cell RNA-Seq data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/sra/"
+                }
+              ]
+            },
+            {
+              "dataType": "RNA-Seq",
+              "sources": [
+                {
+                  "name": "GEO",
+                  "description": "RNA-Seq data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/geo/"
+                },
+                {
+                  "name": "SRA",
+                  "description": "RNA-Seq data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/sra/"
+                }
+              ]
+            }
+          ],
+          "sourcesOfAnnotationsPerDataType": [
+            {
+              "dataType": "Affymetrix",
+              "sources": [
+                {
+                  "name": "Bgee",
+                  "description": "Gene expression data in animals",
+                  "baseUrl": "https://www.bgee.org/"
+                }
+              ]
+            },
+            {
+              "dataType": "in situ hybridization",
+              "sources": [
+                {
+                  "name": "MGI",
+                  "description": "Mouse in situ data source",
+                  "baseUrl": "http://www.informatics.jax.org/expression.shtml"
+                }
+              ]
+            },
+            {
+              "dataType": "single-cell RNA-Seq",
+              "sources": [
+                {
+                  "name": "Bgee",
+                  "description": "Gene expression data in animals",
+                  "baseUrl": "https://www.bgee.org/"
+                }
+              ]
+            },
+            {
+              "dataType": "RNA-Seq",
+              "sources": [
+                {
+                  "name": "Bgee",
+                  "description": "Gene expression data in animals",
+                  "baseUrl": "https://www.bgee.org/"
+                }
+              ]
+            }
+          ]
+        },
+        "geneMappedToSameGeneIdCount": 1
+      }
+    }
+  }
+}

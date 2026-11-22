@@ -1,0 +1,1028 @@
+{
+  "url": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/12190/dataset_report",
+  "retrieved_utc": "2026-11-22T01:47:20+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:47:19 GMT",
+    "server": "Finatra",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "content-security-policy": "upgrade-insecure-requests",
+    "ncbi-phid": "1D340A36BF5C2DD500005A4C4611483F.1.1",
+    "content-type": "application/json",
+    "grpc-metadata-via": "h2 linkerd",
+    "x-ratelimit-limit": "5",
+    "x-datasets-version": "18.41.1",
+    "x-ncbi-total-count": "1",
+    "x-ratelimit-remaining": "4",
+    "access-control-expose-headers": "X-RateLimit-Limit,X-RateLimit-Remaining",
+    "vary": "Accept-Encoding",
+    "x-ua-compatible": "IE=Edge",
+    "x-xss-protection": "1; mode=block",
+    "transfer-encoding": "chunked",
+    "via": "1.1 google",
+    "alt-svc": "clear",
+    "connection": "close"
+  },
+  "response": {
+    "reports": [
+      {
+        "gene": {
+          "gene_id": "12190",
+          "symbol": "Brca2",
+          "description": "breast cancer 2, early onset",
+          "tax_id": "10090",
+          "taxname": "Mus musculus",
+          "common_name": "house mouse",
+          "type": "PROTEIN_CODING",
+          "orientation": "plus",
+          "chromosomes": [
+            "5"
+          ],
+          "nomenclature_authority": {
+            "authority": "MGI",
+            "identifier": "MGI:109337"
+          },
+          "swiss_prot_accessions": [
+            "P97929"
+          ],
+          "ensembl_gene_ids": [
+            "ENSMUSG00000041147"
+          ],
+          "synonyms": [
+            "Fancd1",
+            "RAB163"
+          ],
+          "alternate_names": [
+            "breast cancer type 2 susceptibility protein homolog",
+            "fanconi anemia group D1 protein homolog"
+          ],
+          "annotations": [
+            {
+              "assembly_accession": "GCF_000001635.27",
+              "assembly_name": "GRCm39",
+              "annotation_name": "GCF_000001635.27-RS_2024_02",
+              "annotation_release_date": "2024-02-01",
+              "genomic_locations": [
+                {
+                  "genomic_accession_version": "NC_000071.7",
+                  "sequence_name": "5",
+                  "genomic_range": {
+                    "begin": "150445759",
+                    "end": "150493612",
+                    "orientation": "plus"
+                  }
+                }
+              ]
+            }
+          ],
+          "transcript_count": 10,
+          "protein_count": 8,
+          "transcript_type_counts": [
+            {
+              "type": "PROTEIN_CODING",
+              "count": 2
+            },
+            {
+              "type": "PROTEIN_CODING_MODEL",
+              "count": 6
+            },
+            {
+              "type": "NON_CODING_MODEL",
+              "count": 2
+            }
+          ],
+          "gene_groups": [
+            {
+              "id": "675",
+              "method": "NCBI Ortholog"
+            }
+          ],
+          "summary": [
+            {
+              "description": "Predicted to enable several functions, including DNA binding activity; gamma-tubulin binding activity; and histone acetyltransferase activity. Involved in several processes, including establishment of protein localization to telomere; male meiosis I; and telomere maintenance via recombination. Acts upstream of or within several processes, including DNA metabolic process; inner cell mass cell proliferation; and signal transduction by p53 class mediator. Located in chromosome; cytoplasm; and nucleus. Is expressed in several structures, including alimentary system; central nervous system; early embryo; genitourinary system; and hemolymphoid system gland. Used to study Fanconi anemia complementation group D1 and breast cancer. Human ortholog(s) of this gene implicated in several diseases, including Fanconi anemia (multiple); esophagus squamous cell carcinoma; hereditary breast ovarian cancer syndrome; melanoma (multiple); and reproductive organ cancer (multiple). Orthologous to human BRCA2 (BRCA2 DNA repair associated). [provided by Alliance of Genome Resources, Jun 2026]"
+            }
+          ],
+          "gene_ontology": {
+            "assigned_by": "MGI",
+            "molecular_functions": [
+              {
+                "name": "double-stranded DNA binding",
+                "go_id": "GO:0003690",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "double-stranded DNA binding",
+                "go_id": "GO:0003690",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "double-stranded DNA binding",
+                "go_id": "GO:0003690",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "gamma-tubulin binding",
+                "go_id": "GO:0043015",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "gamma-tubulin binding",
+                "go_id": "GO:0043015",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "histone H3 acetyltransferase activity",
+                "go_id": "GO:0010484",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "histone H4 acetyltransferase activity",
+                "go_id": "GO:0010485",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "identical protein binding",
+                "go_id": "GO:0042802",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "identical protein binding",
+                "go_id": "GO:0042802",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "molecular function inhibitor activity",
+                "go_id": "GO:0140678",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "molecular function inhibitor activity",
+                "go_id": "GO:0140678",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protease binding",
+                "go_id": "GO:0002020",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protease binding",
+                "go_id": "GO:0002020",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protein binding",
+                "go_id": "GO:0005515",
+                "evidence_code": "IPI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "9126738",
+                    "11477095",
+                    "12228710",
+                    "12893777",
+                    "15359272",
+                    "30760716",
+                    "31242413",
+                    "32345962",
+                    "32460033",
+                    "32845237"
+                  ]
+                }
+              },
+              {
+                "name": "protein-macromolecule adaptor activity",
+                "go_id": "GO:0030674",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protein-macromolecule adaptor activity",
+                "go_id": "GO:0030674",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protein-macromolecule adaptor activity",
+                "go_id": "GO:0030674",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "single-stranded DNA binding",
+                "go_id": "GO:0003697",
+                "evidence_code": "IBA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "single-stranded DNA binding",
+                "go_id": "GO:0003697",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "single-stranded DNA binding",
+                "go_id": "GO:0003697",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "single-stranded DNA binding",
+                "go_id": "GO:0003697",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              }
+            ],
+            "biological_processes": [
+              {
+                "name": "DNA damage response",
+                "go_id": "GO:0006974",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "12410562"
+                  ]
+                }
+              },
+              {
+                "name": "DNA damage response",
+                "go_id": "GO:0006974",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "DNA damage response",
+                "go_id": "GO:0006974",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "DNA damage response, signal transduction by p53 class mediator",
+                "go_id": "GO:0030330",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "8738145"
+                  ]
+                }
+              },
+              {
+                "name": "DNA recombinase assembly",
+                "go_id": "GO:0000730",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "DNA recombinase assembly",
+                "go_id": "GO:0000730",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "DNA recombinase assembly",
+                "go_id": "GO:0000730",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "DNA recombination",
+                "go_id": "GO:0006310",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "DNA recombination",
+                "go_id": "GO:0006310",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "DNA repair",
+                "go_id": "GO:0006281",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "brain development",
+                "go_id": "GO:0007420",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17476307"
+                  ]
+                }
+              },
+              {
+                "name": "cell population proliferation",
+                "go_id": "GO:0008283",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9171368",
+                    "9398843",
+                    "9660919",
+                    "16859999",
+                    "17476307"
+                  ]
+                }
+              },
+              {
+                "name": "cellular response to ionizing radiation",
+                "go_id": "GO:0071479",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to ionizing radiation",
+                "go_id": "GO:0071479",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular senescence",
+                "go_id": "GO:0090398",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9699678"
+                  ]
+                }
+              },
+              {
+                "name": "centrosome duplication",
+                "go_id": "GO:0051298",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "centrosome duplication",
+                "go_id": "GO:0051298",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "chordate embryonic development",
+                "go_id": "GO:0043009",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9171368"
+                  ]
+                }
+              },
+              {
+                "name": "chromatin remodeling",
+                "go_id": "GO:0006338",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "chromosome organization",
+                "go_id": "GO:0051276",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9660919",
+                    "16859999"
+                  ]
+                }
+              },
+              {
+                "name": "double-strand break repair",
+                "go_id": "GO:0006302",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "double-strand break repair",
+                "go_id": "GO:0006302",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9398843",
+                    "17476307"
+                  ]
+                }
+              },
+              {
+                "name": "double-strand break repair",
+                "go_id": "GO:0006302",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "double-strand break repair involved in meiotic recombination",
+                "go_id": "GO:1990918",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "double-strand break repair involved in meiotic recombination",
+                "go_id": "GO:1990918",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "double-strand break repair involved in meiotic recombination",
+                "go_id": "GO:1990918",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "double-strand break repair via homologous recombination",
+                "go_id": "GO:0000724",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "double-strand break repair via homologous recombination",
+                "go_id": "GO:0000724",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "double-strand break repair via homologous recombination",
+                "go_id": "GO:0000724",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "15485900"
+                  ]
+                }
+              },
+              {
+                "name": "double-strand break repair via homologous recombination",
+                "go_id": "GO:0000724",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "establishment of protein localization to telomere",
+                "go_id": "GO:0070200",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21076401"
+                  ]
+                }
+              },
+              {
+                "name": "establishment of protein localization to telomere",
+                "go_id": "GO:0070200",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "establishment of protein localization to telomere",
+                "go_id": "GO:0070200",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "female gonad development",
+                "go_id": "GO:0008585",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9398843"
+                  ]
+                }
+              },
+              {
+                "name": "hemopoiesis",
+                "go_id": "GO:0030097",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "16859999"
+                  ]
+                }
+              },
+              {
+                "name": "homologous chromosome orientation in meiotic metaphase I",
+                "go_id": "GO:0031619",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "inner cell mass cell proliferation",
+                "go_id": "GO:0001833",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9171369"
+                  ]
+                }
+              },
+              {
+                "name": "intrinsic apoptotic signaling pathway in response to DNA damage",
+                "go_id": "GO:0008630",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17476307"
+                  ]
+                }
+              },
+              {
+                "name": "intrinsic apoptotic signaling pathway in response to DNA damage by p53 class mediator",
+                "go_id": "GO:0042771",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17476307"
+                  ]
+                }
+              },
+              {
+                "name": "intrinsic apoptotic signaling pathway in response to DNA damage by p53 class mediator",
+                "go_id": "GO:0042771",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "15735671"
+                  ]
+                }
+              },
+              {
+                "name": "male meiosis I",
+                "go_id": "GO:0007141",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "32345962"
+                  ]
+                }
+              },
+              {
+                "name": "male meiosis I",
+                "go_id": "GO:0007141",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "14660434"
+                  ]
+                }
+              },
+              {
+                "name": "mammary gland development",
+                "go_id": "GO:0030879",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "meiosis I",
+                "go_id": "GO:0007127",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "mitotic recombination-dependent replication fork processing",
+                "go_id": "GO:1990426",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "mitotic recombination-dependent replication fork processing",
+                "go_id": "GO:1990426",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "multicellular organism growth",
+                "go_id": "GO:0035264",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of mammary gland epithelial cell proliferation",
+                "go_id": "GO:0033600",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of mammary gland epithelial cell proliferation",
+                "go_id": "GO:0033600",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "nucleotide-excision repair",
+                "go_id": "GO:0006289",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "nucleotide-excision repair",
+                "go_id": "GO:0006289",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "oocyte maturation",
+                "go_id": "GO:0001556",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "14660434"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of DNA-templated transcription",
+                "go_id": "GO:0045893",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of DNA-templated transcription",
+                "go_id": "GO:0045893",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of mitotic cell cycle",
+                "go_id": "GO:0045931",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9660919"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of DNA damage checkpoint",
+                "go_id": "GO:2000001",
+                "evidence_code": "NAS",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "14636569"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of DNA-templated transcription",
+                "go_id": "GO:0006355",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of cytokinesis",
+                "go_id": "GO:0032465",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "15375219"
+                  ]
+                }
+              },
+              {
+                "name": "replication fork processing",
+                "go_id": "GO:0031297",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "14681210"
+                  ]
+                }
+              },
+              {
+                "name": "response to UV-C",
+                "go_id": "GO:0010225",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9660919"
+                  ]
+                }
+              },
+              {
+                "name": "response to X-ray",
+                "go_id": "GO:0010165",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9398843",
+                    "9660919",
+                    "16859999"
+                  ]
+                }
+              },
+              {
+                "name": "response to gamma radiation",
+                "go_id": "GO:0010332",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9126738",
+                    "9699678"
+                  ]
+                }
+              },
+              {
+                "name": "spermatogenesis",
+                "go_id": "GO:0007283",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9398843"
+                  ]
+                }
+              },
+              {
+                "name": "spermatogenesis",
+                "go_id": "GO:0007283",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "telomere maintenance via recombination",
+                "go_id": "GO:0000722",
+                "evidence_code": "IGI",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21076401"
+                  ]
+                }
+              }
+            ],
+            "cellular_components": [
+              {
+                "name": "BRCA2-MAGE-D1 complex",
+                "go_id": "GO:0033593",
+                "evidence_code": "IEA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "BRCA2-MAGE-D1 complex",
+                "go_id": "GO:0033593",
+                "evidence_code": "ISO",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "DNA repair complex",
+                "go_id": "GO:1990391",
+                "evidence_code": "IEA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "DNA repair complex",
+                "go_id": "GO:1990391",
+                "evidence_code": "ISO",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "centrosome",
+                "go_id": "GO:0005813",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "centrosome",
+                "go_id": "GO:0005813",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "centrosome",
+                "go_id": "GO:0005813",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "chromosome",
+                "go_id": "GO:0005694",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "30760716"
+                  ]
+                }
+              },
+              {
+                "name": "chromosome",
+                "go_id": "GO:0005694",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "chromosome, telomeric region",
+                "go_id": "GO:0000781",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "chromosome, telomeric region",
+                "go_id": "GO:0000781",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cytoplasm",
+                "go_id": "GO:0005737",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "11172592"
+                  ]
+                }
+              },
+              {
+                "name": "cytosol",
+                "go_id": "GO:0005829",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "lateral element",
+                "go_id": "GO:0000800",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "lateral element",
+                "go_id": "GO:0000800",
+                "evidence_code": "ISO",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "9774970"
+                  ]
+                }
+              },
+              {
+                "name": "nuclear ubiquitin ligase complex",
+                "go_id": "GO:0000152",
+                "evidence_code": "IEA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "nuclear ubiquitin ligase complex",
+                "go_id": "GO:0000152",
+                "evidence_code": "ISO",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "nucleoplasm",
+                "go_id": "GO:0005654",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "nucleoplasm",
+                "go_id": "GO:0005654",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "nucleoplasm",
+                "go_id": "GO:0005654",
+                "evidence_code": "TAS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "nucleus",
+                "go_id": "GO:0005634",
+                "evidence_code": "IBA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "nucleus",
+                "go_id": "GO:0005634",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "11172592",
+                    "11477095"
+                  ]
+                }
+              },
+              {
+                "name": "nucleus",
+                "go_id": "GO:0005634",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "nucleus",
+                "go_id": "GO:0005634",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "nucleus",
+                "go_id": "GO:0005634",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "protein-containing complex",
+                "go_id": "GO:0032991",
+                "evidence_code": "IEA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "protein-containing complex",
+                "go_id": "GO:0032991",
+                "evidence_code": "ISO",
+                "qualifier": "part_of",
+                "reference": {
+                  "pmids": [
+                    "16951165"
+                  ]
+                }
+              },
+              {
+                "name": "secretory granule",
+                "go_id": "GO:0030141",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "secretory granule",
+                "go_id": "GO:0030141",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "site of double-strand break",
+                "go_id": "GO:0035861",
+                "evidence_code": "IEA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "site of double-strand break",
+                "go_id": "GO:0035861",
+                "evidence_code": "ISO",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "site of double-strand break",
+                "go_id": "GO:0035861",
+                "evidence_code": "ISS",
+                "qualifier": "is_active_in"
+              }
+            ]
+          },
+          "map_locations": [
+            {
+              "map_type": "Cytogenetic",
+              "map_value": "5 G3"
+            },
+            {
+              "map_type": "Genetic",
+              "map_value": "5 89.52 cM"
+            }
+          ]
+        },
+        "query": [
+          "12190"
+        ]
+      }
+    ],
+    "total_count": 1
+  }
+}

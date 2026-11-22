@@ -1,0 +1,358 @@
+{
+  "url": "https://www.bgee.org/api/?page=gene&action=expression&gene_id=ENSG00000232810&species_id=9606&display_type=json&cond_param=anat_entity&expr_type=NOT_EXPRESSED",
+  "retrieved_utc": "2026-11-22T01:48:18+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:48:18 GMT",
+    "content-type": "application/json;charset=UTF-8",
+    "transfer-encoding": "chunked",
+    "connection": "close",
+    "strict-transport-security": "max-age=63072000; includeSubDomains",
+    "access-control-allow-origin": "*",
+    "access-control-allow-methods": "POST, GET, OPTIONS, DELETE",
+    "access-control-max-age": "3600",
+    "access-control-allow-headers": "Origin, Accept, X-Requested-With, Content-Type,Access-Control-Request-Method, Access-Control-Request-Headers",
+    "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "server": "cloudflare",
+    "x-frame-options": "DENY",
+    "x-content-type-options": "nosniff",
+    "x-xss-protection": "1; mode=block",
+    "cache-control": "no-cache",
+    "set-cookie": "__Host-bgeeUUID=e3750afd-b68a-387a-9cda-f5d84256a6b4--1795312097555; Max-Age=63072000; Expires=Tue, 21-Nov-2028 01:48:18 GMT; Path=/;HttpOnly;Secure;SameSite=Strict",
+    "cf-cache-status": "DYNAMIC",
+    "vary": "accept-encoding",
+    "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=cvlxSiymVxg9LRfiXph%2Fq%2BJDqcR8xSKESp7vlMp9r%2FAi2V6S2iQZT2fGuTxZxmBJgGe%2Fxcsh2DXA%2FDh7QOo9U9v4BIQ1paI4cHIfdUMku1ZWJebHgH2TvjQZlt9jmQ%3D%3D\"}]}",
+    "cf-ray": "a5e445614d6194d8-LHR"
+  },
+  "response": {
+    "code": 200,
+    "status": "SUCCESS",
+    "message": "Reported absence of expression",
+    "data": {
+      "requestedCallType": "NOT_EXPRESSED",
+      "requestedDataTypes": [
+        "Affymetrix",
+        "EST",
+        "in situ hybridization",
+        "single-cell RNA-Seq",
+        "RNA-Seq"
+      ],
+      "requestedConditionParameters": [
+        "Anat. entity"
+      ],
+      "calls": [
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0004533",
+              "name": "left testis"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "16.72",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.561",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0004534",
+              "name": "right testis"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "17.36",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.449",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002336",
+              "name": "corpus callosum"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "17.61",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "1",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000458",
+              "name": "endocervix"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "25.24",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.823",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0018303",
+              "name": "adrenal tissue"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "29.23",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.337",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "CL:0002255",
+              "name": "stromal cell of endometrium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "29.87",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "1",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002436",
+              "name": "primary visual cortex"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "30.33",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.822",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001302",
+              "name": "right uterine tube"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "32.05",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.317",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0003701",
+              "name": "calcaneal tendon"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "33.28",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.796",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0015488",
+              "name": "sural nerve"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "35.15",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "1",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0005343",
+              "name": "cortical plate"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "36.47",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "1",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0003053",
+              "name": "ventricular zone"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "36.48",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "1",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0004023",
+              "name": "ganglionic eminence"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "37.25",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.282",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0035834",
+              "name": "lower esophagus mucosa"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "40.51",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.083",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "not_expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        }
+      ],
+      "gene": {
+        "geneId": "ENSG00000232810",
+        "name": "TNF",
+        "species": {
+          "id": 9606,
+          "name": "human",
+          "genus": "Homo",
+          "speciesName": "sapiens",
+          "preferredDisplayOrder": 1,
+          "sourcesOfDataPerDataType": [
+            {
+              "dataType": "RNA-Seq",
+              "sources": [
+                {
+                  "name": "GEO",
+                  "description": "RNA-Seq data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/geo/"
+                },
+                {
+                  "name": "GTEx - dbGAP",
+                  "description": "GTEx RNA-Seq data",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs000424"
+                },
+                {
+                  "name": "SRA",
+                  "description": "RNA-Seq data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/sra/"
+                }
+              ]
+            }
+          ],
+          "sourcesOfAnnotationsPerDataType": [
+            {
+              "dataType": "RNA-Seq",
+              "sources": [
+                {
+                  "name": "Bgee",
+                  "description": "Gene expression data in animals",
+                  "baseUrl": "https://www.bgee.org/"
+                }
+              ]
+            }
+          ]
+        },
+        "geneMappedToSameGeneIdCount": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,690 @@
+{
+  "url": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/70008/dataset_report",
+  "retrieved_utc": "2026-11-22T01:48:09+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:48:09 GMT",
+    "server": "Finatra",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "content-security-policy": "upgrade-insecure-requests",
+    "ncbi-phid": "1D3306DFD8D84C450000314CD0128274.1.1",
+    "content-type": "application/json",
+    "grpc-metadata-via": "h2 linkerd",
+    "x-ratelimit-limit": "5",
+    "x-datasets-version": "18.41.1",
+    "x-ncbi-total-count": "1",
+    "x-ratelimit-remaining": "4",
+    "access-control-expose-headers": "X-RateLimit-Limit,X-RateLimit-Remaining",
+    "vary": "Accept-Encoding",
+    "x-ua-compatible": "IE=Edge",
+    "x-xss-protection": "1; mode=block",
+    "transfer-encoding": "chunked",
+    "via": "1.1 google",
+    "alt-svc": "clear",
+    "connection": "close"
+  },
+  "response": {
+    "reports": [
+      {
+        "gene": {
+          "gene_id": "70008",
+          "symbol": "Ace2",
+          "description": "angiotensin converting enzyme 2",
+          "tax_id": "10090",
+          "taxname": "Mus musculus",
+          "common_name": "house mouse",
+          "type": "PROTEIN_CODING",
+          "orientation": "plus",
+          "chromosomes": [
+            "X"
+          ],
+          "nomenclature_authority": {
+            "authority": "MGI",
+            "identifier": "MGI:1917258"
+          },
+          "swiss_prot_accessions": [
+            "Q8R0I0"
+          ],
+          "ensembl_gene_ids": [
+            "ENSMUSG00000015405"
+          ],
+          "synonyms": [
+            "2010305L05Rik"
+          ],
+          "alternate_names": [
+            "ACE-related carboxypeptidase",
+            "angiotensin I converting enzyme (peptidyl-dipeptidase A) 2",
+            "angiotensin I converting enzyme 2",
+            "angiotensin-converting enzyme 2"
+          ],
+          "annotations": [
+            {
+              "assembly_accession": "GCF_000001635.27",
+              "assembly_name": "GRCm39",
+              "annotation_name": "GCF_000001635.27-RS_2024_02",
+              "annotation_release_date": "2024-02-01",
+              "genomic_locations": [
+                {
+                  "genomic_accession_version": "NC_000086.8",
+                  "sequence_name": "X",
+                  "genomic_range": {
+                    "begin": "162922338",
+                    "end": "162971414",
+                    "orientation": "plus"
+                  }
+                }
+              ]
+            }
+          ],
+          "transcript_count": 2,
+          "protein_count": 2,
+          "transcript_type_counts": [
+            {
+              "type": "PROTEIN_CODING",
+              "count": 2
+            }
+          ],
+          "gene_groups": [
+            {
+              "id": "59272",
+              "method": "NCBI Ortholog"
+            }
+          ],
+          "summary": [
+            {
+              "description": "Enables metallocarboxypeptidase activity. Involved in angiotensin maturation; positive regulation of cardiac muscle contraction; and tryptophan transport. Located in brush border membrane and cytoplasm. Is active in extracellular region. Is expressed in several structures, including blastocyst; brain; early embryo; genitourinary system; and respiratory system. Used to study COVID-19 and congestive heart failure. Human ortholog(s) of this gene implicated in several diseases, including avian influenza; cerebral malaria; hypertension (multiple); respiratory syncytial virus infectious disease; and severe acute respiratory syndrome. Orthologous to human ACE2 (angiotensin converting enzyme 2). [provided by Alliance of Genome Resources, Jul 2025]"
+            }
+          ],
+          "gene_ontology": {
+            "assigned_by": "MGI",
+            "molecular_functions": [
+              {
+                "name": "carboxypeptidase activity",
+                "go_id": "GO:0004180",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "carboxypeptidase activity",
+                "go_id": "GO:0004180",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "carboxypeptidase activity",
+                "go_id": "GO:0004180",
+                "evidence_code": "TAS",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "12075344"
+                  ]
+                }
+              },
+              {
+                "name": "endopeptidase activity",
+                "go_id": "GO:0004175",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "endopeptidase activity",
+                "go_id": "GO:0004175",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "identical protein binding",
+                "go_id": "GO:0042802",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "identical protein binding",
+                "go_id": "GO:0042802",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "metallocarboxypeptidase activity",
+                "go_id": "GO:0004181",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "18263657",
+                    "20357030"
+                  ]
+                }
+              },
+              {
+                "name": "metallocarboxypeptidase activity",
+                "go_id": "GO:0004181",
+                "evidence_code": "IGI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "23462816"
+                  ]
+                }
+              },
+              {
+                "name": "metallopeptidase activity",
+                "go_id": "GO:0008237",
+                "evidence_code": "IBA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "metallopeptidase activity",
+                "go_id": "GO:0008237",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "metallopeptidase activity",
+                "go_id": "GO:0008237",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "peptidyl-dipeptidase activity",
+                "go_id": "GO:0008241",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "peptidyl-dipeptidase activity",
+                "go_id": "GO:0008241",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protein binding",
+                "go_id": "GO:0005515",
+                "evidence_code": "IPI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "19185582",
+                    "34018203",
+                    "34158856"
+                  ]
+                }
+              },
+              {
+                "name": "transporter activator activity",
+                "go_id": "GO:0141109",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "transporter activator activity",
+                "go_id": "GO:0141109",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "virus receptor activity",
+                "go_id": "GO:0001618",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "virus receptor activity",
+                "go_id": "GO:0001618",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "virus receptor activity",
+                "go_id": "GO:0001618",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              }
+            ],
+            "biological_processes": [
+              {
+                "name": "amino acid import across plasma membrane",
+                "go_id": "GO:0089718",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "amino acid import across plasma membrane",
+                "go_id": "GO:0089718",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "angiotensin maturation",
+                "go_id": "GO:0002003",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "angiotensin maturation",
+                "go_id": "GO:0002003",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "18263657"
+                  ]
+                }
+              },
+              {
+                "name": "angiotensin maturation",
+                "go_id": "GO:0002003",
+                "evidence_code": "IGI",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "23462816"
+                  ]
+                }
+              },
+              {
+                "name": "angiotensin maturation",
+                "go_id": "GO:0002003",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "20357030"
+                  ]
+                }
+              },
+              {
+                "name": "angiotensin-mediated drinking behavior",
+                "go_id": "GO:0003051",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "angiotensin-mediated drinking behavior",
+                "go_id": "GO:0003051",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "ceramide biosynthetic process",
+                "go_id": "GO:0046513",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "entry receptor-mediated virion attachment to host cell",
+                "go_id": "GO:0098670",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "entry receptor-mediated virion attachment to host cell",
+                "go_id": "GO:0098670",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "maternal process involved in female pregnancy",
+                "go_id": "GO:0060135",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of ERK1 and ERK2 cascade",
+                "go_id": "GO:0070373",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of ERK1 and ERK2 cascade",
+                "go_id": "GO:0070373",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of smooth muscle cell proliferation",
+                "go_id": "GO:0048662",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of smooth muscle cell proliferation",
+                "go_id": "GO:0048662",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0000122",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of transcription by RNA polymerase II",
+                "go_id": "GO:0000122",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of L-proline import across plasma membrane",
+                "go_id": "GO:1905737",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of L-proline import across plasma membrane",
+                "go_id": "GO:1905737",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of amino acid transport",
+                "go_id": "GO:0051957",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of amino acid transport",
+                "go_id": "GO:0051957",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cardiac muscle contraction",
+                "go_id": "GO:0060452",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "12075344"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of gap junction assembly",
+                "go_id": "GO:1903598",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of gap junction assembly",
+                "go_id": "GO:1903598",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "proteolysis",
+                "go_id": "GO:0006508",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "receptor-mediated virion attachment to host cell",
+                "go_id": "GO:0046813",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "receptor-mediated virion attachment to host cell",
+                "go_id": "GO:0046813",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of cardiac conduction",
+                "go_id": "GO:1903779",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of cardiac conduction",
+                "go_id": "GO:1903779",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of inflammatory response",
+                "go_id": "GO:0050727",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of inflammatory response",
+                "go_id": "GO:0050727",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of systemic arterial blood pressure by renin-angiotensin",
+                "go_id": "GO:0003081",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of systemic arterial blood pressure by renin-angiotensin",
+                "go_id": "GO:0003081",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "symbiont entry into host cell",
+                "go_id": "GO:0046718",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "symbiont entry into host cell",
+                "go_id": "GO:0046718",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_positive_effect"
+              },
+              {
+                "name": "symbiont entry into host cell",
+                "go_id": "GO:0046718",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "tryptophan transport",
+                "go_id": "GO:0015827",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "22837003"
+                  ]
+                }
+              }
+            ],
+            "cellular_components": [
+              {
+                "name": "apical plasma membrane",
+                "go_id": "GO:0016324",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "apical plasma membrane",
+                "go_id": "GO:0016324",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "apical plasma membrane",
+                "go_id": "GO:0016324",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "brush border membrane",
+                "go_id": "GO:0031526",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "19185582"
+                  ]
+                }
+              },
+              {
+                "name": "brush border membrane",
+                "go_id": "GO:0031526",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "brush border membrane",
+                "go_id": "GO:0031526",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cell surface",
+                "go_id": "GO:0009986",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cell surface",
+                "go_id": "GO:0009986",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cell surface",
+                "go_id": "GO:0009986",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cilium",
+                "go_id": "GO:0005929",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cytoplasm",
+                "go_id": "GO:0005737",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "23535237"
+                  ]
+                }
+              },
+              {
+                "name": "cytoplasm",
+                "go_id": "GO:0005737",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "IBA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "IDA",
+                "qualifier": "is_active_in",
+                "reference": {
+                  "pmids": [
+                    "26029927"
+                  ]
+                }
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "membrane",
+                "go_id": "GO:0016020",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "IBA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "23535237"
+                  ]
+                }
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "ISO",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "transmembrane transporter complex",
+                "go_id": "GO:1902495",
+                "evidence_code": "IEA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "transmembrane transporter complex",
+                "go_id": "GO:1902495",
+                "evidence_code": "ISO",
+                "qualifier": "part_of"
+              }
+            ]
+          },
+          "map_locations": [
+            {
+              "map_type": "Cytogenetic",
+              "map_value": "X F5"
+            },
+            {
+              "map_type": "Genetic",
+              "map_value": "X 76.12 cM"
+            }
+          ]
+        },
+        "query": [
+          "70008"
+        ]
+      }
+    ],
+    "total_count": 1
+  }
+}

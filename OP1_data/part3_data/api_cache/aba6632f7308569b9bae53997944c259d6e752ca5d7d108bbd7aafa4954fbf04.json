@@ -1,0 +1,532 @@
+{
+  "url": "https://www.bgee.org/api/?page=gene&action=expression&gene_id=ENSG00000188771&species_id=9606&display_type=json&cond_param=anat_entity&expr_type=EXPRESSED",
+  "retrieved_utc": "2026-11-22T01:48:37+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:48:37 GMT",
+    "content-type": "application/json;charset=UTF-8",
+    "transfer-encoding": "chunked",
+    "connection": "close",
+    "strict-transport-security": "max-age=63072000; includeSubDomains",
+    "access-control-allow-origin": "*",
+    "access-control-allow-methods": "POST, GET, OPTIONS, DELETE",
+    "access-control-max-age": "3600",
+    "access-control-allow-headers": "Origin, Accept, X-Requested-With, Content-Type,Access-Control-Request-Method, Access-Control-Request-Headers",
+    "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "server": "cloudflare",
+    "x-frame-options": "DENY",
+    "x-content-type-options": "nosniff",
+    "x-xss-protection": "1; mode=block",
+    "cache-control": "no-cache",
+    "set-cookie": "__Host-bgeeUUID=1780249e-2135-3a7c-a46f-f7757e61ab24--1795312117092; Max-Age=63072000; Expires=Tue, 21-Nov-2028 01:48:37 GMT; Path=/;HttpOnly;Secure;SameSite=Strict",
+    "cf-cache-status": "DYNAMIC",
+    "vary": "accept-encoding",
+    "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=jp%2FtVmJ3MR3A0FrqHuVM6zd8TBuQmOIIzEhqp4yUDBOFIuLCjYX5%2BRGsZCuWSixQSpZXTlwknmh%2BR3r6cUsD1IN43tfmZMVrTULVuGRvswYFnl2J8fs4GQzYWBRfTw%3D%3D\"}]}",
+    "cf-ray": "a5e445dbbd20ed0c-LHR"
+  },
+  "response": {
+    "code": 200,
+    "status": "SUCCESS",
+    "message": "Gene expression for gene: ENSG00000188771 - PLET1",
+    "data": {
+      "requestedCallType": "EXPRESSED",
+      "requestedDataTypes": [
+        "Affymetrix",
+        "EST",
+        "in situ hybridization",
+        "single-cell RNA-Seq",
+        "RNA-Seq"
+      ],
+      "requestedConditionParameters": [
+        "Anat. entity"
+      ],
+      "calls": [
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000397",
+              "name": "colonic epithelium"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "63.65",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.011",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0015488",
+              "name": "sural nerve"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "61.50",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.016",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0003701",
+              "name": "calcaneal tendon"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "54.48",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.008",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0018303",
+              "name": "adrenal tissue"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "49.94",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.008",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000006",
+              "name": "islet of Langerhans"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "42.70",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.002",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "gold",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001199",
+              "name": "mucosa of stomach"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "39.88",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.025",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002167",
+              "name": "right lung"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "38.10",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.017",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0035825",
+              "name": "left adrenal gland cortex"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "36.23",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.046",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002196",
+              "name": "adenohypophysis"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "34.39",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.013",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001233",
+              "name": "right adrenal gland"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "34.17",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.017",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001511",
+              "name": "skin of leg"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "33.51",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.039",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0005200",
+              "name": "thoracic mammary gland"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "32.07",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.03",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002108",
+              "name": "small intestine"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "31.21",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.02",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002465",
+              "name": "lymphoid system"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "31.15",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.021",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0012249",
+              "name": "ectocervix"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "30.68",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.037",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0003454",
+              "name": "small intestine Peyer's patch"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "30.36",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.016",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002110",
+              "name": "gall bladder"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "29.73",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.01",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0001135",
+              "name": "smooth muscle tissue"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "28.64",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.035",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0035805",
+              "name": "muscle layer of sigmoid colon"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "28.24",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.024",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0002367",
+              "name": "prostate gland"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "27.82",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.042",
+          "dataTypesWithData": [
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000991",
+              "name": "gonad"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "20.65",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.019",
+          "dataTypesWithData": [
+            "single-cell RNA-Seq",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        },
+        {
+          "condition": {
+            "anatEntity": {
+              "id": "UBERON:0000473",
+              "name": "testis"
+            }
+          },
+          "expressionScore": {
+            "expressionScore": "15.70",
+            "expressionScoreConfidence": "high"
+          },
+          "fdr": "0.013",
+          "dataTypesWithData": [
+            "single-cell RNA-Seq",
+            "RNA-Seq"
+          ],
+          "expressionState": "expressed",
+          "expressionQuality": "silver",
+          "clusterIndex": 0
+        }
+      ],
+      "gene": {
+        "geneId": "ENSG00000188771",
+        "name": "PLET1",
+        "species": {
+          "id": 9606,
+          "name": "human",
+          "genus": "Homo",
+          "speciesName": "sapiens",
+          "preferredDisplayOrder": 1,
+          "sourcesOfDataPerDataType": [
+            {
+              "dataType": "single-cell RNA-Seq",
+              "sources": [
+                {
+                  "name": "SRA",
+                  "description": "Single-cell RNA-Seq data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/sra/"
+                }
+              ]
+            },
+            {
+              "dataType": "RNA-Seq",
+              "sources": [
+                {
+                  "name": "GEO",
+                  "description": "RNA-Seq data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/geo/"
+                },
+                {
+                  "name": "GTEx - dbGAP",
+                  "description": "GTEx RNA-Seq data",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs000424"
+                },
+                {
+                  "name": "SRA",
+                  "description": "RNA-Seq data source for various species",
+                  "baseUrl": "https://www.ncbi.nlm.nih.gov/sra/"
+                }
+              ]
+            }
+          ],
+          "sourcesOfAnnotationsPerDataType": [
+            {
+              "dataType": "single-cell RNA-Seq",
+              "sources": [
+                {
+                  "name": "Bgee",
+                  "description": "Gene expression data in animals",
+                  "baseUrl": "https://www.bgee.org/"
+                }
+              ]
+            },
+            {
+              "dataType": "RNA-Seq",
+              "sources": [
+                {
+                  "name": "Bgee",
+                  "description": "Gene expression data in animals",
+                  "baseUrl": "https://www.bgee.org/"
+                }
+              ]
+            }
+          ]
+        },
+        "geneMappedToSameGeneIdCount": 1
+      }
+    }
+  }
+}

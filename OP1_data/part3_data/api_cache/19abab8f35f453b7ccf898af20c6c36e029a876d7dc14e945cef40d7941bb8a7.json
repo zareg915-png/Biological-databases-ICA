@@ -1,0 +1,2426 @@
+{
+  "url": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/11816/dataset_report",
+  "retrieved_utc": "2026-11-22T01:47:52+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:47:51 GMT",
+    "server": "Finatra",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "content-security-policy": "upgrade-insecure-requests",
+    "ncbi-phid": "1D340A36BF5C2DD50000544C72DA032B.1.1",
+    "content-type": "application/json",
+    "grpc-metadata-via": "h2 linkerd",
+    "x-ratelimit-limit": "5",
+    "x-datasets-version": "18.41.1",
+    "x-ncbi-total-count": "1",
+    "x-ratelimit-remaining": "4",
+    "access-control-expose-headers": "X-RateLimit-Limit,X-RateLimit-Remaining",
+    "vary": "Accept-Encoding",
+    "x-ua-compatible": "IE=Edge",
+    "x-xss-protection": "1; mode=block",
+    "transfer-encoding": "chunked",
+    "via": "1.1 google",
+    "alt-svc": "clear",
+    "connection": "close"
+  },
+  "response": {
+    "reports": [
+      {
+        "gene": {
+          "gene_id": "11816",
+          "symbol": "Apoe",
+          "description": "apolipoprotein E",
+          "tax_id": "10090",
+          "taxname": "Mus musculus",
+          "common_name": "house mouse",
+          "type": "PROTEIN_CODING",
+          "orientation": "minus",
+          "chromosomes": [
+            "7"
+          ],
+          "nomenclature_authority": {
+            "authority": "MGI",
+            "identifier": "MGI:88057"
+          },
+          "swiss_prot_accessions": [
+            "P08226"
+          ],
+          "ensembl_gene_ids": [
+            "ENSMUSG00000002985"
+          ],
+          "synonyms": [
+            "Apo-E"
+          ],
+          "annotations": [
+            {
+              "assembly_accession": "GCF_000001635.27",
+              "assembly_name": "GRCm39",
+              "annotation_name": "GCF_000001635.27-RS_2024_02",
+              "annotation_release_date": "2024-02-01",
+              "genomic_locations": [
+                {
+                  "genomic_accession_version": "NC_000073.7",
+                  "sequence_name": "7",
+                  "genomic_range": {
+                    "begin": "19430169",
+                    "end": "19434326",
+                    "orientation": "minus"
+                  }
+                }
+              ]
+            }
+          ],
+          "transcript_count": 5,
+          "protein_count": 5,
+          "transcript_type_counts": [
+            {
+              "type": "PROTEIN_CODING",
+              "count": 4
+            },
+            {
+              "type": "PROTEIN_CODING_MODEL",
+              "count": 1
+            }
+          ],
+          "gene_groups": [
+            {
+              "id": "348",
+              "method": "NCBI Ortholog"
+            }
+          ],
+          "summary": [
+            {
+              "description": "This gene encodes a member of the apolipoprotein A1/A4/E family of proteins. This protein is involved in the transport of lipoproteins in the blood. It binds to a specific liver and peripheral cell receptor, and is essential for the normal catabolism of triglyceride-rich lipoprotein constituents. Homozygous knockout mice for this gene accumulate high levels of cholesterol in the blood and develop atherosclerosis. Different alleles of this gene have been associated with either increased risk or a protective effect for Alzheimer's disease in human patients. This gene maps to chromosome 7 in a cluster with the related apolipoprotein C1, C2 and C4 genes. [provided by RefSeq, Apr 2015]"
+            }
+          ],
+          "gene_ontology": {
+            "assigned_by": "MGI",
+            "molecular_functions": [
+              {
+                "name": "amyloid-beta binding",
+                "go_id": "GO:0001540",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "amyloid-beta binding",
+                "go_id": "GO:0001540",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "amyloid-beta binding",
+                "go_id": "GO:0001540",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "antioxidant activity",
+                "go_id": "GO:0016209",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "antioxidant activity",
+                "go_id": "GO:0016209",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "cholesterol transfer activity",
+                "go_id": "GO:0120020",
+                "evidence_code": "IBA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "cholesterol transfer activity",
+                "go_id": "GO:0120020",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "15269218"
+                  ]
+                }
+              },
+              {
+                "name": "enzyme binding",
+                "go_id": "GO:0019899",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "enzyme binding",
+                "go_id": "GO:0019899",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "heparan sulfate proteoglycan binding",
+                "go_id": "GO:0043395",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "23676495"
+                  ]
+                }
+              },
+              {
+                "name": "heparan sulfate proteoglycan binding",
+                "go_id": "GO:0043395",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "heparan sulfate proteoglycan binding",
+                "go_id": "GO:0043395",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "heparin binding",
+                "go_id": "GO:0008201",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "heparin binding",
+                "go_id": "GO:0008201",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "heparin binding",
+                "go_id": "GO:0008201",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "hydroxyapatite binding",
+                "go_id": "GO:0046848",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "identical protein binding",
+                "go_id": "GO:0042802",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "identical protein binding",
+                "go_id": "GO:0042802",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "identical protein binding",
+                "go_id": "GO:0042802",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "lipid binding",
+                "go_id": "GO:0008289",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "lipid binding",
+                "go_id": "GO:0008289",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "lipid carrier activity",
+                "go_id": "GO:0005319",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "lipid carrier activity",
+                "go_id": "GO:0005319",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "lipoprotein particle binding",
+                "go_id": "GO:0071813",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "11553788"
+                  ]
+                }
+              },
+              {
+                "name": "low-density lipoprotein particle receptor binding",
+                "go_id": "GO:0050750",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "low-density lipoprotein particle receptor binding",
+                "go_id": "GO:0050750",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "low-density lipoprotein particle receptor binding",
+                "go_id": "GO:0050750",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "metal chelating activity",
+                "go_id": "GO:0046911",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "metal chelating activity",
+                "go_id": "GO:0046911",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "phosphatidylcholine-sterol O-acyltransferase activator activity",
+                "go_id": "GO:0060228",
+                "evidence_code": "IBA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "phosphatidylcholine-sterol O-acyltransferase activator activity",
+                "go_id": "GO:0060228",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "phosphatidylcholine-sterol O-acyltransferase activator activity",
+                "go_id": "GO:0060228",
+                "evidence_code": "IMP",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "15654758"
+                  ]
+                }
+              },
+              {
+                "name": "phosphatidylcholine-sterol O-acyltransferase activator activity",
+                "go_id": "GO:0060228",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "phospholipid binding",
+                "go_id": "GO:0005543",
+                "evidence_code": "IBA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "phospholipid binding",
+                "go_id": "GO:0005543",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "phospholipid binding",
+                "go_id": "GO:0005543",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protein binding",
+                "go_id": "GO:0005515",
+                "evidence_code": "IPI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "23055941",
+                    "29507344"
+                  ]
+                }
+              },
+              {
+                "name": "protein dimerization activity",
+                "go_id": "GO:0046983",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protein dimerization activity",
+                "go_id": "GO:0046983",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protein homodimerization activity",
+                "go_id": "GO:0042803",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protein homodimerization activity",
+                "go_id": "GO:0042803",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protein-containing complex binding",
+                "go_id": "GO:0044877",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protein-containing complex binding",
+                "go_id": "GO:0044877",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "receptor ligand activity",
+                "go_id": "GO:0048018",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "receptor ligand activity",
+                "go_id": "GO:0048018",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "signaling receptor binding",
+                "go_id": "GO:0005102",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "signaling receptor binding",
+                "go_id": "GO:0005102",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "tau protein binding",
+                "go_id": "GO:0048156",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "tau protein binding",
+                "go_id": "GO:0048156",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "very-low-density lipoprotein particle receptor binding",
+                "go_id": "GO:0070326",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "very-low-density lipoprotein particle receptor binding",
+                "go_id": "GO:0070326",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              }
+            ],
+            "biological_processes": [
+              {
+                "name": "AMPA glutamate receptor clustering",
+                "go_id": "GO:0097113",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within_positive_effect"
+              },
+              {
+                "name": "G protein-coupled receptor signaling pathway",
+                "go_id": "GO:0007186",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "G protein-coupled receptor signaling pathway",
+                "go_id": "GO:0007186",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "NMDA glutamate receptor clustering",
+                "go_id": "GO:0097114",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within_positive_effect"
+              },
+              {
+                "name": "acylglycerol homeostasis",
+                "go_id": "GO:0055090",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "amyloid precursor protein metabolic process",
+                "go_id": "GO:0042982",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "amyloid precursor protein metabolic process",
+                "go_id": "GO:0042982",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "artery development",
+                "go_id": "GO:0060840",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "31163988"
+                  ]
+                }
+              },
+              {
+                "name": "artery morphogenesis",
+                "go_id": "GO:0048844",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "16230502"
+                  ]
+                }
+              },
+              {
+                "name": "axon regeneration",
+                "go_id": "GO:0031103",
+                "evidence_code": "IGI",
+                "qualifier": "NOT acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "7798939"
+                  ]
+                }
+              },
+              {
+                "name": "blood vessel development",
+                "go_id": "GO:0001568",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "36281455"
+                  ]
+                }
+              },
+              {
+                "name": "calcium ion homeostasis",
+                "go_id": "GO:0055074",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "36281455"
+                  ]
+                }
+              },
+              {
+                "name": "cellular oxidant detoxification",
+                "go_id": "GO:0098869",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to amyloid-beta",
+                "go_id": "GO:1904646",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "cellular response to lipoprotein particle stimulus",
+                "go_id": "GO:0071402",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to lipoprotein particle stimulus",
+                "go_id": "GO:0071402",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "cellular response to lipoprotein particle stimulus",
+                "go_id": "GO:0071402",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cholesterol catabolic process",
+                "go_id": "GO:0006707",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9826706"
+                  ]
+                }
+              },
+              {
+                "name": "cholesterol efflux",
+                "go_id": "GO:0033344",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cholesterol efflux",
+                "go_id": "GO:0033344",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "15269218"
+                  ]
+                }
+              },
+              {
+                "name": "cholesterol efflux",
+                "go_id": "GO:0033344",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cholesterol efflux",
+                "go_id": "GO:0033344",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "11551841"
+                  ]
+                }
+              },
+              {
+                "name": "cholesterol efflux",
+                "go_id": "GO:0033344",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cholesterol homeostasis",
+                "go_id": "GO:0042632",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cholesterol homeostasis",
+                "go_id": "GO:0042632",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "11120757",
+                    "16230502"
+                  ]
+                }
+              },
+              {
+                "name": "cholesterol homeostasis",
+                "go_id": "GO:0042632",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "1423598",
+                    "7798939"
+                  ]
+                }
+              },
+              {
+                "name": "cholesterol homeostasis",
+                "go_id": "GO:0042632",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "23741427"
+                  ]
+                }
+              },
+              {
+                "name": "cholesterol homeostasis",
+                "go_id": "GO:0042632",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cholesterol metabolic process",
+                "go_id": "GO:0008203",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cholesterol metabolic process",
+                "go_id": "GO:0008203",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cholesterol metabolic process",
+                "go_id": "GO:0008203",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "36281455"
+                  ]
+                }
+              },
+              {
+                "name": "cholesterol metabolic process",
+                "go_id": "GO:0008203",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "1423598",
+                    "8647961"
+                  ]
+                }
+              },
+              {
+                "name": "cholesterol metabolic process",
+                "go_id": "GO:0008203",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "chylomicron remnant clearance",
+                "go_id": "GO:0034382",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "chylomicron remnant clearance",
+                "go_id": "GO:0034382",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "chylomicron remnant clearance",
+                "go_id": "GO:0034382",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "circulatory system development",
+                "go_id": "GO:0072359",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "19816508"
+                  ]
+                }
+              },
+              {
+                "name": "fatty acid homeostasis",
+                "go_id": "GO:0055089",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "fatty acid homeostasis",
+                "go_id": "GO:0055089",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "fatty acid metabolic process",
+                "go_id": "GO:0006631",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "36281455"
+                  ]
+                }
+              },
+              {
+                "name": "gene expression",
+                "go_id": "GO:0010467",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within_negative_effect",
+                "reference": {
+                  "pmids": [
+                    "26397958"
+                  ]
+                }
+              },
+              {
+                "name": "high-density lipoprotein particle assembly",
+                "go_id": "GO:0034380",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "high-density lipoprotein particle assembly",
+                "go_id": "GO:0034380",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "high-density lipoprotein particle assembly",
+                "go_id": "GO:0034380",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "high-density lipoprotein particle clearance",
+                "go_id": "GO:0034384",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "high-density lipoprotein particle clearance",
+                "go_id": "GO:0034384",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "high-density lipoprotein particle remodeling",
+                "go_id": "GO:0034375",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "high-density lipoprotein particle remodeling",
+                "go_id": "GO:0034375",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "host-mediated activation of viral process",
+                "go_id": "GO:0044794",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "host-mediated activation of viral process",
+                "go_id": "GO:0044794",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "intermediate-density lipoprotein particle clearance",
+                "go_id": "GO:0071831",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "intermediate-density lipoprotein particle clearance",
+                "go_id": "GO:0071831",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "intermediate-density lipoprotein particle clearance",
+                "go_id": "GO:0071831",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "intracellular calcium ion homeostasis",
+                "go_id": "GO:0006874",
+                "evidence_code": "IDA",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "8185566"
+                  ]
+                }
+              },
+              {
+                "name": "intracellular protein localization",
+                "go_id": "GO:0008104",
+                "evidence_code": "IMP",
+                "qualifier": "NOT acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9325076"
+                  ]
+                }
+              },
+              {
+                "name": "lipid homeostasis",
+                "go_id": "GO:0055088",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17720994"
+                  ]
+                }
+              },
+              {
+                "name": "lipid metabolic process",
+                "go_id": "GO:0006629",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "11120757"
+                  ]
+                }
+              },
+              {
+                "name": "lipid transport",
+                "go_id": "GO:0006869",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "lipid transport",
+                "go_id": "GO:0006869",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "lipid transport involved in lipid storage",
+                "go_id": "GO:0010877",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "23741427"
+                  ]
+                }
+              },
+              {
+                "name": "lipoprotein biosynthetic process",
+                "go_id": "GO:0042158",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "lipoprotein biosynthetic process",
+                "go_id": "GO:0042158",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "14595002"
+                  ]
+                }
+              },
+              {
+                "name": "lipoprotein biosynthetic process",
+                "go_id": "GO:0042158",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "lipoprotein biosynthetic process",
+                "go_id": "GO:0042158",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "lipoprotein catabolic process",
+                "go_id": "GO:0042159",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17720994"
+                  ]
+                }
+              },
+              {
+                "name": "lipoprotein metabolic process",
+                "go_id": "GO:0042157",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "lipoprotein metabolic process",
+                "go_id": "GO:0042157",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "11120757",
+                    "13130124"
+                  ]
+                }
+              },
+              {
+                "name": "lipoprotein metabolic process",
+                "go_id": "GO:0042157",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9788969"
+                  ]
+                }
+              },
+              {
+                "name": "lipoprotein metabolic process",
+                "go_id": "GO:0042157",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "locomotory exploration behavior",
+                "go_id": "GO:0035641",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "locomotory exploration behavior",
+                "go_id": "GO:0035641",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "long-chain fatty acid transport",
+                "go_id": "GO:0015909",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "long-chain fatty acid transport",
+                "go_id": "GO:0015909",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "long-term memory",
+                "go_id": "GO:0007616",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "long-term memory",
+                "go_id": "GO:0007616",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "low-density lipoprotein particle remodeling",
+                "go_id": "GO:0034374",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "15654758"
+                  ]
+                }
+              },
+              {
+                "name": "maintenance of location in cell",
+                "go_id": "GO:0051651",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17720994"
+                  ]
+                }
+              },
+              {
+                "name": "melanosome organization",
+                "go_id": "GO:0032438",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "melanosome organization",
+                "go_id": "GO:0032438",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "26387950"
+                  ]
+                }
+              },
+              {
+                "name": "melanosome organization",
+                "go_id": "GO:0032438",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of MAPK cascade",
+                "go_id": "GO:0043409",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of MAPK cascade",
+                "go_id": "GO:0043409",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of amyloid fibril formation",
+                "go_id": "GO:1905907",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "14741101"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of amyloid-beta formation",
+                "go_id": "GO:1902430",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of amyloid-beta formation",
+                "go_id": "GO:1902430",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of blood coagulation",
+                "go_id": "GO:0030195",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of blood coagulation",
+                "go_id": "GO:0030195",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of blood vessel endothelial cell migration",
+                "go_id": "GO:0043537",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of blood vessel endothelial cell migration",
+                "go_id": "GO:0043537",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of canonical Wnt signaling pathway",
+                "go_id": "GO:0090090",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of canonical Wnt signaling pathway",
+                "go_id": "GO:0090090",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of cholesterol biosynthetic process",
+                "go_id": "GO:0045541",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of cholesterol biosynthetic process",
+                "go_id": "GO:0045541",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of cholesterol efflux",
+                "go_id": "GO:0090370",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of dendritic spine development",
+                "go_id": "GO:0061000",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "negative regulation of dendritic spine maintenance",
+                "go_id": "GO:1902951",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "negative regulation of endothelial cell migration",
+                "go_id": "GO:0010596",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of endothelial cell migration",
+                "go_id": "GO:0010596",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of endothelial cell proliferation",
+                "go_id": "GO:0001937",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of endothelial cell proliferation",
+                "go_id": "GO:0001937",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of gene expression",
+                "go_id": "GO:0010629",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "18377911"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of inflammatory response",
+                "go_id": "GO:0050728",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of inflammatory response",
+                "go_id": "GO:0050728",
+                "evidence_code": "IGI",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21784977"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of inflammatory response",
+                "go_id": "GO:0050728",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of lipid biosynthetic process",
+                "go_id": "GO:0051055",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of lipid metabolic process",
+                "go_id": "GO:0045833",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of lipid transport across blood-brain barrier",
+                "go_id": "GO:1903001",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of long-term synaptic potentiation",
+                "go_id": "GO:1900272",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of long-term synaptic potentiation",
+                "go_id": "GO:1900272",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of neuron projection development",
+                "go_id": "GO:0010977",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of neuron projection development",
+                "go_id": "GO:0010977",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of phospholipid efflux",
+                "go_id": "GO:1902999",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of platelet activation",
+                "go_id": "GO:0010544",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of platelet activation",
+                "go_id": "GO:0010544",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of platelet-derived growth factor receptor signaling pathway",
+                "go_id": "GO:0010642",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of platelet-derived growth factor receptor signaling pathway",
+                "go_id": "GO:0010642",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of postsynaptic membrane organization",
+                "go_id": "GO:1901627",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of protein metabolic process",
+                "go_id": "GO:0051248",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of protein metabolic process",
+                "go_id": "GO:0051248",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of protein secretion",
+                "go_id": "GO:0050709",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of protein secretion",
+                "go_id": "GO:0050709",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of smooth muscle cell proliferation",
+                "go_id": "GO:0048662",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of",
+                "reference": {
+                  "pmids": [
+                    "18382765"
+                  ]
+                }
+              },
+              {
+                "name": "negative regulation of triglyceride metabolic process",
+                "go_id": "GO:0090209",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9240444"
+                  ]
+                }
+              },
+              {
+                "name": "neuron projection development",
+                "go_id": "GO:0031175",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "neuron projection development",
+                "go_id": "GO:0031175",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "nitric oxide-cGMP-mediated signaling",
+                "go_id": "GO:0038060",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "nitric oxide-cGMP-mediated signaling",
+                "go_id": "GO:0038060",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "phospholipid efflux",
+                "go_id": "GO:0033700",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "phospholipid efflux",
+                "go_id": "GO:0033700",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "phospholipid efflux",
+                "go_id": "GO:0033700",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of DNA-templated transcription",
+                "go_id": "GO:0045893",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of DNA-templated transcription",
+                "go_id": "GO:0045893",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of ERK1 and ERK2 cascade",
+                "go_id": "GO:0070374",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of ERK1 and ERK2 cascade",
+                "go_id": "GO:0070374",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of amyloid-beta clearance",
+                "go_id": "GO:1900223",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "14741101"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of amyloid-beta formation",
+                "go_id": "GO:1902004",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of axon extension",
+                "go_id": "GO:0045773",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cholesterol efflux",
+                "go_id": "GO:0010875",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cholesterol efflux",
+                "go_id": "GO:0010875",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "31902528"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of cholesterol efflux",
+                "go_id": "GO:0010875",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cholesterol metabolic process",
+                "go_id": "GO:0090205",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of cholesterol metabolic process",
+                "go_id": "GO:0090205",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "15654758"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of cholesterol metabolic process",
+                "go_id": "GO:0090205",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of dendritic spine development",
+                "go_id": "GO:0060999",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "positive regulation of dendritic spine maintenance",
+                "go_id": "GO:1902952",
+                "evidence_code": "ISO",
+                "qualifier": "acts_upstream_of_or_within"
+              },
+              {
+                "name": "positive regulation of endocytosis",
+                "go_id": "GO:0045807",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of endocytosis",
+                "go_id": "GO:0045807",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of lipid biosynthetic process",
+                "go_id": "GO:0046889",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of lipid biosynthetic process",
+                "go_id": "GO:0046889",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of lipid transport across blood-brain barrier",
+                "go_id": "GO:1903002",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of lipid transport across blood-brain barrier",
+                "go_id": "GO:1903002",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of lipoprotein transport",
+                "go_id": "GO:0140077",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of lipoprotein transport",
+                "go_id": "GO:0140077",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of low-density lipoprotein particle receptor catabolic process",
+                "go_id": "GO:0032805",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of low-density lipoprotein particle receptor catabolic process",
+                "go_id": "GO:0032805",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of membrane protein ectodomain proteolysis",
+                "go_id": "GO:0051044",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of membrane protein ectodomain proteolysis",
+                "go_id": "GO:0051044",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of neurofibrillary tangle assembly",
+                "go_id": "GO:1902998",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of neuron projection development",
+                "go_id": "GO:0010976",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of neuron projection development",
+                "go_id": "GO:0010976",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "23845000"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of neuron projection development",
+                "go_id": "GO:0010976",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of nitric oxide biosynthetic process",
+                "go_id": "GO:0045429",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of nitric oxide biosynthetic process",
+                "go_id": "GO:0045429",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of phospholipid efflux",
+                "go_id": "GO:1902995",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of phospholipid efflux",
+                "go_id": "GO:1902995",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of presynaptic membrane organization",
+                "go_id": "GO:1901631",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "protein import",
+                "go_id": "GO:0017038",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "receptor-mediated endocytosis",
+                "go_id": "GO:0006898",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "receptor-mediated endocytosis",
+                "go_id": "GO:0006898",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of Cdc42 protein signal transduction",
+                "go_id": "GO:0032489",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of Cdc42 protein signal transduction",
+                "go_id": "GO:0032489",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of amyloid fibril formation",
+                "go_id": "GO:1905906",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of amyloid fibril formation",
+                "go_id": "GO:1905906",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of amyloid precursor protein catabolic process",
+                "go_id": "GO:1902991",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of amyloid precursor protein catabolic process",
+                "go_id": "GO:1902991",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of amyloid-beta clearance",
+                "go_id": "GO:1900221",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of amyloid-beta clearance",
+                "go_id": "GO:1900221",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of apoptotic process",
+                "go_id": "GO:0042981",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "29336888"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of behavioral fear response",
+                "go_id": "GO:2000822",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of behavioral fear response",
+                "go_id": "GO:2000822",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of cellular response to very-low-density lipoprotein particle stimulus",
+                "go_id": "GO:1905890",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of cellular response to very-low-density lipoprotein particle stimulus",
+                "go_id": "GO:1905890",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of cholesterol metabolic process",
+                "go_id": "GO:0090181",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of cholesterol metabolic process",
+                "go_id": "GO:0090181",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of gene expression",
+                "go_id": "GO:0010468",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17720994"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of innate immune response",
+                "go_id": "GO:0045088",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "29336888"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of plasma lipoprotein particle levels",
+                "go_id": "GO:0097006",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "23741427"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of proteasomal protein catabolic process",
+                "go_id": "GO:0061136",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of proteasomal protein catabolic process",
+                "go_id": "GO:0061136",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of protein metabolic process",
+                "go_id": "GO:0051246",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of protein metabolic process",
+                "go_id": "GO:0051246",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of protein-containing complex assembly",
+                "go_id": "GO:0043254",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of protein-containing complex assembly",
+                "go_id": "GO:0043254",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of synapse organization",
+                "go_id": "GO:0050807",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "27683909"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of synapse organization",
+                "go_id": "GO:0050807",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "27683909"
+                  ]
+                }
+              },
+              {
+                "name": "regulation of triglyceride metabolic process",
+                "go_id": "GO:0090207",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "regulation of triglyceride metabolic process",
+                "go_id": "GO:0090207",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to caloric restriction",
+                "go_id": "GO:0061771",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to caloric restriction",
+                "go_id": "GO:0061771",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to dietary excess",
+                "go_id": "GO:0002021",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17720994"
+                  ]
+                }
+              },
+              {
+                "name": "response to oxidative stress",
+                "go_id": "GO:0006979",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "8773783"
+                  ]
+                }
+              },
+              {
+                "name": "reverse cholesterol transport",
+                "go_id": "GO:0043691",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "reverse cholesterol transport",
+                "go_id": "GO:0043691",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "signal transduction",
+                "go_id": "GO:0007165",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "36281455"
+                  ]
+                }
+              },
+              {
+                "name": "triglyceride homeostasis",
+                "go_id": "GO:0070328",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "23676495",
+                    "23741427"
+                  ]
+                }
+              },
+              {
+                "name": "triglyceride metabolic process",
+                "go_id": "GO:0006641",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "triglyceride metabolic process",
+                "go_id": "GO:0006641",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "triglyceride-rich lipoprotein particle clearance",
+                "go_id": "GO:0071830",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "triglyceride-rich lipoprotein particle clearance",
+                "go_id": "GO:0071830",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "23676495"
+                  ]
+                }
+              },
+              {
+                "name": "triglyceride-rich lipoprotein particle clearance",
+                "go_id": "GO:0071830",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "triglyceride-rich lipoprotein particle clearance",
+                "go_id": "GO:0071830",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vasodilation",
+                "go_id": "GO:0042311",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "9826706"
+                  ]
+                }
+              },
+              {
+                "name": "very-low-density lipoprotein particle clearance",
+                "go_id": "GO:0034447",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "very-low-density lipoprotein particle clearance",
+                "go_id": "GO:0034447",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "very-low-density lipoprotein particle clearance",
+                "go_id": "GO:0034447",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "very-low-density lipoprotein particle remodeling",
+                "go_id": "GO:0034372",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "very-low-density lipoprotein particle remodeling",
+                "go_id": "GO:0034372",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "15654758"
+                  ]
+                }
+              },
+              {
+                "name": "very-low-density lipoprotein particle remodeling",
+                "go_id": "GO:0034372",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "virion assembly",
+                "go_id": "GO:0019068",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "virion assembly",
+                "go_id": "GO:0019068",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              }
+            ],
+            "cellular_components": [
+              {
+                "name": "Golgi apparatus",
+                "go_id": "GO:0005794",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "Golgi apparatus",
+                "go_id": "GO:0005794",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cell surface",
+                "go_id": "GO:0009986",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "chylomicron",
+                "go_id": "GO:0042627",
+                "evidence_code": "IBA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "chylomicron",
+                "go_id": "GO:0042627",
+                "evidence_code": "IEA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "chylomicron",
+                "go_id": "GO:0042627",
+                "evidence_code": "ISO",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "chylomicron remnant",
+                "go_id": "GO:0034360",
+                "evidence_code": "IEA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "chylomicron remnant",
+                "go_id": "GO:0034360",
+                "evidence_code": "ISO",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "cytosol",
+                "go_id": "GO:0005829",
+                "evidence_code": "TAS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "dendrite",
+                "go_id": "GO:0030425",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "discoidal high-density lipoprotein particle",
+                "go_id": "GO:0034365",
+                "evidence_code": "ISO",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "early endosome",
+                "go_id": "GO:0005769",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "endoplasmic reticulum",
+                "go_id": "GO:0005783",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "endoplasmic reticulum",
+                "go_id": "GO:0005783",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "endosome",
+                "go_id": "GO:0005768",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular exosome",
+                "go_id": "GO:0070062",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular exosome",
+                "go_id": "GO:0070062",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular matrix",
+                "go_id": "GO:0031012",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular matrix",
+                "go_id": "GO:0031012",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular matrix",
+                "go_id": "GO:0031012",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "7798939",
+                    "9186920",
+                    "9300780",
+                    "15269218",
+                    "20005821",
+                    "23640054"
+                  ]
+                }
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular region",
+                "go_id": "GO:0005576",
+                "evidence_code": "TAS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular vesicle",
+                "go_id": "GO:1903561",
+                "evidence_code": "IBA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "extracellular vesicle",
+                "go_id": "GO:1903561",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular vesicle",
+                "go_id": "GO:1903561",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extracellular vesicle",
+                "go_id": "GO:1903561",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "extrinsic component of external side of plasma membrane",
+                "go_id": "GO:0031232",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "glutamatergic synapse",
+                "go_id": "GO:0098978",
+                "evidence_code": "IDA",
+                "qualifier": "is_active_in",
+                "reference": {
+                  "pmids": [
+                    "27683909"
+                  ]
+                }
+              },
+              {
+                "name": "glutamatergic synapse",
+                "go_id": "GO:0098978",
+                "evidence_code": "IEA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "glutamatergic synapse",
+                "go_id": "GO:0098978",
+                "evidence_code": "IMP",
+                "qualifier": "is_active_in",
+                "reference": {
+                  "pmids": [
+                    "27683909"
+                  ]
+                }
+              },
+              {
+                "name": "glutamatergic synapse",
+                "go_id": "GO:0098978",
+                "evidence_code": "ISO",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "high-density lipoprotein particle",
+                "go_id": "GO:0034364",
+                "evidence_code": "IBA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "high-density lipoprotein particle",
+                "go_id": "GO:0034364",
+                "evidence_code": "IEA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "high-density lipoprotein particle",
+                "go_id": "GO:0034364",
+                "evidence_code": "ISO",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "high-density lipoprotein particle",
+                "go_id": "GO:0034364",
+                "evidence_code": "ISS",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "intermediate-density lipoprotein particle",
+                "go_id": "GO:0034363",
+                "evidence_code": "IEA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "intermediate-density lipoprotein particle",
+                "go_id": "GO:0034363",
+                "evidence_code": "ISO",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "intermediate-density lipoprotein particle",
+                "go_id": "GO:0034363",
+                "evidence_code": "ISS",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "late endosome",
+                "go_id": "GO:0005770",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "lipoprotein particle",
+                "go_id": "GO:1990777",
+                "evidence_code": "IEA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "lipoprotein particle",
+                "go_id": "GO:1990777",
+                "evidence_code": "ISO",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "low-density lipoprotein particle",
+                "go_id": "GO:0034362",
+                "evidence_code": "IBA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "low-density lipoprotein particle",
+                "go_id": "GO:0034362",
+                "evidence_code": "IDA",
+                "qualifier": "part_of",
+                "reference": {
+                  "pmids": [
+                    "15654758"
+                  ]
+                }
+              },
+              {
+                "name": "low-density lipoprotein particle",
+                "go_id": "GO:0034362",
+                "evidence_code": "IEA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "low-density lipoprotein particle",
+                "go_id": "GO:0034362",
+                "evidence_code": "ISO",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "melanosome",
+                "go_id": "GO:0042470",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "melanosome",
+                "go_id": "GO:0042470",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "microtubule",
+                "go_id": "GO:0005874",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "multivesicular body",
+                "go_id": "GO:0005771",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "multivesicular body, internal vesicle",
+                "go_id": "GO:0097487",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "multivesicular body, internal vesicle",
+                "go_id": "GO:0097487",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "neuronal cell body",
+                "go_id": "GO:0043025",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "nuclear envelope",
+                "go_id": "GO:0005635",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "synaptic cleft",
+                "go_id": "GO:0043083",
+                "evidence_code": "IEA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "synaptic cleft",
+                "go_id": "GO:0043083",
+                "evidence_code": "ISO",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "very-low-density lipoprotein particle",
+                "go_id": "GO:0034361",
+                "evidence_code": "IBA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "very-low-density lipoprotein particle",
+                "go_id": "GO:0034361",
+                "evidence_code": "IEA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "very-low-density lipoprotein particle",
+                "go_id": "GO:0034361",
+                "evidence_code": "ISO",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "very-low-density lipoprotein particle",
+                "go_id": "GO:0034361",
+                "evidence_code": "ISS",
+                "qualifier": "part_of"
+              }
+            ]
+          },
+          "map_locations": [
+            {
+              "map_type": "Cytogenetic",
+              "map_value": "7 A3"
+            },
+            {
+              "map_type": "Genetic",
+              "map_value": "7 9.94 cM"
+            }
+          ]
+        },
+        "query": [
+          "11816"
+        ]
+      }
+    ],
+    "total_count": 1
+  }
+}

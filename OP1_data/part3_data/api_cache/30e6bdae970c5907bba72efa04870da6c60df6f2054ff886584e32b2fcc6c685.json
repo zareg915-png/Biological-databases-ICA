@@ -1,0 +1,137 @@
+{
+  "url": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/7503/dataset_report",
+  "retrieved_utc": "2026-11-22T01:48:52+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:48:52 GMT",
+    "server": "Finatra",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "content-security-policy": "upgrade-insecure-requests",
+    "ncbi-phid": "1D340A36BF5C2DD50000254CA4E9B955.1.1",
+    "content-type": "application/json",
+    "grpc-metadata-via": "h2 linkerd",
+    "x-ratelimit-limit": "5",
+    "x-datasets-version": "18.41.1",
+    "x-ncbi-total-count": "1",
+    "x-ratelimit-remaining": "4",
+    "access-control-expose-headers": "X-RateLimit-Limit,X-RateLimit-Remaining",
+    "vary": "Accept-Encoding",
+    "x-ua-compatible": "IE=Edge",
+    "x-xss-protection": "1; mode=block",
+    "transfer-encoding": "chunked",
+    "via": "1.1 google",
+    "alt-svc": "clear",
+    "connection": "close"
+  },
+  "response": {
+    "reports": [
+      {
+        "gene": {
+          "gene_id": "7503",
+          "symbol": "XIST",
+          "description": "X inactive specific transcript",
+          "tax_id": "9606",
+          "taxname": "Homo sapiens",
+          "common_name": "human",
+          "type": "ncRNA",
+          "orientation": "minus",
+          "reference_standards": [
+            {
+              "gene_range": {
+                "accession_version": "NG_016172.1",
+                "range": [
+                  {
+                    "begin": "5001",
+                    "end": "37103",
+                    "orientation": "plus"
+                  }
+                ]
+              },
+              "type": "REFSEQ_GENE"
+            }
+          ],
+          "chromosomes": [
+            "X"
+          ],
+          "nomenclature_authority": {
+            "authority": "HGNC",
+            "identifier": "HGNC:12810"
+          },
+          "ensembl_gene_ids": [
+            "ENSG00000229807"
+          ],
+          "omim_ids": [
+            "314670"
+          ],
+          "synonyms": [
+            "XIC",
+            "SXI1",
+            "swd66",
+            "DXS1089",
+            "DXS399E",
+            "LINC00001",
+            "NCRNA00001"
+          ],
+          "annotations": [
+            {
+              "assembly_accession": "GCF_000001405.40",
+              "assembly_name": "GRCh38.p14",
+              "annotation_name": "GCF_000001405.40-RS_2025_08",
+              "annotation_release_date": "2025-08-01",
+              "genomic_locations": [
+                {
+                  "genomic_accession_version": "NC_000023.11",
+                  "sequence_name": "X",
+                  "genomic_range": {
+                    "begin": "73820656",
+                    "end": "73852714",
+                    "orientation": "minus"
+                  }
+                }
+              ]
+            },
+            {
+              "assembly_accession": "GCF_009914755.1",
+              "assembly_name": "T2T-CHM13v2.0",
+              "annotation_name": "GCF_009914755.1-RS_2025_08",
+              "annotation_release_date": "2025-08-01",
+              "genomic_locations": [
+                {
+                  "genomic_accession_version": "NC_060947.1",
+                  "sequence_name": "X",
+                  "genomic_range": {
+                    "begin": "72253972",
+                    "end": "72286030",
+                    "orientation": "minus"
+                  }
+                }
+              ]
+            }
+          ],
+          "transcript_count": 13,
+          "transcript_type_counts": [
+            {
+              "type": "NON_CODING",
+              "count": 13
+            }
+          ],
+          "summary": [
+            {
+              "description": "X inactivation is an early developmental process in mammalian females that transcriptionally silences one of the pair of X chromosomes, thus providing dosage equivalence between males and females. The process is regulated by several factors, including a region of chromosome X called the X inactivation center (XIC). The XIC comprises several non-coding and protein-coding genes, and this gene was the first non-coding gene identified within the XIC. This gene is expressed exclusively from the XIC of the inactive X chromosome, and is essential for the initiation and spread of X-inactivation. The transcript is a spliced RNA. Alternatively spliced transcript variants have been identified, but their full length sequences have not been determined. Mutations in the XIST promoter cause familial skewed X inactivation. [provided by RefSeq, Apr 2012]"
+            }
+          ],
+          "gene_ontology": {},
+          "map_locations": [
+            {
+              "map_type": "Cytogenetic",
+              "map_value": "Xq13.2"
+            }
+          ]
+        },
+        "query": [
+          "7503"
+        ]
+      }
+    ],
+    "total_count": 1
+  }
+}

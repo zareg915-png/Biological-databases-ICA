@@ -1,0 +1,1007 @@
+{
+  "url": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/12638/dataset_report",
+  "retrieved_utc": "2026-11-22T01:48:00+00:00",
+  "headers": {
+    "date": "Sun, 22 Nov 2026 01:47:59 GMT",
+    "server": "Finatra",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "content-security-policy": "upgrade-insecure-requests",
+    "ncbi-phid": "1D340A36BF5C2DD50000364C78F2BDAA.1.1",
+    "content-type": "application/json",
+    "grpc-metadata-via": "h2 linkerd",
+    "x-ratelimit-limit": "5",
+    "x-datasets-version": "18.41.1",
+    "x-ncbi-total-count": "1",
+    "x-ratelimit-remaining": "4",
+    "access-control-expose-headers": "X-RateLimit-Limit,X-RateLimit-Remaining",
+    "vary": "Accept-Encoding",
+    "x-ua-compatible": "IE=Edge",
+    "x-xss-protection": "1; mode=block",
+    "transfer-encoding": "chunked",
+    "via": "1.1 google",
+    "alt-svc": "clear",
+    "connection": "close"
+  },
+  "response": {
+    "reports": [
+      {
+        "gene": {
+          "gene_id": "12638",
+          "symbol": "Cftr",
+          "description": "CF transmembrane conductance regulator",
+          "tax_id": "10090",
+          "taxname": "Mus musculus",
+          "common_name": "house mouse",
+          "type": "PROTEIN_CODING",
+          "orientation": "plus",
+          "chromosomes": [
+            "6"
+          ],
+          "nomenclature_authority": {
+            "authority": "MGI",
+            "identifier": "MGI:88388"
+          },
+          "swiss_prot_accessions": [
+            "P26361"
+          ],
+          "ensembl_gene_ids": [
+            "ENSMUSG00000041301"
+          ],
+          "synonyms": [
+            "Abcc7"
+          ],
+          "alternate_names": [
+            "ATP-binding cassette sub-family C member 7",
+            "ATP-binding cassette transporter sub-family C member 7",
+            "ATP-binding cassette, subfamily c, member 7",
+            "cAMP-dependent chloride channel",
+            "channel conductance-controlling ATPase",
+            "cystic fibrosis transmembrane conductance regulator",
+            "cystic fibrosis transmembrane conductance regulator homolog",
+            "cystic fibrosis transmembrane conductance regulator homolog; ATP-binding cassette, subfamily c, member 7"
+          ],
+          "annotations": [
+            {
+              "assembly_accession": "GCF_000001635.27",
+              "assembly_name": "GRCm39",
+              "annotation_name": "GCF_000001635.27-RS_2024_02",
+              "annotation_release_date": "2024-02-01",
+              "genomic_locations": [
+                {
+                  "genomic_accession_version": "NC_000072.7",
+                  "sequence_name": "6",
+                  "genomic_range": {
+                    "begin": "18170686",
+                    "end": "18322769",
+                    "orientation": "plus"
+                  }
+                }
+              ]
+            }
+          ],
+          "transcript_count": 1,
+          "protein_count": 1,
+          "transcript_type_counts": [
+            {
+              "type": "PROTEIN_CODING",
+              "count": 1
+            }
+          ],
+          "gene_groups": [
+            {
+              "id": "1080",
+              "method": "NCBI Ortholog"
+            }
+          ],
+          "summary": [
+            {
+              "description": "The membrane-associated protein encoded by this gene is a member of the superfamily of ATP-binding cassette (ABC) transporters. ABC proteins transport various molecules across extra- and intra-cellular membranes. ABC genes are divided into seven distinct subfamilies (ABC1, MDR/TAP, MRP, ALD, OABP, GCN20, White). This protein is a member of the MRP subfamily which is involved in multi-drug resistance. This gene encodes the cystic fibrosis transmembrane regulator and a chloride channel that controls the regulation of other transport pathways. Mutations in this gene have been associated with autosomal recessive disorders such as cystic fibrosis and congenital bilateral aplasia of the vas deferens. Alternative splicing of exons 4, 5, and 11 have been observed, but full-length transcripts have not yet been fully described. [provided by RefSeq, Jul 2008]"
+            }
+          ],
+          "gene_ontology": {
+            "assigned_by": "MGI",
+            "molecular_functions": [
+              {
+                "name": "14-3-3 protein binding",
+                "go_id": "GO:0071889",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "14-3-3 protein binding",
+                "go_id": "GO:0071889",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "ABC-type transporter activity",
+                "go_id": "GO:0140359",
+                "evidence_code": "IBA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "ABC-type transporter activity",
+                "go_id": "GO:0140359",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "ATP binding",
+                "go_id": "GO:0005524",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "ATP hydrolysis activity",
+                "go_id": "GO:0016887",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "ATP hydrolysis activity",
+                "go_id": "GO:0016887",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "ATP hydrolysis activity",
+                "go_id": "GO:0016887",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "PDZ domain binding",
+                "go_id": "GO:0030165",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "PDZ domain binding",
+                "go_id": "GO:0030165",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "Sec61 translocon complex binding",
+                "go_id": "GO:0106138",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "Sec61 translocon complex binding",
+                "go_id": "GO:0106138",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "bicarbonate transmembrane transporter activity",
+                "go_id": "GO:0015106",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "bicarbonate transmembrane transporter activity",
+                "go_id": "GO:0015106",
+                "evidence_code": "IMP",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "21976599"
+                  ]
+                }
+              },
+              {
+                "name": "bicarbonate transmembrane transporter activity",
+                "go_id": "GO:0015106",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "bicarbonate transmembrane transporter activity",
+                "go_id": "GO:0015106",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "chloride channel activity",
+                "go_id": "GO:0005254",
+                "evidence_code": "IDA",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "20231442"
+                  ]
+                }
+              },
+              {
+                "name": "chloride channel activity",
+                "go_id": "GO:0005254",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "chloride channel activity",
+                "go_id": "GO:0005254",
+                "evidence_code": "IMP",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "24885604"
+                  ]
+                }
+              },
+              {
+                "name": "chloride channel activity",
+                "go_id": "GO:0005254",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "chloride channel activity",
+                "go_id": "GO:0005254",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "chloride channel inhibitor activity",
+                "go_id": "GO:0019869",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "chloride channel inhibitor activity",
+                "go_id": "GO:0019869",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "chloride channel inhibitor activity",
+                "go_id": "GO:0019869",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "chloride transmembrane transporter activity",
+                "go_id": "GO:0015108",
+                "evidence_code": "IMP",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "21976599"
+                  ]
+                }
+              },
+              {
+                "name": "enzyme binding",
+                "go_id": "GO:0019899",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "enzyme binding",
+                "go_id": "GO:0019899",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "identical protein binding",
+                "go_id": "GO:0042802",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "intracellularly ATP-gated chloride channel activity",
+                "go_id": "GO:0005260",
+                "evidence_code": "IBA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "intracellularly ATP-gated chloride channel activity",
+                "go_id": "GO:0005260",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "intracellularly ATP-gated chloride channel activity",
+                "go_id": "GO:0005260",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              },
+              {
+                "name": "intracellularly ATP-gated chloride channel activity",
+                "go_id": "GO:0005260",
+                "evidence_code": "ISS",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protein binding",
+                "go_id": "GO:0005515",
+                "evidence_code": "IPI",
+                "qualifier": "enables",
+                "reference": {
+                  "pmids": [
+                    "19033647",
+                    "19878303",
+                    "21976599",
+                    "23542070"
+                  ]
+                }
+              },
+              {
+                "name": "protein-folding chaperone binding",
+                "go_id": "GO:0051087",
+                "evidence_code": "IEA",
+                "qualifier": "enables"
+              },
+              {
+                "name": "protein-folding chaperone binding",
+                "go_id": "GO:0051087",
+                "evidence_code": "ISO",
+                "qualifier": "enables"
+              }
+            ],
+            "biological_processes": [
+              {
+                "name": "amelogenesis",
+                "go_id": "GO:0097186",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "26403673"
+                  ]
+                }
+              },
+              {
+                "name": "amelogenesis",
+                "go_id": "GO:0097186",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "bicarbonate transport",
+                "go_id": "GO:0015701",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "bicarbonate transport",
+                "go_id": "GO:0015701",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "bicarbonate transport",
+                "go_id": "GO:0015701",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "bicarbonate transport",
+                "go_id": "GO:0015701",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to cAMP",
+                "go_id": "GO:0071320",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21976599"
+                  ]
+                }
+              },
+              {
+                "name": "cellular response to forskolin",
+                "go_id": "GO:1904322",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to forskolin",
+                "go_id": "GO:1904322",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cellular response to forskolin",
+                "go_id": "GO:1904322",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "chloride transmembrane transport",
+                "go_id": "GO:1902476",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "chloride transmembrane transport",
+                "go_id": "GO:1902476",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "20231442",
+                    "26403673"
+                  ]
+                }
+              },
+              {
+                "name": "chloride transmembrane transport",
+                "go_id": "GO:1902476",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "chloride transmembrane transport",
+                "go_id": "GO:1902476",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "24885604"
+                  ]
+                }
+              },
+              {
+                "name": "chloride transmembrane transport",
+                "go_id": "GO:1902476",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "chloride transmembrane transport",
+                "go_id": "GO:1902476",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "chloride transport",
+                "go_id": "GO:0006821",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "chloride transport",
+                "go_id": "GO:0006821",
+                "evidence_code": "IGI",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "19033647"
+                  ]
+                }
+              },
+              {
+                "name": "chloride transport",
+                "go_id": "GO:0006821",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "cholesterol biosynthetic process",
+                "go_id": "GO:0006695",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17085523"
+                  ]
+                }
+              },
+              {
+                "name": "cholesterol transport",
+                "go_id": "GO:0030301",
+                "evidence_code": "IMP",
+                "qualifier": "acts_upstream_of_or_within",
+                "reference": {
+                  "pmids": [
+                    "17085523"
+                  ]
+                }
+              },
+              {
+                "name": "enamel mineralization",
+                "go_id": "GO:0070166",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "intracellular pH elevation",
+                "go_id": "GO:0051454",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21976599"
+                  ]
+                }
+              },
+              {
+                "name": "lung development",
+                "go_id": "GO:0030324",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "membrane hyperpolarization",
+                "go_id": "GO:0060081",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21976599"
+                  ]
+                }
+              },
+              {
+                "name": "monoatomic ion transport",
+                "go_id": "GO:0006811",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "multicellular organismal-level water homeostasis",
+                "go_id": "GO:0050891",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "multicellular organismal-level water homeostasis",
+                "go_id": "GO:0050891",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "multicellular organismal-level water homeostasis",
+                "go_id": "GO:0050891",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of type B pancreatic cell development",
+                "go_id": "GO:2000077",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "negative regulation of vascular associated smooth muscle cell apoptotic process",
+                "go_id": "GO:1905460",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of enamel mineralization",
+                "go_id": "GO:0070175",
+                "evidence_code": "IDA",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "26403673"
+                  ]
+                }
+              },
+              {
+                "name": "positive regulation of establishment of Sertoli cell barrier",
+                "go_id": "GO:1904446",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "positive regulation of mast cell activation",
+                "go_id": "GO:0033005",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to endoplasmic reticulum stress",
+                "go_id": "GO:0034976",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to endoplasmic reticulum stress",
+                "go_id": "GO:0034976",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to endoplasmic reticulum stress",
+                "go_id": "GO:0034976",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "response to xenobiotic stimulus",
+                "go_id": "GO:0009410",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "sodium ion transmembrane transport",
+                "go_id": "GO:0035725",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "sperm capacitation",
+                "go_id": "GO:0048240",
+                "evidence_code": "IMP",
+                "qualifier": "involved_in",
+                "reference": {
+                  "pmids": [
+                    "21976599"
+                  ]
+                }
+              },
+              {
+                "name": "transepithelial chloride transport",
+                "go_id": "GO:0030321",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "transepithelial water transport",
+                "go_id": "GO:0035377",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "transepithelial water transport",
+                "go_id": "GO:0035377",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "transepithelial water transport",
+                "go_id": "GO:0035377",
+                "evidence_code": "ISS",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "transmembrane transport",
+                "go_id": "GO:0055085",
+                "evidence_code": "IEA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "vasodilation",
+                "go_id": "GO:0042311",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "water transport",
+                "go_id": "GO:0006833",
+                "evidence_code": "IBA",
+                "qualifier": "involved_in"
+              },
+              {
+                "name": "water transport",
+                "go_id": "GO:0006833",
+                "evidence_code": "ISO",
+                "qualifier": "involved_in"
+              }
+            ],
+            "cellular_components": [
+              {
+                "name": "apical plasma membrane",
+                "go_id": "GO:0016324",
+                "evidence_code": "EXP",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "20231442"
+                  ]
+                }
+              },
+              {
+                "name": "apical plasma membrane",
+                "go_id": "GO:0016324",
+                "evidence_code": "IBA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "apical plasma membrane",
+                "go_id": "GO:0016324",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "16537650",
+                    "21884936"
+                  ]
+                }
+              },
+              {
+                "name": "apical plasma membrane",
+                "go_id": "GO:0016324",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "apical plasma membrane",
+                "go_id": "GO:0016324",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "basolateral plasma membrane",
+                "go_id": "GO:0016323",
+                "evidence_code": "IBA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "basolateral plasma membrane",
+                "go_id": "GO:0016323",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cell surface",
+                "go_id": "GO:0009986",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cell surface",
+                "go_id": "GO:0009986",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cytoplasm",
+                "go_id": "GO:0005737",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cytoplasm",
+                "go_id": "GO:0005737",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cytosol",
+                "go_id": "GO:0005829",
+                "evidence_code": "IBA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "cytosol",
+                "go_id": "GO:0005829",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "24885604"
+                  ]
+                }
+              },
+              {
+                "name": "cytosol",
+                "go_id": "GO:0005829",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "cytosol",
+                "go_id": "GO:0005829",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "dendrite",
+                "go_id": "GO:0030425",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "early endosome",
+                "go_id": "GO:0005769",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "early endosome",
+                "go_id": "GO:0005769",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "early endosome",
+                "go_id": "GO:0005769",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "early endosome membrane",
+                "go_id": "GO:0031901",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "early endosome membrane",
+                "go_id": "GO:0031901",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "early endosome membrane",
+                "go_id": "GO:0031901",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "endoplasmic reticulum membrane",
+                "go_id": "GO:0005789",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "endoplasmic reticulum membrane",
+                "go_id": "GO:0005789",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "endoplasmic reticulum membrane",
+                "go_id": "GO:0005789",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "membrane",
+                "go_id": "GO:0016020",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "membrane",
+                "go_id": "GO:0016020",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "membrane",
+                "go_id": "GO:0016020",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "microvillus",
+                "go_id": "GO:0005902",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "neuronal cell body",
+                "go_id": "GO:0043025",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "nucleus",
+                "go_id": "GO:0005634",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "nucleus",
+                "go_id": "GO:0005634",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "nucleus",
+                "go_id": "GO:0005634",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "EXP",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "20231442",
+                    "22265409"
+                  ]
+                }
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "IBA",
+                "qualifier": "is_active_in"
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "IDA",
+                "qualifier": "located_in",
+                "reference": {
+                  "pmids": [
+                    "24885604"
+                  ]
+                }
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "plasma membrane",
+                "go_id": "GO:0005886",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "protein-containing complex",
+                "go_id": "GO:0032991",
+                "evidence_code": "IEA",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "protein-containing complex",
+                "go_id": "GO:0032991",
+                "evidence_code": "ISO",
+                "qualifier": "part_of"
+              },
+              {
+                "name": "recycling endosome",
+                "go_id": "GO:0055037",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "recycling endosome",
+                "go_id": "GO:0055037",
+                "evidence_code": "ISO",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "recycling endosome membrane",
+                "go_id": "GO:0055038",
+                "evidence_code": "IEA",
+                "qualifier": "located_in"
+              },
+              {
+                "name": "recycling endosome membrane",
+                "go_id": "GO:0055038",
+                "evidence_code": "ISS",
+                "qualifier": "located_in"
+              }
+            ]
+          },
+          "map_locations": [
+            {
+              "map_type": "Cytogenetic",
+              "map_value": "6 A2"
+            },
+            {
+              "map_type": "Genetic",
+              "map_value": "6 8.1 cM"
+            }
+          ]
+        },
+        "query": [
+          "12638"
+        ]
+      }
+    ],
+    "total_count": 1
+  }
+}
