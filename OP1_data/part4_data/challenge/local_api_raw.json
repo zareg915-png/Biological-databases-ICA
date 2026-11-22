@@ -1,0 +1,192 @@
+{
+  "dataset": "challenge",
+  "input_sha256": "254fa746834a7474bac25ced5ed571a6b86d8cb880617fcf0d9e0c6c370d4732",
+  "requests": [
+    {
+      "query": "MYC",
+      "url": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary?identifiers=MYC&sleeptime=1.0",
+      "status": "ok",
+      "note": "",
+      "retrieved_utc": "2026-11-22T02:41:27+00:00",
+      "response": [
+        {
+          "ncbi_gene_id": "4609",
+          "official_symbol": "MYC",
+          "description": "MYC proto-oncogene, bHLH transcription factor",
+          "status": "",
+          "current_gene_id": "",
+          "chromosome": "8",
+          "map_location": "8q24.21",
+          "organism_scientific": "Homo sapiens",
+          "organism_common": "human",
+          "other_aliases": "MRTL, MYCC, bHLHe39, c-Myc",
+          "other_designations": "myc proto-oncogene protein|avian myelocytomatosis viral oncogene homolog|class E basic helix-loop-helix protein 39|myc-related translation/localization regulatory factor|proto-oncogene c-Myc|transcription factor p64|v-myc avian myelocytomatosis viral oncogene homolog|v-myc myelocytomatosis viral oncogene homolog"
+        }
+      ],
+      "response_text": "[{\"ncbi_gene_id\":\"4609\",\"official_symbol\":\"MYC\",\"description\":\"MYC proto-oncogene, bHLH transcription factor\",\"status\":\"\",\"current_gene_id\":\"\",\"chromosome\":\"8\",\"map_location\":\"8q24.21\",\"organism_scientific\":\"Homo sapiens\",\"organism_common\":\"human\",\"other_aliases\":\"MRTL, MYCC, bHLHe39, c-Myc\",\"other_designations\":\"myc proto-oncogene protein|avian myelocytomatosis viral oncogene homolog|class E basic helix-loop-helix protein 39|myc-related translation/localization regulatory factor|proto-oncogene c-Myc|transcription factor p64|v-myc avian myelocytomatosis viral oncogene homolog|v-myc myelocytomatosis viral oncogene homolog\"}]",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requested_utc": "2026-11-22T02:41:27+00:00",
+          "http_status": 200,
+          "content_type": "application/json"
+        }
+      ]
+    },
+    {
+      "query": "AADACL2",
+      "url": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary?identifiers=AADACL2&sleeptime=1.0",
+      "status": "ok",
+      "note": "",
+      "retrieved_utc": "2026-11-22T02:41:36+00:00",
+      "response": [
+        {
+          "ncbi_gene_id": "344752",
+          "official_symbol": "AADACL2",
+          "description": "arylacetamide deacetylase like 2",
+          "status": "",
+          "current_gene_id": "",
+          "chromosome": "3",
+          "map_location": "3q25.1",
+          "organism_scientific": "Homo sapiens",
+          "organism_common": "human",
+          "other_aliases": "",
+          "other_designations": "arylacetamide deacetylase-like 2"
+        }
+      ],
+      "response_text": "[{\"ncbi_gene_id\":\"344752\",\"official_symbol\":\"AADACL2\",\"description\":\"arylacetamide deacetylase like 2\",\"status\":\"\",\"current_gene_id\":\"\",\"chromosome\":\"3\",\"map_location\":\"3q25.1\",\"organism_scientific\":\"Homo sapiens\",\"organism_common\":\"human\",\"other_aliases\":\"\",\"other_designations\":\"arylacetamide deacetylase-like 2\"}]",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requested_utc": "2026-11-22T02:41:36+00:00",
+          "http_status": 200,
+          "content_type": "application/json"
+        }
+      ]
+    },
+    {
+      "query": "PLET1",
+      "url": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary?identifiers=PLET1&sleeptime=1.0",
+      "status": "ok",
+      "note": "",
+      "retrieved_utc": "2026-11-22T02:41:37+00:00",
+      "response": [
+        {
+          "ncbi_gene_id": "349633",
+          "official_symbol": "PLET1",
+          "description": "placenta expressed transcript 1",
+          "status": "",
+          "current_gene_id": "",
+          "chromosome": "11",
+          "map_location": "11q23.1",
+          "organism_scientific": "Homo sapiens",
+          "organism_common": "human",
+          "other_aliases": "C11orf34",
+          "other_designations": "placenta-expressed transcript 1 protein"
+        }
+      ],
+      "response_text": "[{\"ncbi_gene_id\":\"349633\",\"official_symbol\":\"PLET1\",\"description\":\"placenta expressed transcript 1\",\"status\":\"\",\"current_gene_id\":\"\",\"chromosome\":\"11\",\"map_location\":\"11q23.1\",\"organism_scientific\":\"Homo sapiens\",\"organism_common\":\"human\",\"other_aliases\":\"C11orf34\",\"other_designations\":\"placenta-expressed transcript 1 protein\"}]",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requested_utc": "2026-11-22T02:41:37+00:00",
+          "http_status": 200,
+          "content_type": "application/json"
+        }
+      ]
+    },
+    {
+      "query": "HYDIN",
+      "url": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary?identifiers=HYDIN&sleeptime=1.0",
+      "status": "ok",
+      "note": "",
+      "retrieved_utc": "2026-11-22T02:41:39+00:00",
+      "response": [
+        {
+          "ncbi_gene_id": "54768",
+          "official_symbol": "HYDIN",
+          "description": "HYDIN axonemal central pair apparatus protein",
+          "status": "",
+          "current_gene_id": "",
+          "chromosome": "16",
+          "map_location": "16q22.2",
+          "organism_scientific": "Homo sapiens",
+          "organism_common": "human",
+          "other_aliases": "CILD5, HYDIN1, PPP1R31",
+          "other_designations": "axonemal central pair apparatus protein HYDIN|hydrocephalus-inducing protein homolog|protein phosphatase 1, regulatory subunit 31"
+        }
+      ],
+      "response_text": "[{\"ncbi_gene_id\":\"54768\",\"official_symbol\":\"HYDIN\",\"description\":\"HYDIN axonemal central pair apparatus protein\",\"status\":\"\",\"current_gene_id\":\"\",\"chromosome\":\"16\",\"map_location\":\"16q22.2\",\"organism_scientific\":\"Homo sapiens\",\"organism_common\":\"human\",\"other_aliases\":\"CILD5, HYDIN1, PPP1R31\",\"other_designations\":\"axonemal central pair apparatus protein HYDIN|hydrocephalus-inducing protein homolog|protein phosphatase 1, regulatory subunit 31\"}]",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requested_utc": "2026-11-22T02:41:39+00:00",
+          "http_status": 200,
+          "content_type": "application/json"
+        }
+      ]
+    },
+    {
+      "query": "XIST",
+      "url": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary?identifiers=XIST&sleeptime=1.0",
+      "status": "ok",
+      "note": "",
+      "retrieved_utc": "2026-11-22T02:41:40+00:00",
+      "response": [
+        {
+          "ncbi_gene_id": "7503",
+          "official_symbol": "XIST",
+          "description": "X inactive specific transcript",
+          "status": "",
+          "current_gene_id": "",
+          "chromosome": "X",
+          "map_location": "Xq13.2",
+          "organism_scientific": "Homo sapiens",
+          "organism_common": "human",
+          "other_aliases": "DXS1089, DXS399E, LINC00001, NCRNA00001, SXI1, XIC, swd66",
+          "other_designations": "X inactive specific transcript (non-protein coding)|long intergenic non-protein coding RNA 1"
+        }
+      ],
+      "response_text": "[{\"ncbi_gene_id\":\"7503\",\"official_symbol\":\"XIST\",\"description\":\"X inactive specific transcript\",\"status\":\"\",\"current_gene_id\":\"\",\"chromosome\":\"X\",\"map_location\":\"Xq13.2\",\"organism_scientific\":\"Homo sapiens\",\"organism_common\":\"human\",\"other_aliases\":\"DXS1089, DXS399E, LINC00001, NCRNA00001, SXI1, XIC, swd66\",\"other_designations\":\"X inactive specific transcript (non-protein coding)|long intergenic non-protein coding RNA 1\"}]",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requested_utc": "2026-11-22T02:41:40+00:00",
+          "http_status": 200,
+          "content_type": "application/json"
+        }
+      ]
+    },
+    {
+      "query": "MALAT1",
+      "url": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary?identifiers=MALAT1&sleeptime=1.0",
+      "status": "ok",
+      "note": "",
+      "retrieved_utc": "2026-11-22T02:41:41+00:00",
+      "response": [
+        {
+          "ncbi_gene_id": "378938",
+          "official_symbol": "MALAT1",
+          "description": "metastasis associated lung adenocarcinoma transcript 1",
+          "status": "",
+          "current_gene_id": "",
+          "chromosome": "11",
+          "map_location": "11q13.1",
+          "organism_scientific": "Homo sapiens",
+          "organism_common": "human",
+          "other_aliases": "HCN, LINC00047, NCRNA00047, NEAT2, PRO2853, miPEP-52",
+          "other_designations": "hepcarcin|long intergenic non-protein coding RNA 47|metastasis associated lung adenocarcinoma transcript 1 (non-protein coding)|nuclear enriched abundant transcript 2|nuclear paraspeckle assembly transcript 2 (non-protein coding)"
+        }
+      ],
+      "response_text": "[{\"ncbi_gene_id\":\"378938\",\"official_symbol\":\"MALAT1\",\"description\":\"metastasis associated lung adenocarcinoma transcript 1\",\"status\":\"\",\"current_gene_id\":\"\",\"chromosome\":\"11\",\"map_location\":\"11q13.1\",\"organism_scientific\":\"Homo sapiens\",\"organism_common\":\"human\",\"other_aliases\":\"HCN, LINC00047, NCRNA00047, NEAT2, PRO2853, miPEP-52\",\"other_designations\":\"hepcarcin|long intergenic non-protein coding RNA 47|metastasis associated lung adenocarcinoma transcript 1 (non-protein coding)|nuclear enriched abundant transcript 2|nuclear paraspeckle assembly transcript 2 (non-protein coding)\"}]",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requested_utc": "2026-11-22T02:41:41+00:00",
+          "http_status": 200,
+          "content_type": "application/json"
+        }
+      ]
+    }
+  ]
+}

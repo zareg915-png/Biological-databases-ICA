@@ -1,0 +1,316 @@
+{
+  "dataset": "development",
+  "input_sha256": "b1e053b0582b7c1948c28e49ea96763f80b260d57e02fed3e0a459c5963f29ff",
+  "requests": [
+    {
+      "query": "BRCA1",
+      "url": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary?identifiers=BRCA1&sleeptime=1.0",
+      "status": "ok",
+      "note": "",
+      "retrieved_utc": "2026-11-22T02:41:20+00:00",
+      "response": [
+        {
+          "ncbi_gene_id": "672",
+          "official_symbol": "BRCA1",
+          "description": "BRCA1 DNA repair associated",
+          "status": "",
+          "current_gene_id": "",
+          "chromosome": "17",
+          "map_location": "17q21.31",
+          "organism_scientific": "Homo sapiens",
+          "organism_common": "human",
+          "other_aliases": "BRCAI, BRCC1, BROVCA1, FANCS, IRIS, PNCA4, PPP1R53, PSCP, RNF53",
+          "other_designations": "breast cancer type 1 susceptibility protein|BRCA1/BRCA2-containing complex, subunit 1|Fanconi anemia, complementation group S|RING finger protein 53|breast and ovarian cancer susceptibility protein 1|breast cancer 1, early onset|early onset breast cancer 1|protein phosphatase 1, regulatory subunit 53"
+        }
+      ],
+      "response_text": "[{\"ncbi_gene_id\":\"672\",\"official_symbol\":\"BRCA1\",\"description\":\"BRCA1 DNA repair associated\",\"status\":\"\",\"current_gene_id\":\"\",\"chromosome\":\"17\",\"map_location\":\"17q21.31\",\"organism_scientific\":\"Homo sapiens\",\"organism_common\":\"human\",\"other_aliases\":\"BRCAI, BRCC1, BROVCA1, FANCS, IRIS, PNCA4, PPP1R53, PSCP, RNF53\",\"other_designations\":\"breast cancer type 1 susceptibility protein|BRCA1/BRCA2-containing complex, subunit 1|Fanconi anemia, complementation group S|RING finger protein 53|breast and ovarian cancer susceptibility protein 1|breast cancer 1, early onset|early onset breast cancer 1|protein phosphatase 1, regulatory subunit 53\"}]",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requested_utc": "2026-11-22T02:41:20+00:00",
+          "http_status": 200,
+          "content_type": "application/json"
+        }
+      ]
+    },
+    {
+      "query": "BRCA2",
+      "url": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary?identifiers=BRCA2&sleeptime=1.0",
+      "status": "ok",
+      "note": "",
+      "retrieved_utc": "2026-11-22T02:41:23+00:00",
+      "response": [
+        {
+          "ncbi_gene_id": "675",
+          "official_symbol": "BRCA2",
+          "description": "BRCA2 DNA repair associated",
+          "status": "",
+          "current_gene_id": "",
+          "chromosome": "13",
+          "map_location": "13q13.1",
+          "organism_scientific": "Homo sapiens",
+          "organism_common": "human",
+          "other_aliases": "BRCC2, BROVCA2, FACD, FAD, FAD1, FANCD, FANCD1, GLM3, PNCA2, XRCC11",
+          "other_designations": "breast cancer type 2 susceptibility protein|BRCA1/BRCA2-containing complex, subunit 2|BRCA2 DNA repair associated protein|DNA repair-associated BRCA2|Fanconi anemia group D1 protein|breast and ovarian cancer susceptibility gene, early onset|breast and ovarian cancer susceptibility protein 2|breast cancer 2 tumor suppressor|breast cancer 2, early onset|mutant BRCA2|mutant DNA repair-associated protein 2"
+        }
+      ],
+      "response_text": "[{\"ncbi_gene_id\":\"675\",\"official_symbol\":\"BRCA2\",\"description\":\"BRCA2 DNA repair associated\",\"status\":\"\",\"current_gene_id\":\"\",\"chromosome\":\"13\",\"map_location\":\"13q13.1\",\"organism_scientific\":\"Homo sapiens\",\"organism_common\":\"human\",\"other_aliases\":\"BRCC2, BROVCA2, FACD, FAD, FAD1, FANCD, FANCD1, GLM3, PNCA2, XRCC11\",\"other_designations\":\"breast cancer type 2 susceptibility protein|BRCA1/BRCA2-containing complex, subunit 2|BRCA2 DNA repair associated protein|DNA repair-associated BRCA2|Fanconi anemia group D1 protein|breast and ovarian cancer susceptibility gene, early onset|breast and ovarian cancer susceptibility protein 2|breast cancer 2 tumor suppressor|breast cancer 2, early onset|mutant BRCA2|mutant DNA repair-associated protein 2\"}]",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requested_utc": "2026-11-22T02:41:23+00:00",
+          "http_status": 200,
+          "content_type": "application/json"
+        }
+      ]
+    },
+    {
+      "query": "TP53",
+      "url": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary?identifiers=TP53&sleeptime=1.0",
+      "status": "ok",
+      "note": "",
+      "retrieved_utc": "2026-11-22T02:41:24+00:00",
+      "response": [
+        {
+          "ncbi_gene_id": "7157",
+          "official_symbol": "TP53",
+          "description": "tumor protein p53",
+          "status": "",
+          "current_gene_id": "",
+          "chromosome": "17",
+          "map_location": "17p13.1",
+          "organism_scientific": "Homo sapiens",
+          "organism_common": "human",
+          "other_aliases": "BCC7, BMFS5, LFS1, P53, TRP53",
+          "other_designations": "cellular tumor antigen p53|antigen NY-CO-13|mutant tumor protein 53|phosphoprotein p53|transformation-related protein 53|tumor protein 53|tumor supressor p53"
+        }
+      ],
+      "response_text": "[{\"ncbi_gene_id\":\"7157\",\"official_symbol\":\"TP53\",\"description\":\"tumor protein p53\",\"status\":\"\",\"current_gene_id\":\"\",\"chromosome\":\"17\",\"map_location\":\"17p13.1\",\"organism_scientific\":\"Homo sapiens\",\"organism_common\":\"human\",\"other_aliases\":\"BCC7, BMFS5, LFS1, P53, TRP53\",\"other_designations\":\"cellular tumor antigen p53|antigen NY-CO-13|mutant tumor protein 53|phosphoprotein p53|transformation-related protein 53|tumor protein 53|tumor supressor p53\"}]",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requested_utc": "2026-11-22T02:41:24+00:00",
+          "http_status": 200,
+          "content_type": "application/json"
+        }
+      ]
+    },
+    {
+      "query": "EGFR",
+      "url": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary?identifiers=EGFR&sleeptime=1.0",
+      "status": "ok",
+      "note": "",
+      "retrieved_utc": "2026-11-22T02:41:26+00:00",
+      "response": [
+        {
+          "ncbi_gene_id": "1956",
+          "official_symbol": "EGFR",
+          "description": "epidermal growth factor receptor",
+          "status": "",
+          "current_gene_id": "",
+          "chromosome": "7",
+          "map_location": "7p11.2",
+          "organism_scientific": "Homo sapiens",
+          "organism_common": "human",
+          "other_aliases": "ERBB, ERBB1, ERRP, HER1, NISBD2, NNCIS, PIG61, mENA",
+          "other_designations": "epidermal growth factor receptor|avian erythroblastic leukemia viral (v-erb-b) oncogene homolog|cell growth inhibiting protein 40|cell proliferation-inducing protein 61|epidermal growth factor receptor tyrosine kinase domain|erb-b2 receptor tyrosine kinase 1|proto-oncogene c-ErbB-1|receptor tyrosine-protein kinase erbB-1"
+        }
+      ],
+      "response_text": "[{\"ncbi_gene_id\":\"1956\",\"official_symbol\":\"EGFR\",\"description\":\"epidermal growth factor receptor\",\"status\":\"\",\"current_gene_id\":\"\",\"chromosome\":\"7\",\"map_location\":\"7p11.2\",\"organism_scientific\":\"Homo sapiens\",\"organism_common\":\"human\",\"other_aliases\":\"ERBB, ERBB1, ERRP, HER1, NISBD2, NNCIS, PIG61, mENA\",\"other_designations\":\"epidermal growth factor receptor|avian erythroblastic leukemia viral (v-erb-b) oncogene homolog|cell growth inhibiting protein 40|cell proliferation-inducing protein 61|epidermal growth factor receptor tyrosine kinase domain|erb-b2 receptor tyrosine kinase 1|proto-oncogene c-ErbB-1|receptor tyrosine-protein kinase erbB-1\"}]",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requested_utc": "2026-11-22T02:41:26+00:00",
+          "http_status": 200,
+          "content_type": "application/json"
+        }
+      ]
+    },
+    {
+      "query": "MYC",
+      "url": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary?identifiers=MYC&sleeptime=1.0",
+      "status": "ok",
+      "note": "",
+      "retrieved_utc": "2026-11-22T02:41:27+00:00",
+      "response": [
+        {
+          "ncbi_gene_id": "4609",
+          "official_symbol": "MYC",
+          "description": "MYC proto-oncogene, bHLH transcription factor",
+          "status": "",
+          "current_gene_id": "",
+          "chromosome": "8",
+          "map_location": "8q24.21",
+          "organism_scientific": "Homo sapiens",
+          "organism_common": "human",
+          "other_aliases": "MRTL, MYCC, bHLHe39, c-Myc",
+          "other_designations": "myc proto-oncogene protein|avian myelocytomatosis viral oncogene homolog|class E basic helix-loop-helix protein 39|myc-related translation/localization regulatory factor|proto-oncogene c-Myc|transcription factor p64|v-myc avian myelocytomatosis viral oncogene homolog|v-myc myelocytomatosis viral oncogene homolog"
+        }
+      ],
+      "response_text": "[{\"ncbi_gene_id\":\"4609\",\"official_symbol\":\"MYC\",\"description\":\"MYC proto-oncogene, bHLH transcription factor\",\"status\":\"\",\"current_gene_id\":\"\",\"chromosome\":\"8\",\"map_location\":\"8q24.21\",\"organism_scientific\":\"Homo sapiens\",\"organism_common\":\"human\",\"other_aliases\":\"MRTL, MYCC, bHLHe39, c-Myc\",\"other_designations\":\"myc proto-oncogene protein|avian myelocytomatosis viral oncogene homolog|class E basic helix-loop-helix protein 39|myc-related translation/localization regulatory factor|proto-oncogene c-Myc|transcription factor p64|v-myc avian myelocytomatosis viral oncogene homolog|v-myc myelocytomatosis viral oncogene homolog\"}]",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requested_utc": "2026-11-22T02:41:27+00:00",
+          "http_status": 200,
+          "content_type": "application/json"
+        }
+      ]
+    },
+    {
+      "query": "APOE",
+      "url": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary?identifiers=APOE&sleeptime=1.0",
+      "status": "ok",
+      "note": "",
+      "retrieved_utc": "2026-11-22T02:41:29+00:00",
+      "response": [
+        {
+          "ncbi_gene_id": "348",
+          "official_symbol": "APOE",
+          "description": "apolipoprotein E",
+          "status": "",
+          "current_gene_id": "",
+          "chromosome": "19",
+          "map_location": "19q13.32",
+          "organism_scientific": "Homo sapiens",
+          "organism_common": "human",
+          "other_aliases": "AD2, APO-E, ApoE4, LDLCQ5, LPG",
+          "other_designations": "apolipoprotein E|apolipoprotein E3"
+        }
+      ],
+      "response_text": "[{\"ncbi_gene_id\":\"348\",\"official_symbol\":\"APOE\",\"description\":\"apolipoprotein E\",\"status\":\"\",\"current_gene_id\":\"\",\"chromosome\":\"19\",\"map_location\":\"19q13.32\",\"organism_scientific\":\"Homo sapiens\",\"organism_common\":\"human\",\"other_aliases\":\"AD2, APO-E, ApoE4, LDLCQ5, LPG\",\"other_designations\":\"apolipoprotein E|apolipoprotein E3\"}]",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requested_utc": "2026-11-22T02:41:29+00:00",
+          "http_status": 200,
+          "content_type": "application/json"
+        }
+      ]
+    },
+    {
+      "query": "CFTR",
+      "url": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary?identifiers=CFTR&sleeptime=1.0",
+      "status": "ok",
+      "note": "",
+      "retrieved_utc": "2026-11-22T02:41:30+00:00",
+      "response": [
+        {
+          "ncbi_gene_id": "1080",
+          "official_symbol": "CFTR",
+          "description": "CF transmembrane conductance regulator",
+          "status": "",
+          "current_gene_id": "",
+          "chromosome": "7",
+          "map_location": "7q31.2",
+          "organism_scientific": "Homo sapiens",
+          "organism_common": "human",
+          "other_aliases": "ABC35, ABCC7, CF, CFTR/MRP, MRP7, TNR-CFTR, dJ760C5.1",
+          "other_designations": "cystic fibrosis transmembrane conductance regulator|cAMP-dependent chloride channel|channel conductance-controlling ATPase|cystic fibrosis transmembrane conductance regulating|cystic fibrosis transmembrane conductance regulator (ATP-binding cassette sub-family C, member 7)"
+        }
+      ],
+      "response_text": "[{\"ncbi_gene_id\":\"1080\",\"official_symbol\":\"CFTR\",\"description\":\"CF transmembrane conductance regulator\",\"status\":\"\",\"current_gene_id\":\"\",\"chromosome\":\"7\",\"map_location\":\"7q31.2\",\"organism_scientific\":\"Homo sapiens\",\"organism_common\":\"human\",\"other_aliases\":\"ABC35, ABCC7, CF, CFTR/MRP, MRP7, TNR-CFTR, dJ760C5.1\",\"other_designations\":\"cystic fibrosis transmembrane conductance regulator|cAMP-dependent chloride channel|channel conductance-controlling ATPase|cystic fibrosis transmembrane conductance regulating|cystic fibrosis transmembrane conductance regulator (ATP-binding cassette sub-family C, member 7)\"}]",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requested_utc": "2026-11-22T02:41:30+00:00",
+          "http_status": 200,
+          "content_type": "application/json"
+        }
+      ]
+    },
+    {
+      "query": "ACE2",
+      "url": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary?identifiers=ACE2&sleeptime=1.0",
+      "status": "ok",
+      "note": "",
+      "retrieved_utc": "2026-11-22T02:41:32+00:00",
+      "response": [
+        {
+          "ncbi_gene_id": "59272",
+          "official_symbol": "ACE2",
+          "description": "angiotensin converting enzyme 2",
+          "status": "",
+          "current_gene_id": "",
+          "chromosome": "X",
+          "map_location": "Xp22.2",
+          "organism_scientific": "Homo sapiens",
+          "organism_common": "human",
+          "other_aliases": "ACEH",
+          "other_designations": "angiotensin-converting enzyme 2|ACE-related carboxypeptidase|angiotensin I converting enzyme (peptidyl-dipeptidase A) 2|angiotensin I converting enzyme 2|angiotensin-converting enzyme homolog|angiotensin-converting enzyme-related carboxypeptidase|metalloprotease MPROT15|peptidyl-dipeptidase A"
+        }
+      ],
+      "response_text": "[{\"ncbi_gene_id\":\"59272\",\"official_symbol\":\"ACE2\",\"description\":\"angiotensin converting enzyme 2\",\"status\":\"\",\"current_gene_id\":\"\",\"chromosome\":\"X\",\"map_location\":\"Xp22.2\",\"organism_scientific\":\"Homo sapiens\",\"organism_common\":\"human\",\"other_aliases\":\"ACEH\",\"other_designations\":\"angiotensin-converting enzyme 2|ACE-related carboxypeptidase|angiotensin I converting enzyme (peptidyl-dipeptidase A) 2|angiotensin I converting enzyme 2|angiotensin-converting enzyme homolog|angiotensin-converting enzyme-related carboxypeptidase|metalloprotease MPROT15|peptidyl-dipeptidase A\"}]",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requested_utc": "2026-11-22T02:41:32+00:00",
+          "http_status": 200,
+          "content_type": "application/json"
+        }
+      ]
+    },
+    {
+      "query": "TNF",
+      "url": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary?identifiers=TNF&sleeptime=1.0",
+      "status": "ok",
+      "note": "",
+      "retrieved_utc": "2026-11-22T02:41:33+00:00",
+      "response": [
+        {
+          "ncbi_gene_id": "7124",
+          "official_symbol": "TNF",
+          "description": "tumor necrosis factor",
+          "status": "",
+          "current_gene_id": "",
+          "chromosome": "6",
+          "map_location": "6p21.33",
+          "organism_scientific": "Homo sapiens",
+          "organism_common": "human",
+          "other_aliases": "DIF, IMD127, TNF-alpha, TNFA, TNFSF2, TNLG1F",
+          "other_designations": "tumor necrosis factor|APC1 protein|TNF, macrophage-derived|TNF, monocyte-derived|TNF-a|tumor necrosis factor ligand 1F|tumor necrosis factor ligand superfamily member 2|tumor necrosis factor-alpha|tumor necrotic factor alpha"
+        }
+      ],
+      "response_text": "[{\"ncbi_gene_id\":\"7124\",\"official_symbol\":\"TNF\",\"description\":\"tumor necrosis factor\",\"status\":\"\",\"current_gene_id\":\"\",\"chromosome\":\"6\",\"map_location\":\"6p21.33\",\"organism_scientific\":\"Homo sapiens\",\"organism_common\":\"human\",\"other_aliases\":\"DIF, IMD127, TNF-alpha, TNFA, TNFSF2, TNLG1F\",\"other_designations\":\"tumor necrosis factor|APC1 protein|TNF, macrophage-derived|TNF, monocyte-derived|TNF-a|tumor necrosis factor ligand 1F|tumor necrosis factor ligand superfamily member 2|tumor necrosis factor-alpha|tumor necrotic factor alpha\"}]",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requested_utc": "2026-11-22T02:41:33+00:00",
+          "http_status": 200,
+          "content_type": "application/json"
+        }
+      ]
+    },
+    {
+      "query": "VEGFA",
+      "url": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary?identifiers=VEGFA&sleeptime=1.0",
+      "status": "ok",
+      "note": "",
+      "retrieved_utc": "2026-11-22T02:41:35+00:00",
+      "response": [
+        {
+          "ncbi_gene_id": "7422",
+          "official_symbol": "VEGFA",
+          "description": "vascular endothelial growth factor A",
+          "status": "",
+          "current_gene_id": "",
+          "chromosome": "6",
+          "map_location": "6p21.1",
+          "organism_scientific": "Homo sapiens",
+          "organism_common": "human",
+          "other_aliases": "L-VEGF, MVCD1, VEGF, VPF",
+          "other_designations": "vascular endothelial growth factor A, long form|vascular endothelial growth factor A121|vascular endothelial growth factor A165|vascular permeability factor"
+        }
+      ],
+      "response_text": "[{\"ncbi_gene_id\":\"7422\",\"official_symbol\":\"VEGFA\",\"description\":\"vascular endothelial growth factor A\",\"status\":\"\",\"current_gene_id\":\"\",\"chromosome\":\"6\",\"map_location\":\"6p21.1\",\"organism_scientific\":\"Homo sapiens\",\"organism_common\":\"human\",\"other_aliases\":\"L-VEGF, MVCD1, VEGF, VPF\",\"other_designations\":\"vascular endothelial growth factor A, long form|vascular endothelial growth factor A121|vascular endothelial growth factor A165|vascular permeability factor\"}]",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requested_utc": "2026-11-22T02:41:35+00:00",
+          "http_status": 200,
+          "content_type": "application/json"
+        }
+      ]
+    }
+  ]
+}

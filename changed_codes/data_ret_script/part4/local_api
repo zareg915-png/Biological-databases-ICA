@@ -1,0 +1,509 @@
+#!/usr/bin/env python3
+#BDB ICA Part 4: the lecturer's local REST API annotation connector.
+
+
+import argparse
+from collections import Counter
+import csv
+from dataclasses import dataclass, field
+from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
+import hashlib
+from http.client import HTTPException
+import io
+import json
+import math
+import os
+from pathlib import Path
+import re
+import sys
+import tempfile
+import time
+from urllib.error import HTTPError, URLError
+from urllib.parse import urlencode, urlsplit
+from urllib.request import Request, urlopen
+
+
+# Editable configuration: matches the saved Part 1/2 loader and Part 3 paths.
+PROJECT_ROOT = Path(os.environ.get("BDB_PROJECT_ROOT", "~/BDB_ICA")).expanduser()
+PART1_ROOT = Path(os.environ.get(
+    "BDB_PART1_OUTPUT_DIR", str(PROJECT_ROOT / "OP1_data/part1_data/final_data")
+)).expanduser()
+OUTPUT_ROOT = Path(os.environ.get(
+    "BDB_PART4_OUTPUT_DIR", str(PROJECT_ROOT / "OP1_data/part4_data")
+)).expanduser()
+LOCAL_API_BASE_URL = os.environ.get(
+    "BDB_LOCAL_API_BASE_URL", "http://bioinfmsc6.bio.ed.ac.uk:8080"
+)
+DATASETS = ("development", "challenge")
+TIMEOUT, ATTEMPTS, SLEEPTIME, REQUEST_INTERVAL = 30.0, 3, 1.0, 1.0
+MAX_RETRY_WAIT = 60.0
+MAX_RESPONSE_BYTES = 5 * 1024 * 1024
+RETRYABLE_HTTP = {408, 429, 500, 502, 503, 504}
+PROBLEM_STATUSES = {
+    "lookup_failed", "invalid_response", "gene_id_mismatch",
+    "ambiguous_local_records", "species_mismatch", "missing_local_gene_id",
+    "local_record_replaced",
+}
+
+# Exact field names from the user's local /summary example.
+LOCAL_FIELDS = (
+    "ncbi_gene_id", "official_symbol", "description", "status",
+    "current_gene_id", "chromosome", "map_location", "organism_scientific",
+    "organism_common", "other_aliases", "other_designations",
+)
+RECORD_NAMES = (
+    "Local_Gene_ID", "Local_Official_Symbol", "Local_Official_Name",
+    "Local_Status_Field", "Local_Current_Gene_ID", "Local_Chromosome",
+    "Local_Map_Location", "Local_Organism_Scientific", "Local_Organism_Common",
+    "Local_Other_Aliases", "Local_Other_Designations",
+)
+LOCAL_TO_COLUMN = dict(zip(LOCAL_FIELDS, RECORD_NAMES))
+COMPARISONS = (
+    ("Symbol", "Official_Symbol", "official_symbol"),
+    ("Name", "Official_Name", "description"),
+    ("Chromosome", "Chromosome", "chromosome"),
+    ("Map_Location", "Map_Location", "map_location"),
+    ("Aliases", "Other_Aliases", "other_aliases"),
+)
+KEY_COLUMNS = ["Dataset", "Input_Row", "Query_Symbol", "Gene_ID"]
+COMPARISON_COLUMNS = KEY_COLUMNS + [
+    "Official_Symbol", "Resolution_Status", "Resolution_Note", "Same_Gene_Note",
+    "NCBI_Official_Name", "NCBI_Chromosome", "NCBI_Map_Location", "NCBI_Other_Aliases",
+    "Local_Query", "Local_Status", "Local_Note", "Local_Record_Count",
+    "Local_Candidate_Gene_IDs", "Selected_Record_Number",
+] + list(RECORD_NAMES) + ["Gene_ID_Comparison"] + [
+    name + "_Comparison" for name, _, _ in COMPARISONS
+] + ["Comparison_Status", "Differences", "Missing_Fields", "Retrieved_UTC", "Source_URL"]
+RECORD_COLUMNS = KEY_COLUMNS + [
+    "Local_Query", "Record_Number", "Matches_Part1_Gene_ID", "Selected",
+] + list(RECORD_NAMES) + ["Retrieved_UTC", "Source_URL"]
+
+
+class Part4Error(ValueError):
+    """An input or response that cannot be interpreted safely."""
+
+
+def utc_now():
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def valid_gene_id(value):
+    return bool(re.fullmatch(r"[1-9][0-9]*", str(value)))
+
+
+def load_part1(path, dataset):
+    """Read the plain TSV written by Part 1; never lose unresolved inputs."""
+    path = Path(path)
+    # Read once so the saved digest identifies exactly the bytes parsed.
+    contents = path.read_bytes()
+    reader = csv.DictReader(io.StringIO(contents.decode("utf-8-sig")),
+                            delimiter="\t", quoting=csv.QUOTE_NONE)
+    headers = reader.fieldnames or []
+    required = {"Query_Symbol", "Gene_ID", "Official_Symbol", "Chromosome", "Map_Location"}
+    if len(headers) != len(set(headers)) or not required <= set(headers):
+        raise Part4Error(f"{path}: missing required columns or duplicate headers.")
+    rows = []
+    for number, record in enumerate(reader, 1):
+        if None in record or any(value is None for value in record.values()):
+            raise Part4Error(f"{path}, line {reader.line_num}: wrong number of TSV fields.")
+        row = {name: value.strip() for name, value in record.items()}
+        input_row = row.get("Input_Row", str(number))
+        if input_row != str(number):
+            raise Part4Error(f"{path}: Input_Row must follow the original order, 1, 2, ...")
+        if not row["Query_Symbol"]:
+            raise Part4Error(f"{path}, input {number}: empty Query_Symbol.")
+        if row["Gene_ID"] and not valid_gene_id(row["Gene_ID"]):
+            raise Part4Error(f"{path}, input {number}: invalid Gene_ID.")
+        status = row.get("Resolution_Status")
+        if status is None:  # Support earlier Part 1 tables without this column.
+            status = "resolved" if row["Gene_ID"] else "unresolved"
+        if not status:
+            raise Part4Error(f"{path}, input {number}: empty Resolution_Status.")
+        if status == "resolved":
+            if not row["Gene_ID"] or not row["Official_Symbol"]:
+                raise Part4Error(f"{path}, input {number}: incomplete resolved input.")
+            if re.search(r"[,\x00-\x1f\x7f]", row["Official_Symbol"]):
+                raise Part4Error(f"{path}, input {number}: symbol is not a single API identifier.")
+        row.update(Dataset=dataset, Input_Row=input_row, Resolution_Status=status)
+        rows.append(row)
+    if not rows:
+        raise Part4Error(f"{path}: no Part 1 input rows.")
+    return rows, hashlib.sha256(contents).hexdigest()
+
+
+def parse_records(data):
+    """Accept the demonstrated list contract and retain differing candidates."""
+    if not isinstance(data, list):
+        raise Part4Error("Expected a top-level JSON list; inspect local_api_raw.json.")
+    records, seen = [], set()
+    for number, record in enumerate(data, 1):
+        if not isinstance(record, dict) or not set(LOCAL_FIELDS) & set(record):
+            raise Part4Error(f"Response item {number} is not a recognised annotation record.")
+        if any(record.get(key) not in (None, "", [], {}) for key in ("error", "errors")):
+            raise Part4Error(f"Response item {number} contains an API error; inspect the raw response.")
+        normal = {}
+        for key in LOCAL_FIELDS:
+            value = record.get(key)
+            if value is None:
+                value = ""
+            elif key in {"other_aliases", "other_designations"} and isinstance(value, list):
+                if not all(isinstance(item, str) for item in value):
+                    raise Part4Error(f"Response item {number}: invalid {key} list.")
+                value = "; ".join(value)
+            elif isinstance(value, bool) or not isinstance(value, (str, int)):
+                raise Part4Error(f"Response item {number}: unsupported value for {key}.")
+            normal[key] = str(value).strip()
+        for key in ("ncbi_gene_id", "current_gene_id"):
+            if normal[key] and not valid_gene_id(normal[key]):
+                raise Part4Error(f"Response item {number}: invalid {key}.")
+        # Collapse exact duplicate records only. Differences in any raw field
+        # retain separate candidates, even when their Gene IDs are the same.
+        signature = json.dumps(record, sort_keys=True, ensure_ascii=False)
+        if signature not in seen:
+            seen.add(signature)
+            records.append(normal)
+    return records
+
+
+def retry_after_seconds(value):
+    """Return a delay for Retry-After seconds/HTTP dates, or None if invalid."""
+    try:
+        delay = float(value)
+        return max(0.0, delay) if math.isfinite(delay) else None
+    except (TypeError, ValueError):
+        try:
+            when = parsedate_to_datetime(value)
+            if when.tzinfo is None:
+                when = when.replace(tzinfo=timezone.utc)
+            return max(0.0, (when - datetime.now(timezone.utc)).total_seconds())
+        except (TypeError, ValueError, OverflowError):
+            return None
+
+
+@dataclass
+class Lookup:
+    query: str
+    url: str
+    status: str = "lookup_failed"
+    note: str = ""
+    retrieved_utc: str = ""
+    records: list = field(default_factory=list)
+    response: object = None
+    response_text: str = ""
+    attempts: list = field(default_factory=list)
+
+    def audit(self):
+        return {"query": self.query, "url": self.url, "status": self.status,
+                "note": self.note, "retrieved_utc": self.retrieved_utc,
+                "response": self.response, "response_text": self.response_text,
+                "attempts": self.attempts}
+
+
+class LocalClient:
+    """Small REST client with timeouts, bounded retries and an in-run cache."""
+
+    def __init__(self, base_url=LOCAL_API_BASE_URL, timeout=TIMEOUT, attempts=ATTEMPTS,
+                 sleeptime=SLEEPTIME, interval=REQUEST_INTERVAL,
+                 opener=urlopen, sleep=time.sleep, clock=time.monotonic):
+        try:
+            parsed = urlsplit(base_url)
+            parsed.port  # Validate a supplied port before any network requests.
+        except ValueError as error:
+            raise Part4Error(str(error)) from error
+        if (parsed.scheme not in {"http", "https"} or not parsed.hostname
+                or parsed.username or parsed.password or parsed.query or parsed.fragment):
+            raise Part4Error("The API base URL must be an HTTP(S) URL without credentials or a query.")
+        if not isinstance(attempts, int) or isinstance(attempts, bool) or not 1 <= attempts <= 10:
+            raise Part4Error("attempts must be an integer from 1 to 10.")
+        for name, value, positive in (("timeout", timeout, True),
+                                      ("sleeptime", sleeptime, False),
+                                      ("request interval", interval, False)):
+            if not math.isfinite(value) or value < 0 or (positive and value == 0):
+                raise Part4Error(f"{name} must be finite and {'positive' if positive else 'non-negative'}.")
+        self.url = base_url.rstrip("/") + "/summary"
+        self.timeout, self.attempt_limit = timeout, attempts
+        self.sleeptime, self.interval = sleeptime, interval
+        self.opener, self.sleep, self.clock = opener, sleep, clock
+        self.last_request = None
+        self.cache = {}
+
+    def fetch(self, symbol):
+        if not isinstance(symbol, str) or not symbol.strip() or re.search(r"[,\x00-\x1f\x7f]", symbol):
+            raise Part4Error("Each request must contain one non-empty official gene symbol.")
+        if symbol in self.cache:
+            return self.cache[symbol]
+        url = self.url + "?" + urlencode({"identifiers": symbol, "sleeptime": self.sleeptime})
+        result = Lookup(symbol, url)
+        for attempt in range(1, self.attempt_limit + 1):
+            if self.last_request is not None:
+                self.sleep(max(0.0, self.interval - (self.clock() - self.last_request)))
+            result.retrieved_utc = utc_now()
+            self.last_request = self.clock()
+            trace = {"attempt": attempt, "requested_utc": result.retrieved_utc}
+            result.attempts.append(trace)
+            retry_header = None
+            retryable = False
+            try:
+                request = Request(url, headers={"Accept": "application/json",
+                                               "User-Agent": "BDB-ICA-Part4/1.0"})
+                with self.opener(request, timeout=self.timeout) as response:
+                    body = response.read(MAX_RESPONSE_BYTES + 1)
+                    trace["http_status"] = response.status
+                    trace["content_type"] = response.headers.get("Content-Type", "")
+                if len(body) > MAX_RESPONSE_BYTES:
+                    raise Part4Error("Response exceeded the 5 MiB limit.")
+                try:
+                    text = body.decode("utf-8-sig")
+                except UnicodeDecodeError as error:
+                    raise Part4Error("Response was not valid UTF-8.") from error
+                result.response_text = text
+                try:
+                    result.response = json.loads(text)
+                except ValueError as error:
+                    raise Part4Error("Response was not valid JSON; inspect the saved raw text.") from error
+                result.records = parse_records(result.response)
+                result.status, result.note = "ok", ""
+                break
+            except HTTPError as error:
+                try:
+                    with error:
+                        result.response_text = error.read(8192).decode("utf-8", "replace")
+                except (OSError, HTTPException) as read_error:
+                    result.response_text = ""
+                    trace["body_read_error"] = str(read_error)
+                trace["http_status"] = error.code
+                result.note = f"HTTP {error.code} from the local API."
+                retryable = error.code in RETRYABLE_HTTP
+                retry_header = error.headers.get("Retry-After") if error.headers else None
+            except (URLError, TimeoutError, OSError, HTTPException) as error:
+                result.note = f"{type(error).__name__}: {error}. Check the University network/VPN."
+                retryable = True
+            except Part4Error as error:
+                result.status, result.note = "invalid_response", str(error)
+            trace["error"] = result.note
+            if not retryable or attempt == self.attempt_limit:
+                break
+            delay = retry_after_seconds(retry_header)
+            delay = max(2.0 ** (attempt - 1), delay or 0.0)
+            if delay > MAX_RETRY_WAIT:
+                result.note += f" Retry-After requires {delay:.0f}s; retry deferred to a later run."
+                break  # Never shorten the service's requested delay.
+            trace["retry_wait_seconds"] = delay
+            self.sleep(delay)
+        self.cache[symbol] = result  # Reuse successes and failures during this run only.
+        return result
+
+
+def compare_value(ncbi, local, aliases=False):
+    """Compare text after whitespace cleanup; missing fields never count as matches."""
+    if not ncbi and not local:
+        return "missing_in_both"
+    if not ncbi:
+        return "missing_in_ncbi"
+    if not local:
+        return "missing_in_local"
+    if aliases:
+        normal = lambda value: {" ".join(part.split()) for part in re.split(r"[;,|]", value)
+                                if part.strip()}
+    else:
+        normal = lambda value: " ".join(value.split())
+    return "match" if normal(ncbi) == normal(local) else "different"
+
+
+def base_comparison(source):
+    row = {name: "" for name in COMPARISON_COLUMNS}
+    for key in KEY_COLUMNS + ["Official_Symbol", "Resolution_Status", "Resolution_Note", "Same_Gene_Note"]:
+        row[key] = source.get(key, "")
+    for key in ("Official_Name", "Chromosome", "Map_Location", "Other_Aliases"):
+        row["NCBI_" + key] = source.get(key, "")
+    row["Gene_ID_Comparison"] = "not_assessed"
+    for name, _, _ in COMPARISONS:
+        row[name + "_Comparison"] = "not_assessed"
+    row["Comparison_Status"] = "not_assessed"
+    return row
+
+
+def compare_input(source, lookup=None):
+    """Select by verified Gene ID, then compare fields for that same human gene."""
+    row = base_comparison(source)
+    if source["Resolution_Status"] != "resolved":
+        row.update(Local_Status="input_not_resolved",
+                   Local_Note="Part 1 did not resolve this human input; no local request submitted.")
+        return row, []
+    if lookup is None:
+        raise Part4Error("A resolved input has no lookup outcome.")
+    row.update(Local_Query=lookup.query, Local_Status=lookup.status, Local_Note=lookup.note,
+               Retrieved_UTC=lookup.retrieved_utc, Source_URL=lookup.url)
+    if lookup.status != "ok":
+        return row, []
+    records = lookup.records
+    row["Local_Record_Count"] = len(records)
+    row["Local_Candidate_Gene_IDs"] = ";".join(sorted({r["ncbi_gene_id"] for r in records
+                                                                 if r["ncbi_gene_id"]}))
+    candidates = []
+    for number, record in enumerate(records, 1):
+        candidates.append({**{key: source[key] for key in KEY_COLUMNS},
+                           "Local_Query": lookup.query, "Record_Number": number,
+                           "Matches_Part1_Gene_ID": str(record["ncbi_gene_id"] == source["Gene_ID"]).lower(),
+                           "Selected": "false", "Retrieved_UTC": lookup.retrieved_utc,
+                           "Source_URL": lookup.url,
+                           **{LOCAL_TO_COLUMN[key]: value for key, value in record.items()}})
+    if not records:
+        row.update(Local_Status="no_records_returned",
+                   Local_Note="The API returned an empty list; this does not establish biological absence.")
+        return row, candidates
+    matching = [number for number, record in enumerate(records)
+                if record["ncbi_gene_id"] == source["Gene_ID"]]
+    if len(matching) > 1 or (not matching and len(records) > 1):
+        row.update(Local_Status="ambiguous_local_records", Gene_ID_Comparison="ambiguous",
+                   Local_Note="Multiple candidate records remain; none selected. See local_api_records.tsv.")
+        return row, candidates
+    selected = matching[0] if matching else 0
+    record = records[selected]
+    candidates[selected]["Selected"] = "true"
+    row["Selected_Record_Number"] = selected + 1
+    row.update({LOCAL_TO_COLUMN[key]: value for key, value in record.items()})
+    row["Gene_ID_Comparison"] = compare_value(source["Gene_ID"], record["ncbi_gene_id"])
+    if not record["ncbi_gene_id"]:
+        row.update(Local_Status="missing_local_gene_id",
+                   Local_Note="Local record has no Gene ID; annotation comparisons are not assessed.")
+        return row, candidates
+    if record["ncbi_gene_id"] != source["Gene_ID"]:
+        row.update(Local_Status="gene_id_mismatch", Differences="Gene_ID",
+                   Local_Note="Local and Part 1 Gene IDs differ; other fields are not compared as the same gene.")
+        return row, candidates
+    species = " ".join(record["organism_scientific"].split()).casefold()
+    if species and species != "homo sapiens":
+        row.update(Local_Status="species_mismatch",
+                   Local_Note="Local record is not Homo sapiens; annotation comparisons are not assessed.")
+        return row, candidates
+    current = record["current_gene_id"]
+    if current and current != record["ncbi_gene_id"]:
+        row.update(Local_Status="local_record_replaced",
+                   Local_Note="Local record points to a different current Gene ID; no automatic remapping.")
+        return row, candidates
+    row["Local_Status"] = "matched" if species else "matched_species_not_supplied"
+    row["Local_Note"] = ("Matched by NCBI Gene ID and human species." if species else
+                         "Gene ID matches Part 1; the local record did not supply a scientific species name.")
+    differences, missing = [], []
+    for name, ncbi_key, local_key in COMPARISONS:
+        outcome = compare_value(source.get(ncbi_key, ""), record[local_key], aliases=name == "Aliases")
+        row[name + "_Comparison"] = outcome
+        if outcome == "different":
+            differences.append(name)
+        elif outcome.startswith("missing_"):
+            missing.append(name + ":" + outcome)
+    row["Differences"], row["Missing_Fields"] = ";".join(differences), ";".join(missing)
+    assessed = sum(row[name + "_Comparison"] in {"match", "different"}
+                   for name, _, _ in COMPARISONS)
+    row["Comparison_Status"] = ("differences_detected" if differences else
+                                "no_comparable_annotation_fields" if not assessed else
+                                "agreement_with_missing_fields" if missing else "all_fields_agree")
+    return row, candidates
+
+
+def atomic_text(path, contents):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile("w", encoding="utf-8", newline="",
+                                         dir=path.parent, delete=False) as handle:
+            temporary = Path(handle.name)
+            handle.write(contents)
+        temporary.replace(path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
+def write_tsv(path, columns, rows):
+    handle = io.StringIO(newline="")
+    writer = csv.DictWriter(handle, fieldnames=columns, delimiter="\t", lineterminator="\n")
+    writer.writeheader()
+    writer.writerows(rows)
+    atomic_text(path, handle.getvalue())
+
+
+def process_dataset(dataset, sources, digest, input_path, output_dir, client):
+    """Save every input, including when every request fails or none can be sent."""
+    comparisons, records, lookups = [], [], {}
+    for source in sources:
+        lookup = None
+        if source["Resolution_Status"] == "resolved":
+            lookup = client.fetch(source["Official_Symbol"])
+            lookups[lookup.query] = lookup
+        comparison, candidates = compare_input(source, lookup)
+        comparisons.append(comparison)
+        records.extend(candidates)
+        print(f"[{dataset}] {source['Input_Row']}: {source['Query_Symbol']} -> {comparison['Local_Status']}")
+    expected = [(row["Dataset"], row["Input_Row"], row["Query_Symbol"], row["Gene_ID"]) for row in sources]
+    actual = [(row["Dataset"], row["Input_Row"], row["Query_Symbol"], row["Gene_ID"]) for row in comparisons]
+    if actual != expected or len(set((r["Dataset"], r["Input_Row"]) for r in comparisons)) != len(sources):
+        raise Part4Error("Output completeness check failed; input rows were lost, duplicated or reordered.")
+    counts = dict(Counter(row["Local_Status"] for row in comparisons))
+    problems = sum(counts.get(status, 0) for status in PROBLEM_STATUSES)
+    summary = {
+        "dataset": dataset, "created_utc": utc_now(), "input_path": str(input_path),
+        "input_sha256": digest, "api_endpoint": client.url,
+        "input_rows": len(sources), "output_rows": len(comparisons),
+        "resolved_input_rows": sum(r["Resolution_Status"] == "resolved" for r in sources),
+        "unique_queries_used": len(lookups), "candidate_rows": len(records),
+        "local_status_counts": counts,
+        "comparison_status_counts": dict(Counter(r["Comparison_Status"] for r in comparisons)),
+        "problem_input_rows": problems,
+        "run_status": "completed_with_issues" if problems else "completed",
+        "join_keys": ["Dataset", "Input_Row"],
+        "interpretation": "Annotation agreement checks; the demonstrated /summary response supplies no expression measurements.",
+    }
+    output_dir = Path(output_dir)
+    write_tsv(output_dir / "local_ncbi_comparisons.tsv", COMPARISON_COLUMNS, comparisons)
+    write_tsv(output_dir / "local_api_records.tsv", RECORD_COLUMNS, records)
+    atomic_text(output_dir / "local_api_raw.json", json.dumps({
+        "dataset": dataset, "input_sha256": digest,
+        "requests": [lookup.audit() for lookup in lookups.values()],
+    }, indent=2, ensure_ascii=False) + "\n")
+    atomic_text(output_dir / "run_summary.json", json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
+    print(f"[SAVED] {output_dir}: {len(comparisons)}/{len(sources)} input outcomes.")
+    return summary
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--dataset", choices=("both",) + DATASETS, default="both")
+    parser.add_argument("--part1-root", type=Path, default=PART1_ROOT)
+    parser.add_argument("--output-root", type=Path, default=OUTPUT_ROOT)
+    parser.add_argument("--base-url", default=LOCAL_API_BASE_URL)
+    parser.add_argument("--timeout", type=float, default=TIMEOUT)
+    parser.add_argument("--attempts", type=int, default=ATTEMPTS)
+    parser.add_argument("--sleeptime", type=float, default=SLEEPTIME)
+    parser.add_argument("--request-interval", type=float, default=REQUEST_INTERVAL)
+    parser.add_argument("--check-files", action="store_true", help="Validate Part 1 files without API calls or output writes.")
+    args = parser.parse_args(argv)
+    client = LocalClient(args.base_url, args.timeout, args.attempts, args.sleeptime, args.request_interval)
+    datasets = DATASETS if args.dataset == "both" else (args.dataset,)
+    # Validate both files before querying either list or replacing previous outputs.
+    prepared = []
+    for dataset in datasets:
+        path = args.part1_root.expanduser() / dataset / "ncbi_gene_summary2.tsv"
+        sources, digest = load_part1(path, dataset)
+        prepared.append((dataset, sources, digest, path))
+        print(f"[CHECKED] {dataset}: {len(sources)} Part 1 input rows.")
+    if args.check_files:
+        return 0
+    summaries = [process_dataset(dataset, sources, digest, path,
+                                 args.output_root.expanduser() / dataset, client)
+                 for dataset, sources, digest, path in prepared]
+    if any(summary["problem_input_rows"] for summary in summaries):
+        print("[WARNING] Outputs saved for every input. Review Local_Status/Local_Note and rerun after correcting issues.", file=sys.stderr)
+        return 2
+    return 0
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except (Part4Error, OSError, UnicodeError, csv.Error) as error:
+        print(f"[ERROR] {error}", file=sys.stderr)
+        sys.exit(1)
