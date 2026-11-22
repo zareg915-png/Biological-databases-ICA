@@ -799,4 +799,3 @@ if __name__ == "__main__":
         message = str(error) if isinstance(error, OrthologError) else "Run stopped. Check the input, output paths and ncbi_ortholog.log."
         report(f"[ERROR] {message}", logging.ERROR)
         sys.exit(1)
-

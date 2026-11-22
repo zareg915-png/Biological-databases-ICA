@@ -5,9 +5,6 @@ Adapted from the course examples ConnecttoDatabase.py and interactionPython.py.
 Reads the development and challenge TSVs written by Part 1, replaces those
 rows in one verified transaction, then exports a mysqldump of the table.
 
-Usage (on bioinfmsc9):
-    python load_part1_mysql.py --check-files   # validate TSVs only
-    python load_part1_mysql.py                 # import and export dump
 """
 
 import argparse

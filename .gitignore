@@ -1,1 +1,8 @@
 OP1_data/part3_data/api_cache/
+*.log
+.DS_Store
+__pycache__/
+*.pyc
+.idea/
+.venv/
+_archive/

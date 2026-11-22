@@ -1,0 +1,435 @@
+#!/usr/bin/env python3
+"""Load the final Part 1 annotation TSVs into MySQL on bioinfmsc9.
+
+Adapted from the course examples ConnecttoDatabase.py and interactionPython.py.
+Reads the development and challenge TSVs written by Part 1, replaces those
+rows in one verified transaction, then exports a mysqldump of the table.
+
+Usage (on bioinfmsc9):
+    python load_part1_mysql.py --check-files   # validate TSVs only
+    python load_part1_mysql.py                 # import and export dump
+"""
+
+import argparse
+import csv
+from getpass import getpass, getuser
+import os
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+
+
+# Input folder holding development/ and challenge/ TSVs (override with --base-dir).
+BASE_DIR = Path.home() / "BDB_ICA" / "OP1_data" / "part1_data" / "final_data"
+# Destination for the exported SQL dump.
+SQL_OUTPUT_DIR = Path.home() / "BDB_ICA" / "OP2_SQL" / "part1_sql"
+DATASETS = ("development", "challenge")
+TABLE_NAME = "p1_annotations"
+
+
+# MySQL login defaults to the server account; override with MYSQL_USER.
+# MYSQL_DATABASE skips the interactive database prompt.
+USERNAME = os.environ.get("MYSQL_USER") or getuser()
+DATABASE = os.environ.get("MYSQL_DATABASE", "").strip()
+
+# Local MySQL socket on bioinfmsc9; no network connection or tunnel is needed.
+MYSQL_SOCKET = "/var/run/mysqld/mysqld.sock"
+
+# Expected Part 1 TSV header, in order. Any other header is rejected before
+# connecting, so shifted columns can never be loaded.
+INPUT_COLUMNS = (
+    "Query_Symbol", "Gene_ID", "ENSG_IDs", "Official_Symbol",
+    "Official_Name", "Chromosome", "Map_Location", "Other_Aliases",
+    "Summary", "Same_Gene_Note", "Resolution_Status", "Resolution_Note",
+)
+DATABASE_COLUMNS = ("Dataset", "Input_Row") + INPUT_COLUMNS
+
+
+def read_input_tables(base_dir):
+    """Read both files completely before any database rows can be changed."""
+    tables = {}
+    for dataset in DATASETS:
+        path = base_dir / dataset / "ncbi_gene_summary2.tsv"
+        with path.open("r", encoding="utf-8-sig", newline="") as handle:
+            # Part 1 writes unquoted TSV; QUOTE_NONE keeps literal quotes intact.
+            reader = csv.DictReader(
+                handle, delimiter="\t", quoting=csv.QUOTE_NONE,
+            )
+            if reader.fieldnames != list(INPUT_COLUMNS):
+                raise ValueError(
+                    f"Unexpected columns in {path}. Expected: "
+                    + ", ".join(INPUT_COLUMNS)
+                )
+
+            rows = []
+            for line_number, row in enumerate(reader, start=2):
+                if None in row or any(value is None for value in row.values()):
+                    raise ValueError(f"Wrong number of fields: {path}:{line_number}")
+                if not row["Query_Symbol"].strip():
+                    raise ValueError(f"Missing input identifier: {path}:{line_number}")
+                if not row["Resolution_Status"].strip():
+                    raise ValueError(f"Missing resolution status: {path}:{line_number}")
+
+                gene_id = row["Gene_ID"]
+                if gene_id and not re.fullmatch(r"[1-9][0-9]*", gene_id):
+                    raise ValueError(f"Invalid Gene_ID: {path}:{line_number}")
+                if row["Resolution_Status"] == "resolved" and (
+                    not gene_id or not row["Official_Symbol"].strip()
+                ):
+                    raise ValueError(f"Incomplete resolved row: {path}:{line_number}")
+
+                # Store every empty cell as SQL NULL, so missing values are
+                # consistent across columns (unresolved rows are still kept).
+                row = {key: (value if value.strip() else None) for key, value in row.items()}
+                rows.append(row)
+
+        if not rows:
+            raise ValueError(f"No input rows found in {path}")
+        tables[dataset] = rows
+    return tables
+
+
+def source_counts(rows):
+    """Count input rows, resolved inputs and distinct resolved genes."""
+    resolved = [row for row in rows if row["Resolution_Status"] == "resolved"]
+    return len(rows), len(resolved), len({row["Gene_ID"] for row in resolved})
+
+
+def print_counts(dataset, counts):
+    print(
+        f"{dataset}: {counts[0]} input rows; {counts[1]} resolved inputs; "
+        f"{counts[2]} unique resolved genes."
+    )
+
+
+def build_table_sql():
+    """Return the CREATE TABLE statement, with explicit column types and indexes.
+
+    Adapted from the course build_table_sql, which derived generic types.
+    """
+    return f"""
+        CREATE TABLE IF NOT EXISTS `{TABLE_NAME}` (
+            `Row_ID` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            `Dataset` VARCHAR(20) NOT NULL,
+            `Query_Symbol` VARCHAR(255) NOT NULL,
+            `Gene_ID` VARCHAR(20),
+            `ENSG_IDs` TEXT,
+            `Official_Symbol` VARCHAR(255),
+            `Official_Name` TEXT,
+            `Chromosome` VARCHAR(20),
+            `Map_Location` VARCHAR(100),
+            `Other_Aliases` TEXT,
+            `Summary` TEXT,
+            `Same_Gene_Note` TEXT,
+            `Resolution_Status` VARCHAR(30),
+            `Resolution_Note` TEXT,
+            INDEX `idx_dataset` (`Dataset`),
+            INDEX `idx_gene_id` (`Gene_ID`)
+        ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4
+    """
+
+
+def build_table_data_sql():
+    """Return a parameterised INSERT (course approach); values use %s placeholders."""
+    names = ", ".join(f"`{name}`" for name in DATABASE_COLUMNS)
+    placeholders = ", ".join(["%s"] * len(DATABASE_COLUMNS))
+    return f"INSERT INTO `{TABLE_NAME}` ({names}) VALUES ({placeholders})"
+
+
+def input_values(
+    dataset: str, rows: list[dict[str, str | None]],
+) -> list[tuple[object, ...]]:
+    return [
+        (dataset, input_row)
+        + tuple(row[column] for column in INPUT_COLUMNS)
+        for input_row, row in enumerate(rows, start=1)]
+
+
+def check_table(cursor):
+    cursor.execute(f"SHOW COLUMNS FROM `{TABLE_NAME}`")
+    found = {row[0] for row in cursor.fetchall()}
+
+    # Add the missing column before checking the schema.
+    if "Input_Row" not in found:
+        cursor.execute(
+            f"ALTER TABLE `{TABLE_NAME}` "
+            "ADD COLUMN `Input_Row` INT UNSIGNED NULL "
+            "AFTER `Dataset`"
+        )
+        found.add("Input_Row")
+        print("[INFO] Added Input_Row column.")
+
+    missing = {"Row_ID", *DATABASE_COLUMNS} - found
+    if missing:
+        raise ValueError(
+            f"The existing {TABLE_NAME} table has a different schema. "
+            "Missing columns: " + ", ".join(sorted(missing))
+        )
+
+    cursor.execute(
+        "SELECT ENGINE FROM information_schema.TABLES "
+        "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = %s",
+        (TABLE_NAME,),
+    )
+    engine = cursor.fetchone()
+
+    if not engine or str(engine[0]).upper() != "INNODB":
+        raise ValueError(f"{TABLE_NAME} must use InnoDB for safe rollback.")
+
+    # Rollback requires a transactional engine; check tables created earlier.
+    cursor.execute(
+        "SELECT ENGINE FROM information_schema.TABLES "
+        "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = %s",
+        (TABLE_NAME,),
+    )
+    engine = cursor.fetchone()
+    if not engine or str(engine[0]).upper() != "INNODB":
+        raise ValueError(f"{TABLE_NAME} must use InnoDB for safe rollback.")
+
+
+def ensure_indexes(cursor):
+    """Add the Dataset and Gene_ID indexes if an older table lacks them."""
+    cursor.execute(f"SHOW INDEX FROM `{TABLE_NAME}`")
+    indexes = {}
+    for row in cursor.fetchall():
+        # SHOW INDEX columns: 2=Key_name, 4=Column_name, 7=Sub_part.
+        indexes.setdefault(row[2], []).append(row)
+    indexed_columns = {
+        parts[0][4] for parts in indexes.values()
+        if len(parts) == 1 and parts[0][7] is None
+    }
+    for column, index_name in (
+        ("Dataset", "idx_dataset"), ("Gene_ID", "idx_gene_id"),
+    ):
+        if column not in indexed_columns:
+            # Non-unique: aliases can share a Gene ID.
+            cursor.execute(
+                f"ALTER TABLE `{TABLE_NAME}` "
+                f"ADD INDEX `{index_name}` (`{column}`)"
+            )
+            print(f"[INFO] Added index on {column}.")
+
+
+def choose_database(connection, cursor):
+    """Show accessible databases and use the student's personal database."""
+    cursor.execute("SHOW DATABASES")
+    available = [row[0] for row in cursor.fetchall()]
+    print("Accessible databases: " + ", ".join(available))
+    database = DATABASE or input("Your personal MySQL database name: ").strip()
+    if database not in available:
+        raise ValueError("Choose the exact name of your personal database shown above.")
+    if database.casefold() in {
+        "genbank", "mysql", "sys", "information_schema", "performance_schema",
+    }:
+        raise ValueError("Select your personal database rather than a reference/system database.")
+    connection.database = database
+    print(f"[INFO] Using personal database: {database}")
+
+
+def replace_and_verify(connection, cursor, tables):
+    """Replace these datasets together; commit only after complete checks."""
+    connection.start_transaction()
+    try:
+        for dataset, rows in tables.items():
+            # Re-runs replace only this dataset's rows.
+            cursor.execute(
+                f"DELETE FROM `{TABLE_NAME}` WHERE `Dataset` = %s",
+                (dataset,),
+            )
+            cursor.executemany(build_table_data_sql(), input_values(dataset, rows))
+
+        for dataset, rows in tables.items():
+            # Read back every field and compare with the TSV.
+            columns = ", ".join(f"`{name}`" for name in DATABASE_COLUMNS)
+            cursor.execute(
+                f"SELECT {columns} FROM `{TABLE_NAME}` "
+                "WHERE `Dataset` = %s ORDER BY `Row_ID`",
+                (dataset,),
+            )
+            if cursor.fetchall() != input_values(dataset, rows):
+                raise ValueError(f"Imported values differ from the {dataset} TSV.")
+
+            # Compare row, resolved and unique-gene counts with the source file.
+            cursor.execute(
+                f"SELECT COUNT(*), "
+                "COALESCE(SUM(`Resolution_Status` = 'resolved'), 0), "
+                "COUNT(DISTINCT CASE WHEN `Resolution_Status` = 'resolved' "
+                "THEN `Gene_ID` END) "
+                f"FROM `{TABLE_NAME}` WHERE `Dataset` = %s",
+                (dataset,),
+            )
+            observed = tuple(int(value) for value in cursor.fetchone())
+            if observed != source_counts(rows):
+                raise ValueError(f"Database counts differ from the {dataset} TSV.")
+            print_counts(dataset, observed)
+
+        # Single commit for both datasets, only after every check passes.
+        connection.commit()
+    except BaseException:
+        # Any failure or Ctrl+C restores the previous rows. (DDL above is
+        # committed separately because MySQL commits DDL implicitly.)
+        connection.rollback()
+        raise
+
+
+def quote_option_value(value):
+    """Quote one MySQL option-file value without exposing it in the shell."""
+    value = str(value).replace("\\", "\\\\").replace('"', '\\"')
+    value = value.replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t")
+    return '"' + value + '"'
+
+
+def export_sql_dump(database, password, output_dir):
+    """Save the Part 1 table's schema and data, keeping any older dump on error."""
+    program = shutil.which("mysqldump") or shutil.which("mariadb-dump")
+    if not program:
+        raise RuntimeError(
+            "The data are committed in MySQL, but mysqldump was not found "
+            "on this server, so the SQL file could not be exported."
+        )
+    output_dir = Path(output_dir).expanduser()
+    output_dir.mkdir(parents=True, exist_ok=True)
+    destination = output_dir / "part1_annotations.sql"
+    temporary_output = None
+    try:
+        # Credentials go in a private mode-600 option file, never on the command line.
+        with tempfile.TemporaryDirectory(prefix="bdb_mysql_dump_") as private_dir:
+            options_path = Path(private_dir) / "client.cnf"
+            descriptor = os.open(options_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+            with os.fdopen(descriptor, "w", encoding="utf-8") as options:
+                options.write("[client]\n")
+                for name, value in (
+                    ("user", USERNAME), ("password", password), ("socket", MYSQL_SOCKET),
+                ):
+                    options.write(f"{name}={quote_option_value(value)}\n")
+
+            # Add optional flags only if this mysqldump/MariaDB client supports them.
+            help_result = subprocess.run(
+                [program, "--no-defaults", "--help"],
+                capture_output=True, text=True, timeout=15, check=False,
+            )
+            command = [
+                program, f"--defaults-file={options_path}",
+                "--single-transaction", "--skip-lock-tables", "--no-tablespaces",
+                "--default-character-set=utf8mb4",
+                # One INSERT per row, so the dump is readable and diff-friendly.
+                "--skip-extended-insert",
+            ]
+            for option, setting in (
+                ("--column-statistics", "0"), ("--set-gtid-purged", "OFF"),
+            ):
+                if option in help_result.stdout:
+                    command.append(f"{option}={setting}")
+            command.extend([database, TABLE_NAME])
+
+            # Dump to a temporary file so a failure never overwrites a good dump.
+            with tempfile.NamedTemporaryFile(
+                mode="wb", dir=output_dir, prefix="part1_annotations_",
+                suffix=".tmp", delete=False,
+            ) as output:
+                temporary_output = Path(output.name)
+                result = subprocess.run(
+                    command, stdout=output, stderr=subprocess.PIPE,
+                    timeout=120, check=False,
+                )
+            if result.returncode != 0:
+                detail = result.stderr.decode("utf-8", errors="replace").strip()
+                if password:
+                    detail = detail.replace(password, "[REDACTED]")
+                raise RuntimeError(detail or "mysqldump returned an error.")
+            if temporary_output.stat().st_size == 0:
+                raise RuntimeError("mysqldump produced an empty file.")
+            temporary_output.replace(destination)
+    except Exception as error:
+        raise RuntimeError(
+            "The data are committed in MySQL, but SQL export failed: " + str(error)
+        ) from error
+    finally:
+        if temporary_output is not None:
+            temporary_output.unlink(missing_ok=True)
+    print(f"[INFO] Saved Part 1 SQL dump to: {destination}")
+    return destination
+
+
+def build_query_database(tables):
+    """Connect, create/check the table, import and verify, then export a dump."""
+    # Imported here so --check-files works without the connector installed.
+    try:
+        from mysql.connector import connect
+    except ImportError as error:
+        raise ValueError(
+            "Install the connector in this interpreter: "
+            "python -m pip install mysql-connector-python"
+        ) from error
+
+    # Prompt for the password so it is never stored in code.
+    password = getpass(f"MySQL password for {USERNAME}: ")
+    with connect(
+        user=USERNAME,
+        password=password,
+        unix_socket=MYSQL_SOCKET,
+        charset="utf8mb4",
+        collation="utf8mb4_unicode_ci",
+        autocommit=False,
+        connection_timeout=15,
+    ) as connection:
+        with connection.cursor() as cursor:
+            choose_database(connection, cursor)
+            cursor.execute(build_table_sql())
+            check_table(cursor)
+            ensure_indexes(cursor)
+            # Commit setup before the import transaction starts.
+            connection.commit()
+            replace_and_verify(connection, cursor, tables)
+            print("[INFO] Both datasets committed; all imported fields verified.")
+
+            # Example query: distinct resolved challenge genes (aliases collapsed).
+            cursor.execute(
+                f"SELECT DISTINCT `Gene_ID` FROM `{TABLE_NAME}` "
+                "WHERE `Dataset` = %s AND `Resolution_Status` = 'resolved' "
+                "AND `Gene_ID` IS NOT NULL ORDER BY `Gene_ID`",
+                ("challenge",),
+            )
+            print("[INFO] Unique resolved challenge Gene IDs:")
+            for row in cursor.fetchall():
+                print(row[0])
+            database_name = connection.database
+
+    # Export after the verified commit, reusing the same password.
+    export_sql_dump(database_name, password, SQL_OUTPUT_DIR)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--base-dir", type=Path, default=BASE_DIR,
+        help="Folder containing development/ and challenge/ final TSVs.",
+    )
+    parser.add_argument(
+        "--check-files", action="store_true",
+        help="Validate and count the TSV rows without connecting to MySQL.",
+    )
+    args = parser.parse_args()
+    tables = read_input_tables(args.base_dir.expanduser())
+    print("[INFO] Source files checked:")
+    for dataset, rows in tables.items():
+        print_counts(dataset, source_counts(rows))
+    if args.check_files:
+        print("[INFO] File checks passed. MySQL was not contacted.")
+        return
+    build_query_database(tables)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n[ERROR] Cancelled.", file=sys.stderr)
+        sys.exit(130)
+    except Exception as error:
+        # Connector errors explain access/socket problems; the password is never printed.
+        print(f"[ERROR] {error}", file=sys.stderr)
+        sys.exit(1)

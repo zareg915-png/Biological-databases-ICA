@@ -445,7 +445,7 @@ def process_dataset(dataset, sources, digest, input_path, output_dir, client):
     counts = dict(Counter(row["Local_Status"] for row in comparisons))
     problems = sum(counts.get(status, 0) for status in PROBLEM_STATUSES)
     summary = {
-        "dataset": dataset, "created_utc": utc_now(), "input_path": str(input_path),
+        "dataset": dataset, "created_utc": utc_now(), "input_path": os.path.relpath(input_path, PROJECT_ROOT),
         "input_sha256": digest, "api_endpoint": client.url,
         "input_rows": len(sources), "output_rows": len(comparisons),
         "resolved_input_rows": sum(r["Resolution_Status"] == "resolved" for r in sources),

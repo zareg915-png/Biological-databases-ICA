@@ -588,7 +588,7 @@ def run_dataset(pairs, input_count, dataset, output_dir, source_paths, client):
                 g["UniProt_Status"], g["Bgee_Status"]) or g["Bgee_Status"] == "incomplete"
                 or g["UniProt_Status"] == "invalid_gene_identity"]
     manifest = {
-        "dataset": dataset, "generated_utc": utc_now(), "inputs": [str(p) for p in source_paths],
+        "dataset": dataset, "generated_utc": utc_now(), "inputs": [os.path.relpath(p, PROJECT_ROOT) for p in source_paths],,
         "input_count": input_count, "pair_count": len(pairs), "unique_gene_count": len(genes),
         "genes_with_lookup_problems": len(problems),
         "files": {name: len(rows) for name, (rows, _) in tables.items()},

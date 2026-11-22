@@ -1,5 +1,0 @@
-2026-11-21 15:50:08,190 WARNING [WARN] Queried 'c-Myc'; the resolved official symbol is 'MYC'.
-2026-11-21 15:50:11,369 WARNING [WARN] 'Blah': not found. No current NCBI Gene record matched this input in the selected organism.
-2026-11-21 15:50:16,493 WARNING [WARN] Queried 'ENSG00000136997'; the resolved official symbol is 'MYC'.
-2026-11-21 15:50:40,523 WARNING [WARN] 'ENSG00000261846': not found. No current NCBI Gene record matched this input in the selected organism.
-2026-11-21 15:50:57,215 WARNING [WARN] No annotation retrieved for: Blah, ENSG00000261846
