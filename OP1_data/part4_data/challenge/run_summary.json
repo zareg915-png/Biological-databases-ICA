@@ -1,7 +1,7 @@
 {
   "dataset": "challenge",
   "created_utc": "2026-11-22T02:41:43+00:00",
-  "input_path": "/home/s2924525/BDB_ICA/OP1_data/part1_data/final_data/challenge/ncbi_gene_summary2.tsv",
+  "input_path": "OP1_data/part1_data/final_data/challenge/ncbi_gene_summary2.tsv",
   "input_sha256": "254fa746834a7474bac25ced5ed571a6b86d8cb880617fcf0d9e0c6c370d4732",
   "api_endpoint": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary",
   "input_rows": 10,

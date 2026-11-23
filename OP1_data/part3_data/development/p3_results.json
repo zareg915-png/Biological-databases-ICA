@@ -1,10 +1,10 @@
 {
   "manifest": {
     "dataset": "development",
-    "generated_utc": "2026-11-22T02:15:03+00:00",
+    "generated_utc": "2026-11-22T03:36:30+00:00",
     "inputs": [
-      "/home/s2924525/BDB_ICA/OP1_data/part1_data/final_data/development/ncbi_gene_summary2.tsv",
-      "/home/s2924525/BDB_ICA/OP1_data/part2_data/development/ncbi_ortholog.tsv"
+      "OP1_data/part1_data/final_data/development/ncbi_gene_summary2.tsv",
+      "OP1_data/part2_data/development/ncbi_ortholog.tsv"
     ],
     "input_count": 10,
     "pair_count": 10,

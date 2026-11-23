@@ -1,7 +1,7 @@
 {
   "dataset": "development",
   "created_utc": "2026-11-22T02:41:36+00:00",
-  "input_path": "/home/s2924525/BDB_ICA/OP1_data/part1_data/final_data/development/ncbi_gene_summary2.tsv",
+  "input_path": "OP1_data/part1_data/final_data/development/ncbi_gene_summary2.tsv",
   "input_sha256": "b1e053b0582b7c1948c28e49ea96763f80b260d57e02fed3e0a459c5963f29ff",
   "api_endpoint": "http://bioinfmsc6.bio.ed.ac.uk:8080/summary",
   "input_rows": 10,
