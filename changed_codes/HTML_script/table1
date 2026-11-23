@@ -14,7 +14,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 DATASETS = ("development", "challenge")          # values of the Dataset column
-OUTPUT_DIR = Path(os.environ.get("BDB_HTML_DIR", "~/HTML_script")).expanduser()
+OUTPUT_DIR = Path(os.environ.get("BDB_HTML_DIR", "~/BDB_ICA/OP3_HTML")).expanduser()
 MYSQL_SOCKET = os.environ.get("MYSQL_SOCKET", "/var/run/mysqld/mysqld.sock")
 MYSQL_DATABASE = os.environ.get("MYSQL_DATABASE", "")  # masked: set env or ~/.my.cnf
 MY_CNF = Path("~/.my.cnf").expanduser()           # [client] user/password/database
