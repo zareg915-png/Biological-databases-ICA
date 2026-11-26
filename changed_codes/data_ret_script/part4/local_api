@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-#BDB ICA Part 4: the lecturer's local REST API annotation connector.
-
-
 import argparse
 from collections import Counter
 import csv
@@ -26,62 +23,51 @@ from urllib.request import Request, urlopen
 
 # Editable configuration: matches the saved Part 1/2 loader and Part 3 paths.
 PROJECT_ROOT = Path(os.environ.get("BDB_PROJECT_ROOT", "~/BDB_ICA")).expanduser()
-PART1_ROOT = Path(os.environ.get(
-    "BDB_PART1_OUTPUT_DIR", str(PROJECT_ROOT / "OP1_data/part1_data/final_data")
-)).expanduser()
-OUTPUT_ROOT = Path(os.environ.get(
-    "BDB_PART4_OUTPUT_DIR", str(PROJECT_ROOT / "OP1_data/part4_data")
-)).expanduser()
-LOCAL_API_BASE_URL = os.environ.get(
-    "BDB_LOCAL_API_BASE_URL", "http://bioinfmsc6.bio.ed.ac.uk:8080"
-)
+PART1_ROOT = Path(os.environ.get( "BDB_PART1_OUTPUT_DIR", str(PROJECT_ROOT / "OP1_data/part1_data/final_data"))).expanduser()
+OUTPUT_ROOT = Path(os.environ.get("BDB_PART4_OUTPUT_DIR", str(PROJECT_ROOT / "OP1_data/part4_data"))).expanduser()
+LOCAL_API_BASE_URL = os.environ.get("BDB_LOCAL_API_BASE_URL", "http://bioinfmsc6.bio.ed.ac.uk:8080")
 DATASETS = ("development", "challenge")
 TIMEOUT, ATTEMPTS, SLEEPTIME, REQUEST_INTERVAL = 30.0, 3, 1.0, 1.0
 MAX_RETRY_WAIT = 60.0
 MAX_RESPONSE_BYTES = 5 * 1024 * 1024
 RETRYABLE_HTTP = {408, 429, 500, 502, 503, 504}
-PROBLEM_STATUSES = {
-    "lookup_failed", "invalid_response", "gene_id_mismatch",
+PROBLEM_STATUSES = {"lookup_failed", "invalid_response", "gene_id_mismatch",
     "ambiguous_local_records", "species_mismatch", "missing_local_gene_id",
-    "local_record_replaced",
-}
+    "local_record_replaced",}
 
 # Exact field names from the user's local /summary example.
 LOCAL_FIELDS = (
     "ncbi_gene_id", "official_symbol", "description", "status",
     "current_gene_id", "chromosome", "map_location", "organism_scientific",
-    "organism_common", "other_aliases", "other_designations",
-)
+    "organism_common", "other_aliases", "other_designations",)
 RECORD_NAMES = (
     "Local_Gene_ID", "Local_Official_Symbol", "Local_Official_Name",
     "Local_Status_Field", "Local_Current_Gene_ID", "Local_Chromosome",
     "Local_Map_Location", "Local_Organism_Scientific", "Local_Organism_Common",
-    "Local_Other_Aliases", "Local_Other_Designations",
-)
+    "Local_Other_Aliases", "Local_Other_Designations",)
 LOCAL_TO_COLUMN = dict(zip(LOCAL_FIELDS, RECORD_NAMES))
 COMPARISONS = (
     ("Symbol", "Official_Symbol", "official_symbol"),
     ("Name", "Official_Name", "description"),
-    ("Chromosome", "Chromosome", "chromosome"),
     ("Map_Location", "Map_Location", "map_location"),
-    ("Aliases", "Other_Aliases", "other_aliases"),
-)
+    ("Aliases", "Other_Aliases", "other_aliases"),)
 KEY_COLUMNS = ["Dataset", "Input_Row", "Query_Symbol", "Gene_ID"]
 COMPARISON_COLUMNS = KEY_COLUMNS + [
     "Official_Symbol", "Resolution_Status", "Resolution_Note", "Same_Gene_Note",
-    "NCBI_Official_Name", "NCBI_Chromosome", "NCBI_Map_Location", "NCBI_Other_Aliases",
+    "NCBI_Official_Name", "NCBI_Map_Location", "NCBI_Other_Aliases",
     "Local_Query", "Local_Status", "Local_Note", "Local_Record_Count",
-    "Local_Candidate_Gene_IDs", "Selected_Record_Number",
-] + list(RECORD_NAMES) + ["Gene_ID_Comparison"] + [
-    name + "_Comparison" for name, _, _ in COMPARISONS
-] + ["Comparison_Status", "Differences", "Missing_Fields", "Retrieved_UTC", "Source_URL"]
+    "Local_Candidate_Gene_IDs", "Selected_Record_Number",] + list(RECORD_NAMES) + ["Gene_ID_Comparison"] + [
+    name + "_Comparison" for name, _, _ in COMPARISONS] + ["Comparison_Status", "Differences", "Missing_Fields", "Retrieved_UTC", "Source_URL"]
+TSV_COLUMNS = KEY_COLUMNS + [  # The TSV; the JSON keeps every comparison field.
+    "Official_Symbol", "Local_Query", "Local_Status", "Local_Note", "Local_Record_Count",
+    "Local_Gene_ID", "Comparison_Status", "Differences", "Missing_Fields", "Source_URL"]
+OLD_FILES = ("local_api_records.tsv", "local_api_raw.json", "run_summary.json")
 RECORD_COLUMNS = KEY_COLUMNS + [
-    "Local_Query", "Record_Number", "Matches_Part1_Gene_ID", "Selected",
-] + list(RECORD_NAMES) + ["Retrieved_UTC", "Source_URL"]
+    "Local_Query", "Record_Number", "Matches_Part1_Gene_ID", "Selected",] + list(RECORD_NAMES) + ["Retrieved_UTC", "Source_URL"]
 
 
 class Part4Error(ValueError):
-    """An input or response that cannot be interpreted safely."""
+    pass
 
 
 def utc_now():
@@ -100,7 +86,7 @@ def load_part1(path, dataset):
     reader = csv.DictReader(io.StringIO(contents.decode("utf-8-sig")),
                             delimiter="\t", quoting=csv.QUOTE_NONE)
     headers = reader.fieldnames or []
-    required = {"Query_Symbol", "Gene_ID", "Official_Symbol", "Chromosome", "Map_Location"}
+    required = {"Query_Symbol", "Gene_ID", "Official_Symbol", "Map_Location"}
     if len(headers) != len(set(headers)) or not required <= set(headers):
         raise Part4Error(f"{path}: missing required columns or duplicate headers.")
     rows = []
@@ -135,7 +121,7 @@ def load_part1(path, dataset):
 def parse_records(data):
     """Accept the demonstrated list contract and retain differing candidates."""
     if not isinstance(data, list):
-        raise Part4Error("Expected a top-level JSON list; inspect local_api_raw.json.")
+        raise Part4Error("Expected a top-level JSON list; inspect requests in local_api_results.json.")
     records, seen = [], set()
     for number, record in enumerate(data, 1):
         if not isinstance(record, dict) or not set(LOCAL_FIELDS) & set(record):
@@ -315,7 +301,7 @@ def base_comparison(source):
     row = {name: "" for name in COMPARISON_COLUMNS}
     for key in KEY_COLUMNS + ["Official_Symbol", "Resolution_Status", "Resolution_Note", "Same_Gene_Note"]:
         row[key] = source.get(key, "")
-    for key in ("Official_Name", "Chromosome", "Map_Location", "Other_Aliases"):
+    for key in ("Official_Name", "Map_Location", "Other_Aliases"):
         row["NCBI_" + key] = source.get(key, "")
     row["Gene_ID_Comparison"] = "not_assessed"
     for name, _, _ in COMPARISONS:
@@ -357,7 +343,7 @@ def compare_input(source, lookup=None):
                 if record["ncbi_gene_id"] == source["Gene_ID"]]
     if len(matching) > 1 or (not matching and len(records) > 1):
         row.update(Local_Status="ambiguous_local_records", Gene_ID_Comparison="ambiguous",
-                   Local_Note="Multiple candidate records remain; none selected. See local_api_records.tsv.")
+                   Local_Note="Multiple candidate records remain; none selected. See candidate_records in local_api_results.json.")
         return row, candidates
     selected = matching[0] if matching else 0
     record = records[selected]
@@ -420,7 +406,8 @@ def atomic_text(path, contents):
 
 def write_tsv(path, columns, rows):
     handle = io.StringIO(newline="")
-    writer = csv.DictWriter(handle, fieldnames=columns, delimiter="\t", lineterminator="\n")
+    writer = csv.DictWriter(handle, fieldnames=columns, delimiter="\t", lineterminator="\n",
+                            extrasaction="ignore")
     writer.writeheader()
     writer.writerows(rows)
     atomic_text(path, handle.getvalue())
@@ -458,13 +445,13 @@ def process_dataset(dataset, sources, digest, input_path, output_dir, client):
         "interpretation": "Annotation agreement checks; the demonstrated /summary response supplies no expression measurements.",
     }
     output_dir = Path(output_dir)
-    write_tsv(output_dir / "local_ncbi_comparisons.tsv", COMPARISON_COLUMNS, comparisons)
-    write_tsv(output_dir / "local_api_records.tsv", RECORD_COLUMNS, records)
-    atomic_text(output_dir / "local_api_raw.json", json.dumps({
-        "dataset": dataset, "input_sha256": digest,
+    write_tsv(output_dir / "local_ncbi_comparisons.tsv", TSV_COLUMNS, comparisons)
+    atomic_text(output_dir / "local_api_results.json", json.dumps({
+        "manifest": summary, "comparisons": comparisons, "candidate_records": records,
         "requests": [lookup.audit() for lookup in lookups.values()],
     }, indent=2, ensure_ascii=False) + "\n")
-    atomic_text(output_dir / "run_summary.json", json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
+    for name in OLD_FILES:  # Remove the separate files left by earlier runs.
+        (output_dir / name).unlink(missing_ok=True)
     print(f"[SAVED] {output_dir}: {len(comparisons)}/{len(sources)} input outcomes.")
     return summary
 
@@ -507,3 +494,4 @@ if __name__ == "__main__":
     except (Part4Error, OSError, UnicodeError, csv.Error) as error:
         print(f"[ERROR] {error}", file=sys.stderr)
         sys.exit(1)
+

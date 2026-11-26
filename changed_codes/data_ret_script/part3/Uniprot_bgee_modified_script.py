@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#Part 3: compare human-mouse orthologs by UniProt annotation and Bgee expression.
+
 import argparse
 import csv
 import hashlib
@@ -36,37 +36,26 @@ NONCODING_TYPES = {"NCRNA", "RRNA", "TRNA", "SNRNA", "SNORNA", "SCRNA", "NONCODI
 # Output columns.
 GENE_KEYS = ["Dataset", "Species", "Tax_ID", "Gene_ID"]
 PAIR_KEYS = ["Dataset", "Input_Row", "Query_Symbol", "Human_Gene_ID", "Mouse_Gene_ID"]
-GENE_COLUMNS = GENE_KEYS + [
-    "Symbol", "Ensembl_IDs", "Gene_Type", "Gene_Type_Source", "Metadata_Status", "Metadata_Note",
-    "UniProt_Status", "UniProt_Note", "Bgee_Status", "Bgee_Note"]
-PROTEIN_COLUMNS = GENE_KEYS + [
-    "UniProt_Accession", "Protein_Name", "Reviewed", "Selected", "Match_Method",
-    "Function_Summary", "GO_MF_IDs", "GO_BP_IDs", "GO_CC_IDs", "Location_IDs",
-    "Subcellular_Locations", "Function_Annotations_JSON", "GO_Annotations_JSON",
-    "Location_Annotations_JSON", "Protein_Existence", "Annotation_Score", "Entry_Audit_JSON",
-    "Source_URL"]
-EXPRESSION_COLUMNS = GENE_KEYS + [
-    "Bgee_Gene_ID", "Tissue_ID", "Tissue_Name", "Expression_Call", "Call_Quality",
-    "Expression_Score", "Score_Confidence", "FDR", "FDR_Qualifier", "FDR_Reported", "Data_Types",
-    "Condition_Scope", "Eligible_For_Comparison", "Source_URL"]
-CALL_DETAIL = ["Call_Quality", "Expression_Score", "FDR", "FDR_Qualifier"]
-TISSUE_COLUMNS = PAIR_KEYS + [
-    "Tissue_ID", "Tissue_Name", "Human_Call", "Mouse_Call", "Comparison_Status"] + [
-    f"{side}_{key}" for side in ("Human", "Mouse") for key in CALL_DETAIL]
+OLD_FILES = ("p3_gene_status.tsv", "p3_uniprot.tsv", "p3_bgee_calls.tsv",
+             "p3_tissue_comparison.tsv")
 ANNOTATION_SETS = ["GO_MF", "GO_BP", "GO_CC", "Location"]
 SET_FIELDS = ["Human_Count", "Mouse_Count", "Shared_IDs", "Human_Only_IDs", "Mouse_Only_IDs",
               "Jaccard", "Status"]
-SUMMARY_COLUMNS = PAIR_KEYS + [
-    "Human_Symbol", "Mouse_Symbol", "Resolution_Status", "Resolution_Note", "Same_Gene_Note",
-    "Mapping_Status", "Mapping_Note", "Human_Gene_Type", "Mouse_Gene_Type",
-    "Human_UniProt_Status", "Mouse_UniProt_Status", "Human_UniProt_Accessions",
-    "Mouse_UniProt_Accessions", "Protein_Comparison_Status"] + [
-    f"{prefix}_{field}" for prefix in ANNOTATION_SETS for field in SET_FIELDS] + [
-    "Human_Bgee_Status", "Mouse_Bgee_Status", "Expression_Comparison_Status",
-    "Comparable_Tissue_Count", "Concordant_Tissue_Count", "Expression_Call_Agreement",
-    "Shared_Present_Tissues", "Shared_Absent_Tissues", "Different_Call_Tissues",
-    "Present_Tissue_Jaccard"]
-
+PROTEIN_FIELDS = {side: [f"{side}_{field}" for field in (
+    "UniProt_Accessions", "Protein_Names", "Protein_Existence", "Function",
+    "Subcellular_Locations", "GO_Terms")] for side in ("Human", "Mouse")}
+GO_ASPECTS = {"F": "MF", "P": "BP", "C": "CC"}
+SUMMARY_COLUMNS = [  # The TSV; p3_results.json keeps every comparison field.
+    "Dataset", "Input_Row", "Query_Symbol", "Human_Gene_ID", "Human_Symbol",
+    "Mouse_Gene_ID", "Mouse_Symbol", "Mapping_Status",
+    "Human_UniProt_Status", "Mouse_UniProt_Status", "Human_Bgee_Status", "Mouse_Bgee_Status",
+    "Protein_Comparison_Status", "Expression_Comparison_Status", "Pair_Note",
+    *PROTEIN_FIELDS["Human"], *PROTEIN_FIELDS["Mouse"],
+    "GO_MF_Jaccard", "GO_BP_Jaccard", "GO_CC_Jaccard", "Location_Jaccard", "Shared_GO_Terms",
+    "Comparable_Tissue_Count", "Shared_Present_Tissues", "Present_Tissue_Jaccard",
+    "Expression_Call_Agreement"]
+OK_STATUS = {"Metadata": {"retrieved"}, "UniProt": {"reviewed_found", "unreviewed_only"},
+             "Bgee": {"retrieved"}}
 
 class Part3Error(ValueError):
     """An input problem that must be fixed before any API request."""
@@ -461,21 +450,44 @@ def set_comparison(left, right):
             "Status": "comparable" if both else "missing_annotation"}
 
 
+def go_label(term):
+    return f"{GO_ASPECTS.get(term['aspect'], term['aspect'])}: {term['term']} ({term['id']})"
+
+
+def protein_annotations(side, chosen):
+    """One species' selected UniProtKB entries: what protein is made and how it is annotated."""
+    def unique(values):
+        return list(dict.fromkeys(v for v in values if v))
+    terms = {(t["aspect"] != "F", t["aspect"] != "P", t["term"], go_label(t))
+             for p in chosen for t in p["GO_Annotations_JSON"]}  # Sorted MF, BP, CC, name.
+    values = ([p["UniProt_Accession"] for p in chosen], unique(p["Protein_Name"] for p in chosen),
+              unique(p["Protein_Existence"] for p in chosen),
+              unique(p["Function_Summary"] for p in chosen),
+              sorted({loc for p in chosen for loc in p["Subcellular_Locations"] if loc}),
+              [t[-1] for t in sorted(terms)])
+    return dict(zip(PROTEIN_FIELDS[side], values))
+
+
 def compare_proteins(human, mouse, proteins):
     sides = [("Human", human), ("Mouse", mouse)]
     output = {f"{side}_UniProt_Status": g["UniProt_Status"] if g else "no_resolved_gene"
               for side, g in sides}
+    chosen = {side: [p for p in proteins if g and p["Selected"] and p["Species"] == g["Species"]
+                     and p["Gene_ID"] == g["Gene_ID"]] for side, g in sides}
+    for side, _ in sides:  # Reported for each species even when the pair is not comparable.
+        output.update(protein_annotations(side, chosen[side]))
+    output["Shared_GO_Terms"] = []
     found = {"reviewed_found", "unreviewed_only"}
     if not (human and mouse and {g["UniProt_Status"] for _, g in sides} <= found):
         output["Protein_Comparison_Status"] = "not_comparable"
         return output
-    chosen = {side: [p for p in proteins if p["Selected"] and p["Species"] == g["Species"]
-                     and p["Gene_ID"] == g["Gene_ID"]] for side, g in sides}
-    for side, _ in sides:
-        output[side + "_UniProt_Accessions"] = [p["UniProt_Accession"] for p in chosen[side]]
     for prefix in ANNOTATION_SETS:  # Gene level: union over all selected proteins.
         sets = [{i for p in chosen[side] for i in p[prefix + "_IDs"]} for side, _ in sides]
         output.update({f"{prefix}_{k}": v for k, v in set_comparison(*sets).items()})
+    terms = {t["id"]: go_label(t) for side, _ in sides for p in chosen[side]
+             for t in p["GO_Annotations_JSON"]}
+    output["Shared_GO_Terms"] = [terms[i] for aspect in ("MF", "BP", "CC")
+                                 for i in output[f"GO_{aspect}_Shared_IDs"]]
     output["Protein_Comparison_Status"] = "annotation_overlap_only"
     return output
 
@@ -490,18 +502,17 @@ def index_expression(rows):
     return index
 
 
-def compare_expression(pair, human, mouse, index):
+def compare_expression(human, mouse, index):
     summary = {"Comparable_Tissue_Count": 0, "Concordant_Tissue_Count": 0,
                "Expression_Call_Agreement": None, "Shared_Present_Tissues": [],
                "Shared_Absent_Tissues": [], "Different_Call_Tissues": [],
                "Present_Tissue_Jaccard": None,
                "Human_Bgee_Status": human["Bgee_Status"] if human else "no_resolved_gene",
                "Mouse_Bgee_Status": mouse["Bgee_Status"] if mouse else "no_resolved_gene"}
-    detail = []
 
     def stop(status):
         summary["Expression_Comparison_Status"] = status
-        return summary, detail
+        return summary
 
     if not human or not mouse:
         return stop("not_comparable")
@@ -513,28 +524,9 @@ def compare_expression(pair, human, mouse, index):
     mcalls = index.get(("mouse", mouse["Gene_ID"]), {})
     if not hcalls and not mcalls:
         return stop("no_eligible_tissues")
-
-    def label(calls, tissue):
-        return (calls[tissue]["Expression_Call"] if calls.get(tissue)
-                else "conflicting_calls" if tissue in calls else "no_data")
-
-    both = []  # Tissues with one eligible call in each species: (tissue, human, mouse).
-    for tissue in sorted({*hcalls, *mcalls}):
-        h, m = hcalls.get(tissue), mcalls.get(tissue)
-        if (tissue in hcalls and h is None) or (tissue in mcalls and m is None):
-            status = "conflicting_calls"
-        elif h and m:
-            both.append((tissue, h["Expression_Call"], m["Expression_Call"]))
-            status = "same_call" if both[-1][1] == both[-1][2] else "different_call"
-        else:
-            status = "no_comparable_call_in_one_species"
-        row = {k: pair[k] for k in PAIR_KEYS}
-        row.update({"Tissue_ID": tissue, "Tissue_Name": (h or m or {}).get("Tissue_Name", ""),
-                    "Human_Call": label(hcalls, tissue), "Mouse_Call": label(mcalls, tissue),
-                    "Comparison_Status": status})
-        for side, call in (("Human", h), ("Mouse", m)):
-            row.update({f"{side}_{k}": call.get(k) if call else None for k in CALL_DETAIL})
-        detail.append(row)
+    # Tissues with exactly one eligible call in each species (None marks conflicting calls).
+    both = [(t, hcalls[t]["Expression_Call"], mcalls[t]["Expression_Call"])
+            for t in sorted(hcalls.keys() & mcalls.keys()) if hcalls[t] and mcalls[t]]
     if not both:
         return stop("no_shared_comparable_tissues")
     present = [t for t, h, m in both if h == m == "present"]
@@ -543,10 +535,35 @@ def compare_expression(pair, human, mouse, index):
     summary.update({
         "Comparable_Tissue_Count": len(both), "Concordant_Tissue_Count": len(present + absent),
         "Expression_Call_Agreement": len(present + absent) / len(both),
-        "Shared_Present_Tissues": present, "Shared_Absent_Tissues": absent,
+        "Shared_Present_Tissues": shared_tissues(present, hcalls, mcalls),
+        "Shared_Absent_Tissues": absent,
         "Different_Call_Tissues": [t for t, h, m in both if h != m],
         "Present_Tissue_Jaccard": len(present) / len(any_present) if any_present else None})
     return stop("comparable")
+
+
+def shared_tissues(tissues, hcalls, mcalls):
+    """Tissue ID and name with both species' Bgee evidence, strongest combined score first."""
+    rows = [{"tissue_id": t, "tissue_name": hcalls[t]["Tissue_Name"],
+             **{f"{side}_{key}": calls[t][field] for side, calls in (("human", hcalls),
+                                                                     ("mouse", mcalls))
+                for key, field in (("score", "Expression_Score"), ("quality", "Call_Quality"),
+                                   ("fdr", "FDR_Reported"))}} for t in tissues]
+    return sorted(rows, key=lambda r: -((r["human_score"] or 0) + (r["mouse_score"] or 0)))
+
+
+def pair_note(pair, human, mouse):
+    """One readable note naming every input, mapping or lookup problem behind a pair."""
+    if pair["Resolution_Status"] != "resolved":
+        return "Input not resolved to a human gene: " + (pair["Resolution_Note"] or "no detail.")
+    notes = [] if pair["Mapping_Status"] in {"ortholog_found", "multiple_mouse_orthologs"} \
+        else [f"Mouse ortholog: {pair['Mapping_Status']}. {pair['Mapping_Note']}".strip()]
+    for side, gene in (("Human", human), ("Mouse", mouse)):
+        for step, ok in (OK_STATUS.items() if gene else ()):
+            status, note = gene[step + "_Status"], gene[step + "_Note"]
+            if status not in ok or (step == "Bgee" and note):
+                notes.append(f"{side} {step}: {status}" + (f" ({note})" if note else ""))
+    return "; ".join(notes)
 
 
 def write_tsv(path, rows, columns):
@@ -564,26 +581,21 @@ def write_tsv(path, rows, columns):
 
 def run_dataset(pairs, input_count, dataset, output_dir, source_paths, client):
     genes, proteins, expression = collect_genes(client, pairs, dataset)
-    index = index_expression(expression)
-    summaries, tissues = [], []
+    index, summaries = index_expression(expression), []
     for pair in pairs:
         resolved = pair["Resolution_Status"] == "resolved"
         human, mouse = (genes.get((s, pair[s.title() + "_Gene_ID"])) if resolved else None
                         for s in TAXA)
-        row = {k: v for k, v in pair.items() if k in SUMMARY_COLUMNS}
+        row = {k: v for k, v in pair.items() if not k.endswith("_Ensembl_IDs")}
         row["Human_Gene_Type"] = human["Gene_Type"] if human else ""
         row["Mouse_Gene_Type"] = mouse["Gene_Type"] if mouse else ""
         row.update(compare_proteins(human, mouse, proteins))
-        expression_summary, expression_detail = compare_expression(pair, human, mouse, index)
-        summaries.append({**row, **expression_summary})
-        tissues.extend(expression_detail)
-    tables = {"p3_gene_status.tsv": (list(genes.values()), GENE_COLUMNS),
-              "p3_uniprot.tsv": (proteins, PROTEIN_COLUMNS),
-              "p3_bgee_calls.tsv": (expression, EXPRESSION_COLUMNS),
-              "p3_tissue_comparison.tsv": (tissues, TISSUE_COLUMNS),
-              "p3_pair_summary.tsv": (summaries, SUMMARY_COLUMNS)}
-    for filename, (rows, columns) in tables.items():
-        write_tsv(Path(output_dir) / filename, rows, columns)
+        row.update(compare_expression(human, mouse, index))
+        row["Pair_Note"] = pair_note(pair, human, mouse)
+        summaries.append(row)
+    write_tsv(Path(output_dir) / "p3_pair_summary.tsv", summaries, SUMMARY_COLUMNS)
+    for name in OLD_FILES:  # Remove the separate TSVs left by earlier runs.
+        (Path(output_dir) / name).unlink(missing_ok=True)
     problems = [g for g in genes.values() if "lookup_failed" in (g["Metadata_Status"],
                 g["UniProt_Status"], g["Bgee_Status"]) or g["Bgee_Status"] == "incomplete"
                 or g["UniProt_Status"] == "invalid_gene_identity"]
@@ -591,19 +603,20 @@ def run_dataset(pairs, input_count, dataset, output_dir, source_paths, client):
         "dataset": dataset, "generated_utc": utc_now(), "inputs": [os.path.relpath(p, PROJECT_ROOT) for p in source_paths],
         "input_count": input_count, "pair_count": len(pairs), "unique_gene_count": len(genes),
         "genes_with_lookup_problems": len(problems),
-        "files": {name: len(rows) for name, (rows, _) in tables.items()},
+        "pair_summary_rows": len(summaries), "protein_entries": len(proteins),
+        "bgee_calls": len(expression),
         "protein_comparison_status_counts":
             dict(Counter(r["Protein_Comparison_Status"] for r in summaries)),
         "expression_comparison_status_counts":
             dict(Counter(r["Expression_Comparison_Status"] for r in summaries))}
     results = {"manifest": manifest, "genes": list(genes.values()), "proteins": proteins,
-               "expression_calls": expression, "tissue_comparisons": tissues,
-               "pair_summaries": summaries, "request_provenance": client.audit}
+               "expression_calls": expression, "pair_comparisons": summaries,
+               "request_provenance": client.audit}
     atomic_text(Path(output_dir) / "p3_results.json",
                 json.dumps(results, ensure_ascii=False, indent=2))
     print(f"[SAVED] {dataset}: {input_count} inputs, {len(pairs)} pairs -> {output_dir}")
     if problems:
-        print(f"[WARN] {len(problems)} genes had lookup problems; see p3_gene_status.tsv.")
+        print(f"[WARN] {len(problems)} genes had lookup problems; see 'genes' in p3_results.json.")
     return manifest
 
 

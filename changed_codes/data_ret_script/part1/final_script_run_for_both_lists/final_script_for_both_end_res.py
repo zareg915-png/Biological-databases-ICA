@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+"""BDB ICA Part 1: NCBI Gene annotation for the development and challenge lists.
+
+GenAI declaration (GenAI-assisted editing):
+  Claude (Anthropic) was used to fix write_table_to_file so each row's values
+  follow the header order, and to remove the Chromosome column.
+"""
 import sys
 import time
 import json
@@ -70,8 +76,6 @@ def report(message: str, level: int = logging.WARNING) -> None:
 
 
 def retry_after_seconds(response: requests.Response) -> float:
-    """Return the server's Retry-After delay in seconds (0 if absent or not
-    numeric). NCBI sends seconds; an HTTP-date value falls back to normal backoff."""
     try:
         return max(0.0, float(response.headers.get("Retry-After", 0)))
     except ValueError:
@@ -94,7 +98,7 @@ def ncbi_get(
     Pauses before every request to respect NCBI rate limits. Only temporary
     failures (timeouts, connection errors, HTTP 408/429/5xx) are retried, with
     exponential backoff. max_retries is the total number of attempts."""
-    
+
     if endpoint not in {"esearch.fcgi", "esummary.fcgi", "efetch.fcgi"}:
         raise AnnotationError("Unsupported NCBI endpoint.")
     #### if not isinstance(params, dict):
@@ -146,8 +150,7 @@ def ncbi_get(
             return None
 
         if attempt < max_retries:
-            ######## # Extra waits grow 1, 2, 4, ... seconds; the five-second request
-            ######## # delay above still applies before each attempt by default.
+
             # Backoff grows 1, 2, 4, ... seconds (or the server's Retry-After if
             # longer), in addition to the standard pause before each attempt.
             backoff = max(float(2 ** (attempt - 1)), retry_after)
@@ -504,7 +507,7 @@ def extract_ensembl_gene_ids_from_xml(
             "[ERROR] Invalid NCBI Gene XML; Ensembl IDs left empty.",
             logging.ERROR,
         )
-        
+
         return ensg_ids
 
     for dbtag in root.iter():
@@ -630,7 +633,6 @@ def print_human_readable_summary(results: List[Dict[str, Any]]) -> None:
         print(f"  NCBI Gene ID   : {entry['gene_id']}")
         print(f"  Official Symbol: {s.get('nomenclaturesymbol') or s.get('name') or 'NA'}")
         print(f"  Official Name  : {s.get('nomenclaturename') or s.get('description') or 'NA'}")
-        print(f"  Chromosome     : {s.get('chromosome') or 'NA'}")
         print(f"  Map Location   : {s.get('maplocation') or 'NA'}")
         print(f"  Ensembl Gene ID(s): {';'.join(entry.get('ensembl_gene_ids', [])) or 'NA'}")
         if entry.get("same_gene_note"):
@@ -639,8 +641,8 @@ def print_human_readable_summary(results: List[Dict[str, Any]]) -> None:
         print()
 
 
-# Source: both scripts; keeps the SRT column order, with the resolution columns
-# added at the end. Name fields use the same fallbacks as the console summary.
+# Source: both scripts; SRT columns in the project's order, with the resolution
+# columns at the end. Name fields use the same fallbacks as the console summary.
 def write_table_to_file(
     results: List[Dict[str, Any]],
     filename: str,
@@ -649,10 +651,10 @@ def write_table_to_file(
     """Write one row per input to a delimited file (tab by default) for loading
     into MySQL. Multiple ENSG IDs are separated by semicolons."""
     header_cols = [
-        "Query_Symbol", "Gene_ID", "ENSG_IDs", "Official_Symbol",
-        "Official_Name", "Chromosome", "Map_Location",
-        "Other_Aliases", "Summary", "Same_Gene_Note", "Resolution_Status", "Resolution_Note",
-    ]
+        "Query_Symbol", "Official_Symbol", "Official_Name", "Gene_ID", "ENSG_IDs", "Map_Location",
+        "Other_Aliases", "Summary", "Resolution_Status",
+        # Read by Part 2, Part 3 and the MySQL loader.
+        "Resolution_Note", "Same_Gene_Note"]
 
     # Remove line breaks and delimiter characters inside a cell so that each
     # record stays on one line with the correct number of columns.
@@ -661,26 +663,30 @@ def write_table_to_file(
             return ""
         return str(text).replace("\n", " ").replace("\r", " ").replace(delimiter, " ")
 
-    with open(filename, "w", encoding="utf-8") as f:
-        f.write(delimiter.join(header_cols) + "\n")
+    lines = [delimiter.join(header_cols)]
+    for entry in results:
+        s = entry["summary"]
+        # Values are keyed by column name, so a row cannot drift from the header.
+        values = {
+            "Query_Symbol": entry.get("query_symbol"),
+            "Official_Symbol": s.get("nomenclaturesymbol") or s.get("name"),
+            "Official_Name": s.get("nomenclaturename") or s.get("description"),
+            "Gene_ID": entry.get("gene_id"),
+            "ENSG_IDs": ";".join(entry.get("ensembl_gene_ids", [])),
+            "Map_Location": s.get("maplocation"),
+            "Other_Aliases": s.get("otheraliases"),
+            "Summary": s.get("summary"),
+            "Resolution_Status": entry.get("resolution_status"),
+            "Resolution_Note": entry.get("resolution_note"),
+            "Same_Gene_Note": entry.get("same_gene_note"),
+        }
+        if list(values) != header_cols:
+            raise AnnotationError("Table values do not match the header; the table was not written.")
+        lines.append(delimiter.join(clean(values[column]) for column in header_cols))
 
-        for entry in results:
-            s = entry["summary"]
-            row = [
-                entry.get("query_symbol"),
-                entry.get("gene_id"),
-                ";".join(entry.get("ensembl_gene_ids", [])),
-                s.get("nomenclaturesymbol") or s.get("name"),
-                s.get("nomenclaturename") or s.get("description"),
-                s.get("chromosome"),
-                s.get("maplocation"),
-                s.get("otheraliases"),
-                s.get("summary"),
-                entry.get("same_gene_note"),
-                entry.get("resolution_status"),
-                entry.get("resolution_note"),
-            ]
-            f.write(delimiter.join(clean(value) for value in row) + "\n")
+    # Every line is built before the file is opened, so a failure leaves the old file intact.
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
 
     print(f"[INFO] Wrote table to {os.path.abspath(filename)}")
 
@@ -722,7 +728,7 @@ def connect_ncbi_gene_info(
     ]
     if no_ensg:
         report(f"[WARN] No Ensembl Gene ID retrieved for: {', '.join(no_ensg)}")
-    
+
     if len(missing) == len(results):
         raise AnnotationError("No gene annotations were retrieved; existing output files were not replaced.")
     # Create the output folder here so the function also works when imported.

@@ -558,7 +558,7 @@
         }
       ],
       "geneweight": 199,
-      "summary": "Predicted to enable carboxylic ester hydrolase activity. Predicted to be located in extracellular region and membrane. [provided by Alliance of Genome Resources, Jul 2025]",
+      "summary": "Predicted to enable hydrolase activity. Predicted to be located in extracellular region. Predicted to be active in membrane. [provided by Alliance of Genome Resources, Oct 2026]",
       "chrsort": "03",
       "chrstart": 151733926,
       "organism": {

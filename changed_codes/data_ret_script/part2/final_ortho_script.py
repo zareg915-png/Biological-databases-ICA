@@ -58,9 +58,9 @@ LOGGER.propagate = False
 # Retain the lecturer's names so subsequent readers can still find the IDs.
 # Resolution_* comes from Part 1; Mapping_* describes this ortholog lookup.
 OUTPUT_COLUMNS = [
-    "Human_Input_ID", "Human_Gene_ID", "Human_Symbol", "Human_Ensembl_Gene_ID",
-    "Mouse_Gene_ID", "Mouse_Symbol", "Mouse_Tax_ID", "Mouse_Ensembl_Gene_ID",
-    "Mouse_Official_Name", "Input_Row", "Same_Gene_Note",
+    "Input_Row", "Human_Input_ID", "Human_Gene_ID", "Human_Symbol", "Human_Ensembl_Gene_ID",
+    "Mouse_Gene_ID", "Mouse_Symbol", "Mouse_Ensembl_Gene_ID",
+    "Mouse_Official_Name", "Same_Gene_Note",
     "Resolution_Status", "Resolution_Note", "Mouse_Ortholog_Count",
     "Mapping_Status", "Mapping_Note", "Human_Ensembl_Status", "Mouse_Ensembl_Status",
 ]
