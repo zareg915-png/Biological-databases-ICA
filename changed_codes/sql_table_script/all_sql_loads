@@ -1,249 +1,200 @@
-"""Load the Part 1-4 TSV outputs into four linked MySQL tables and write a dump.
-
-Tables (one row per ...):
-  ica_annotations   ... input gene (Part 1), key (Dataset, Input_Row)
-  ica_orthologs     ... input and mouse ortholog (Part 2), key (Dataset, Input_Row, Pair_No)
-  ica_pair_summary  ... input and mouse ortholog (Part 3 UniProt/Bgee comparison), same key
-  ica_local_checks  ... input gene (Part 4 local API check), key (Dataset, Input_Row)
-
-Pair_No numbers the mouse orthologs of one input (1, 2, ...). Foreign keys
-link orthologs and local checks to annotations, and pair summaries to
-orthologs. Columns repeated between parts (for example the human Gene ID in
-Part 2) are not stored again; instead they are checked to agree with Part 1
-before anything is loaded. The Part 3 and Part 4 JSON files are not loaded:
-these four tables hold everything the HTML tables are built from.
-
-Usage (on bioinfmsc9):
-  python3 load_ica_results.py --check-files   # validate the TSVs only
-  MYSQL_DATABASE=<db> python3 load_ica_results.py
-Login comes from ~/.my.cnf (or BDB_MYSQL_OPTION_FILE). The tables are
-dropped and rebuilt on every run, then dumped to
-OP2_SQL/all_parts_sql/bdb_ica_results.sql.
-"""
-import csv
-import math
+#!/usr/bin/env python3
 import os
-import shutil
-import subprocess
-import sys
-from collections import Counter
+from getpass import getpass, getuser
+from html import escape
 from pathlib import Path
-from tempfile import TemporaryDirectory
+from urllib.parse import quote
 
-try:
-    from mysql.connector import connect, Error
-except ImportError:
-    connect, Error = None, ConnectionError
+import mysql.connector
 
-ROOT = Path(os.getenv("BDB_PROJECT_ROOT", "~/BDB_ICA")).expanduser()
-CONFIG = Path(os.getenv("BDB_MYSQL_OPTION_FILE", "~/.my.cnf")).expanduser()
+OUT_DIR = Path(os.environ.get("BDB_HTML_DIR", "~/BDB_ICA/OP3_HTML")).expanduser()
+SOCKET = os.environ.get("MYSQL_SOCKET", "/var/run/mysqld/mysqld.sock")
+MY_CNF = Path("~/.my.cnf").expanduser()
 DATASETS = ("development", "challenge")
-TABLES = ("ica_annotations", "ica_orthologs", "ica_pair_summary", "ica_local_checks")
-FILES = ("ncbi_gene_summary2.tsv", "ncbi_ortholog.tsv", "p3_pair_summary.tsv", "local_ncbi_comparisons.tsv")
-# Primary keys: one row per input, or one row per input and mouse ortholog.
-KEY = ["Dataset", "Input_Row"]
-PAIR = KEY + ["Pair_No"]
-# Stored columns per table. 
-COLUMNS = {
-    TABLES[0]: KEY + """Query_Symbol Official_Symbol Official_Name Gene_ID ENSG_IDs Map_Location
-        Other_Aliases Summary Resolution_Status Resolution_Note Same_Gene_Note""".split(),
-    TABLES[1]: PAIR + """Human_Ensembl_Gene_ID Mouse_Gene_ID Mouse_Symbol Mouse_Tax_ID Mouse_Ensembl_Gene_ID
-        Mouse_Official_Name Mouse_Ortholog_Count Mapping_Status Mapping_Note Human_Ensembl_Status Mouse_Ensembl_Status""".split(),
-    TABLES[2]: PAIR + [f"{side}_{field}" for side in ("Human", "Mouse") for field in
-        """UniProt_Status UniProt_Accessions Protein_Names GO_Terms Function Subcellular_Locations
-        Location_Evidence Bgee_Status""".split()]
-        + """GO_MF_Jaccard GO_BP_Jaccard GO_CC_Jaccard Location_Jaccard Expression_Comparison_Status
-        Comparable_Tissue_Count Both_Present_Count Both_Absent_Count Shared_Present_Tissues
-        Expression_Call_Agreement Present_Tissue_Jaccard Pair_Note""".split(),
-    TABLES[3]: KEY + """Local_Gene_ID Local_Official_Symbol Local_Map_Location Local_Status Symbol_Comparison
-        Map_Location_Comparison Comparison_Status Differences Local_Note""".split(),
-}
-# Columns that are only read to check consistency with Part 1, not stored.
-CHECK_ONLY = {4: {"NCBI_Map_Location"}}
-# First line of the dump file
-DUMP_HEADER = b"-- Exported with mysqldump.\n"
+TISSUES_SHOWN = 4
+
+# One row per human input and mouse ortholog, joined across the four tables
+# written by load_ica_results.py: Part 1 (NCBI annotation), Part 2 (orthologs),
+# Part 3 (UniProt + Bgee pair summary) and Part 4 (local API check).
+# LEFT JOINs keep every input, including those with no mouse ortholog.
+SUMMARY_SQL = """
+SELECT a.Input_Row, a.Query_Symbol, a.Resolution_Status, a.Resolution_Note,
+       a.Gene_ID, a.Official_Symbol, a.Official_Name, a.Map_Location, a.ENSG_IDs,
+       (SELECT MIN(d.Input_Row) FROM ica_annotations d
+         WHERE d.Dataset = a.Dataset AND d.Gene_ID = a.Gene_ID) AS First_Input,
+       o.Mouse_Gene_ID, o.Mouse_Symbol, o.Mouse_Official_Name, o.Mapping_Status,
+       s.Human_UniProt_Accessions, s.Mouse_UniProt_Accessions, s.Human_UniProt_Status, s.Mouse_UniProt_Status,
+       s.GO_MF_Jaccard, s.GO_BP_Jaccard, s.GO_CC_Jaccard, s.Location_Jaccard,
+       s.Expression_Comparison_Status, s.Comparable_Tissue_Count, s.Expression_Call_Agreement,
+       s.Present_Tissue_Jaccard, s.Shared_Present_Tissues, s.Pair_Note,
+       l.Comparison_Status AS Local_Comparison, l.Local_Note, l.Differences
+FROM ica_annotations a
+LEFT JOIN ica_orthologs o    ON o.Dataset = a.Dataset AND o.Input_Row = a.Input_Row
+LEFT JOIN ica_pair_summary s ON s.Dataset = o.Dataset AND s.Input_Row = o.Input_Row
+                            AND s.Pair_No = o.Pair_No
+LEFT JOIN ica_local_checks l ON l.Dataset = a.Dataset AND l.Input_Row = a.Input_Row
+WHERE a.Dataset = %s
+ORDER BY a.Input_Row, o.Pair_No
+"""
 
 
-def fields(names):
-    """Back-quoted, comma-separated column list for SQL."""
-    return ", ".join(f"`{name}`" for name in names)
+def e(value):
+    return escape("" if value is None else str(value))
 
 
-def create_table(table):
-    """Return the CREATE TABLE statement for one table, with its keys and indexes."""
-    def datatype(name):
-        # Chosen from the column name; anything not listed is free text.
-        if name == "Dataset": return "VARCHAR(20) NOT NULL"
-        if name in ("Input_Row", "Pair_No"): return "INT UNSIGNED NOT NULL"
-        if name.endswith("_Count"): return "INT UNSIGNED"
-        if name.endswith("_Jaccard") or name == "Expression_Call_Agreement": return "DOUBLE"
-        if name in ("Gene_ID", "Mouse_Gene_ID", "Local_Gene_ID", "Mouse_Tax_ID"): return "VARCHAR(20)"
-        if name.endswith(("_Status", "_Comparison")): return "VARCHAR(64)"
-        if name.endswith("_Symbol"): return "VARCHAR(128)"
-        if name.endswith("Chromosome"): return "VARCHAR(32)"
-        return "TEXT"
-    key = PAIR if table in TABLES[1:3] else KEY
-    definitions = [f"`{n}` {datatype(n)}" for n in COLUMNS[table]] + [f"PRIMARY KEY ({fields(key)})"]
-    if table == TABLES[0]:
-        definitions.append("INDEX (Gene_ID)")  # Used to find repeated genes.
+def link(url, text):
+    return f'<a href="{e(url)}" target="_blank">{e(text)}</a>'
+
+
+def na(reason):
+    return f'<span class="na">N/A: {e(reason)}</span>'
+
+
+def score(label, value):
+    if value is None:
+        return f"{label} {na('no terms')}<br>"
+    return f"{label} <b>{float(value):.2f}</b><br>"
+
+
+def reason(r):
+    """Short reason a Part 3 comparison is missing."""
+    if not r["Gene_ID"]:
+        return "input not resolved"
+    if not r["Mouse_Gene_ID"]:
+        return "no mouse ortholog"
+    if "not_applicable_gene_type" in (r["Human_UniProt_Status"], r["Mouse_UniProt_Status"]):
+        return "non-coding gene: no protein expected"
+    return r["Pair_Note"] or "not compared"
+
+
+def input_cell(r):
+    html = f'<b>{e(r["Query_Symbol"])}</b> #{r["Input_Row"]}<br>'
+    if r["Resolution_Status"] != "resolved":
+        return html + na(r["Resolution_Note"] or "not resolved")
+    if r["First_Input"] != r["Input_Row"]:
+        html += f'<span class="small">Same gene as input #{r["First_Input"]}</span>'
+    return html
+
+
+def gene_cell(gene_id, symbol, name, extra=""):
+    url = "https://www.ncbi.nlm.nih.gov/gene/" + quote(str(gene_id))
+    return f'{link(url, symbol)}<br><span class="small">{e(name)}<br>{e(extra)}</span>'
+
+
+def compared(r):
+    """Both species have verified UniProt entries, so the protein columns are filled."""
+    return bool(r["Human_UniProt_Accessions"] and r["Mouse_UniProt_Accessions"])
+
+
+def uniprot_cell(r):
+    if not compared(r):
+        return na(reason(r))
+    lines = []
+    for species in ("Human", "Mouse"):
+        accessions = (r[species + "_UniProt_Accessions"] or "").split("; ")
+        lines.append(f"{species}: " + ", ".join(
+            link("https://www.uniprot.org/uniprotkb/" + quote(a), a) for a in accessions))
+    return "<br>".join(lines)
+
+
+def go_cell(r):
+    if not compared(r):
+        return na(reason(r))
+    return (score("MF", r["GO_MF_Jaccard"]) + score("BP", r["GO_BP_Jaccard"])
+            + score("CC", r["GO_CC_Jaccard"]) + score("Location", r["Location_Jaccard"]))
+
+
+def expression_cell(r):
+    if r["Expression_Comparison_Status"] != "comparable":
+        return na(reason(r))
+    tissues = [t.rsplit(" (", 1)[0] for t in (r["Shared_Present_Tissues"] or "").split("; ") if t]
+    shown = "; ".join(tissues[:TISSUES_SHOWN]) + (" ..." if len(tissues) > TISSUES_SHOWN else "")
+    bgee = link("https://www.bgee.org/gene/" + quote(str(r["ENSG_IDs"]).split(";")[0].strip()),
+                "Bgee (human)")
+    return (score("Call agreement", r["Expression_Call_Agreement"])
+            + f'<span class="small">over {r["Comparable_Tissue_Count"]} tissues</span><br>'
+            + score("Present-tissue J", r["Present_Tissue_Jaccard"])
+            + f'<span class="small">{len(tissues)} present in both: {e(shown)}</span><br>{bgee}')
+
+
+def local_cell(r):
+    status = r["Local_Comparison"]
+    if status == "all_fields_agree":
+        return '<span class="ok">agrees with NCBI</span>'
+    if not status or status == "not_assessed":
+        return na(r["Local_Note"] or "not assessed")
+    return (f'<span class="warn">{e(status.replace("_", " "))}</span><br>'
+            f'<span class="small">{e(r["Differences"])}</span>')
+
+
+def row_html(r):
+    if r["Gene_ID"]:
+        human = gene_cell(r["Gene_ID"], r["Official_Symbol"], r["Official_Name"], r["Map_Location"])
     else:
-        parent, link = (TABLES[1], PAIR) if table == TABLES[2] else (TABLES[0], KEY)
-        definitions.append(f"FOREIGN KEY ({fields(link)}) REFERENCES `{parent}` ({fields(link)})")
-    if table == TABLES[1]:
-        # Each mouse gene appears at most once per input.
-        definitions += ["UNIQUE (Dataset, Input_Row, Mouse_Gene_ID)", "INDEX (Mouse_Gene_ID)"]
-    return (f"CREATE TABLE `{table}` ({', '.join(definitions)}) "
-            "ENGINE=InnoDB ROW_FORMAT=DYNAMIC DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci")
+        human = na("no NCBI Gene record")
+    if r["Mouse_Gene_ID"]:
+        mouse = gene_cell(r["Mouse_Gene_ID"], r["Mouse_Symbol"], r["Mouse_Official_Name"])
+    else:
+        mouse = na(str(r["Mapping_Status"] or "not assessed").replace("_", " "))
+    cells = (input_cell(r), human, mouse, uniprot_cell(r), go_cell(r),
+             expression_cell(r), local_cell(r))
+    return "<tr>" + "".join(f"<td>{c}</td>" for c in cells) + "</tr>"
 
 
-def require(condition, message):
-    """Raise ValueError(message) unless condition holds."""
-    if not condition:
-        raise ValueError(message)
+HEADERS = ("Input", "Human gene (NCBI)", "Mouse ortholog (NCBI)", "UniProt entries",
+           "Annotation overlap (Jaccard)", "Bgee expression (human vs mouse)",
+           "Local API vs NCBI")
+
+PAGE = """<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>{title}</title><style>
+body{{font-family:Arial,sans-serif;font-size:11pt;margin:20px}}
+table{{border-collapse:collapse;width:100%}}
+th,td{{border:1px solid #999;padding:6px;vertical-align:top;text-align:left}}
+th{{background:#2c4a6b;color:#fff}}
+.small{{font-size:10pt;color:#555}} .na{{color:#888;font-style:italic}}
+.ok{{background:#d6f0d6}} .warn{{background:#fff0c2}}
+</style></head><body>
+<h2>{title}</h2>
+<table><tr>{headers}</tr>
+{rows}
+</table>
+<p class="small">Jaccard = shared terms / all terms in human and mouse (0 = none shared,
+1 = identical). MF, BP, CC = GO molecular function, biological process, cellular component;
+Location = UniProt subcellular location. Call agreement = share of tissues where Bgee gives
+the same present/absent call in both species. N/A always gives the reason.
+Sources: NCBI Gene, NCBI orthologs, UniProtKB, Bgee, local course API.</p>
+</body></html>
+"""
 
 
-def read_part(part, dataset):
-    """Read one part's TSV for one dataset and add Dataset and an integer Input_Row.
-
-    Part 1 is plain (unquoted) TSV; Parts 2-4 use standard CSV quoting. The
-    header must contain every column that is stored or checked. Part 1 has
-    no Input_Row column, so its row number is used.
-    """
-    folder = ROOT / "OP1_data" / f"part{part}_data"
-    path = (folder / "final_data" if part == 1 else folder) / dataset / FILES[part - 1]
-    with path.open(encoding="utf-8-sig", newline="") as stream:
-        reader = csv.DictReader(stream, delimiter="\t", strict=True, quoting=csv.QUOTE_NONE if part == 1 else csv.QUOTE_MINIMAL)
-        required = (set(COLUMNS[TABLES[part - 1]]) | CHECK_ONLY.get(part, set())) - {"Pair_No"}
-        required -= {"Dataset", "Input_Row"} if part == 1 else {"Dataset"} if part == 2 else set()
-        require(required <= set(reader.fieldnames or []), f"{path.name}: expected the shortened Part {part} TSV columns.")
-        rows = list(reader)
-    require(rows and all(None not in row and None not in row.values() for row in rows), f"Empty or malformed TSV: {path}")
-    for n, row in enumerate(rows, 1):
-        require(row.get("Dataset", dataset) == dataset, f"{path}: dataset mismatch at row {n}")
-        row.update(Dataset=dataset, Input_Row=int(row.get("Input_Row", n)))
-    return rows
-
-
-def read_dataset(dataset):
-    """Read all four parts for one dataset and check that they agree.
-
-    Checks: Part 1 inputs are numbered 1..N; every input has at least one
-    Part 2 row whose human columns match Part 1; mouse rows agree with their
-    ortholog count; every Part 2 row has exactly one Part 3 row with the same
-    statuses; the Part 3 expression scores agree with their tissue counts;
-    and Part 4 has one row per input matching Part 1. Pair_No is assigned
-    here. Returns the four row lists.
-    """
-    genes, orthologs, summaries, local = [read_part(i, dataset) for i in range(1, 5)]
-    inputs = {r["Input_Row"]: r for r in genes}
-    require(set(inputs) == set(range(1, len(genes) + 1)), f"{dataset}: invalid or duplicate original input number")
-    # Part 2: number the mouse orthologs of each input (Pair_No).
-    pairs, counts = {}, Counter()
-    for row in orthologs:
-        n, mouse = row["Input_Row"], row["Mouse_Gene_ID"]
-        source = inputs[n]
-        require((n, mouse) not in pairs and row["Human_Input_ID"] == source["Query_Symbol"] and
-                row["Human_Gene_ID"] == source["Gene_ID"] and row["Resolution_Status"] == source["Resolution_Status"],
-                f"{dataset} input {n}: duplicate or mismatched ortholog row")
-        counts[n] += 1
-        row["Pair_No"] = counts[n]
-        pairs[n, mouse] = row
-    require(set(counts) == set(inputs), f"{dataset}: ortholog file lost an input")
-    for (n, mouse), row in pairs.items():
-        valid = row["Mouse_Tax_ID"] == "10090" and int(row["Mouse_Ortholog_Count"]) == counts[n] if mouse else counts[n] == 1
-        require(valid, f"{dataset} input {n}: inconsistent mouse mapping")
-    # Part 3: one summary per Part 2 row, joined on (input, mouse Gene ID).
-    seen = set()
-    for row in summaries:
-        k = row["Input_Row"], row["Mouse_Gene_ID"]
-        mapping = pairs[k]
-        require(k not in seen and row["Human_Gene_ID"] == mapping["Human_Gene_ID"] and
-                row["Resolution_Status"] == mapping["Resolution_Status"] and
-                row["Mapping_Status"] == mapping["Mapping_Status"] and row["Query_Symbol"] == mapping["Human_Input_ID"],
-                f"{dataset} {k}: inconsistent pair summary")
-        row["Pair_No"] = mapping["Pair_No"]
-        seen.add(k)
-        # Recompute the expression scores from the tissue counts.
-        if row["Expression_Comparison_Status"] == "comparable":
-            n, p, a = (int(row[f]) for f in ("Comparable_Tissue_Count", "Both_Present_Count", "Both_Absent_Count"))
-            require(n > 0 and min(p, a) >= 0 and p + a <= n and math.isclose(float(row["Expression_Call_Agreement"]), (p+a)/n),
-                    f"{dataset} {k}: counts disagree with tissue agreement")
-            score = row["Present_Tissue_Jaccard"]
-            require(math.isclose(float(score), p/(n-a)) if n > a else score == "", f"{dataset} {k}: present-tissue Jaccard mismatch")
-        else:
-            require(not row["Expression_Call_Agreement"] and not row["Present_Tissue_Jaccard"],
-                    f"{dataset} {k}: an unassessed expression comparison has a score")
-    require(seen == pairs.keys() and len(local) == len(inputs) and {r["Input_Row"] for r in local} == inputs.keys(),
-            f"{dataset}: incomplete pair or local outcomes")
-    # Part 4: one row per input, carrying the same identifiers as Part 1.
-    # Part 4 collapses whitespace in the map location, so compare it that way.
-    for row in local:
-        source = inputs[row["Input_Row"]]
-        require(all(row[k] == source[k] for k in ("Query_Symbol", "Gene_ID", "Official_Symbol"))
-                and row["NCBI_Map_Location"] == " ".join(source["Map_Location"].split()),
-                f"{dataset}: local row differs from Part 1")
-    return genes, orthologs, summaries, local
+def connect():
+    settings = dict(unix_socket=SOCKET, charset="utf8mb4")
+    if MY_CNF.is_file():
+        settings.update(option_files=str(MY_CNF), option_groups=["client"])
+    else:
+        settings.update(user=getuser(), password=getpass("MySQL password: "))
+    connection = mysql.connector.connect(**settings)
+    if not connection.database:
+        connection.database = os.environ.get("MYSQL_DATABASE") or input("Your database name: ")
+    return connection
 
 
 def main():
-    """Validate all files, then load the tables, check the joins and write the dump."""
-    data = {d: read_dataset(d) for d in DATASETS}
-    for d, rows in data.items():
-        print(d, *(f"{table}={len(part)}" for table, part in zip(TABLES, rows)))
-    if sys.argv[1:] == ["--check-files"]: return
-    require(not sys.argv[1:], "Usage: python3 load_ica_results.py [--check-files]")
-    require(connect is not None, "Install mysql-connector-python in the Python environment used for the ICA.")
-    db = os.getenv("MYSQL_DATABASE")
-    dump = shutil.which("mysqldump") or shutil.which("mariadb-dump")
-    require(db and CONFIG.is_file() and dump, "Set MYSQL_DATABASE and provide ~/.my.cnf and mysqldump.")
-    dest = ROOT / "OP2_SQL" / "all_parts_sql" / "bdb_ica_results.sql"
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    # Add only the dump options this mysqldump/mariadb-dump version supports.
-    help_text = subprocess.check_output([dump, "--no-defaults", "--help"], text=True)
-    options = [dump, f"--defaults-file={CONFIG}", "--single-transaction", "--skip-comments", "--skip-add-locks",
-               "--skip-disable-keys", "--default-character-set=utf8mb4", "--where=Dataset IN ('development','challenge')"]
-    for flag in ("--no-tablespaces", "--set-gtid-purged=OFF", "--column-statistics=0"):
-        if flag.split("=")[0] in help_text: options.append(flag)
-    settings = dict(option_files=str(CONFIG), option_groups="client", database=db, charset="utf8mb4",
-                    collation="utf8mb4_unicode_ci", use_pure=True)
-    with connect(**settings) as conn, conn.cursor() as cur:
-        # Named lock: stops two copies of the loader running at once.
-        cur.execute("SELECT GET_LOCK(SHA2(CONCAT(DATABASE(), '/ica_results'),256), 30)")
-        require(cur.fetchone()[0] == 1, "Another import is running. Try again shortly.")
-        # CHANGED in review: drop and recreate (children first, because of the
-        # foreign keys) instead of CREATE IF NOT EXISTS + DELETE. Tables left by
-        # an earlier run keep their old columns otherwise, and the INSERTs fail.
-        for table in reversed(TABLES): cur.execute(f"DROP TABLE IF EXISTS `{table}`")
-        for table in TABLES: cur.execute(create_table(table))
-        conn.commit()
-        for i, table in enumerate(TABLES):
-            cols = COLUMNS[table]
-            values = [tuple(None if r[c] == "" else r[c] for c in cols) for parts in data.values() for r in parts[i]]
-            cur.executemany(f"INSERT INTO `{table}` ({fields(cols)}) VALUES ({','.join(['%s']*len(cols))})", values)
-        # Every pair summary row must join back to all four tables.
-        cur.execute("""SELECT a.Dataset, COUNT(*) FROM ica_annotations a JOIN ica_orthologs o USING (Dataset,Input_Row)
-            JOIN ica_pair_summary s USING (Dataset,Input_Row,Pair_No) JOIN ica_local_checks l USING (Dataset,Input_Row)
-            WHERE a.Dataset IN (%s,%s) GROUP BY a.Dataset""", DATASETS)
-        require(dict(cur.fetchall()) == {d: len(parts[2]) for d, parts in data.items()}, "Joined row counts differ from the TSVs.")
-        conn.commit()
-        with TemporaryDirectory(dir=dest.parent) as tmp:
-            path = Path(tmp) / dest.name
-            with path.open('wb') as stream:
-                subprocess.run([*options, db, *TABLES], stdout=stream, check=True)
-            contents = path.read_bytes()
-            # Newer MariaDB dumps start with a sandbox-mode line that MySQL rejects.
-            if contents.startswith(b'/*M!999999'):
-                contents = contents.split(b'\n', 1)[1]
-            for table in TABLES:
-                require(f'CREATE TABLE `{table}`'.encode() in contents and f'INSERT INTO `{table}`'.encode() in contents,
-                        f'Incomplete dump for {table}')
-            path.write_bytes(DUMP_HEADER + contents)
-            path.replace(dest)
-    print(dest)
+    connection = connect()
+    cursor = connection.cursor(dictionary=True)
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    for dataset in DATASETS:
+        cursor.execute(SUMMARY_SQL, (dataset,))
+        rows = cursor.fetchall()
+        title = f"Human vs mouse ortholog comparison: {dataset} gene list"
+        page = PAGE.format(title=e(title), headers="".join(f"<th>{h}</th>" for h in HEADERS),
+                           rows="\n".join(row_html(r) for r in rows))
+        path = OUT_DIR / f"{dataset}_summary_table.html"
+        path.write_text(page, encoding="utf-8")
+        print(f"{dataset}: {len(rows)} rows -> {path}")
+    connection.close()
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except (Error, OSError, csv.Error, KeyError, ValueError, subprocess.CalledProcessError) as error:
-        sys.exit(f"[ERROR] {error}")
+    main()
+

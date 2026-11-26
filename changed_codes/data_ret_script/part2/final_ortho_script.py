@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # =============================================================================
 # GenAI declaration: Tool(s): Claude (Anthropic)
 # Use: feedback, review and comments on code I adapted from simon tomlinson

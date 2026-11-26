@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 """Part 3: compare each human gene with its mouse ortholog using UniProt and Bgee.
 
 Input:  OP1_data/part2_data/<dataset>/ncbi_ortholog.tsv (Part 2)
