@@ -1,4 +1,15 @@
 #!/usr/bin/env python3
+"""Build one HTML summary table per gene list from the 4 MySQL tables (SQL JOIN).
+
+Run on bioinfmsc9 after all_sql_loads:
+    python3 ~/BDB_ICA/changed_codes/HTML_script/HTML_tables_script.py
+It asks for your MySQL password and database name, then writes
+OP3_HTML/development_summary_table.html and OP3_HTML/challenge_summary_table.html.
+
+GenAI declaration (GenAI-assisted editing):
+  Claude (Anthropic) was used to shorten and simplify my earlier version of this script.
+"""
+import json
 import os
 from getpass import getpass, getuser
 from html import escape
@@ -7,9 +18,9 @@ from urllib.parse import quote
 
 import mysql.connector
 
-OUT_DIR = Path(os.environ.get("BDB_HTML_DIR", "~/BDB_ICA/OP3_HTML")).expanduser()
-SOCKET = os.environ.get("MYSQL_SOCKET", "/var/run/mysqld/mysqld.sock")
-MY_CNF = Path("~/.my.cnf").expanduser()
+ROOT = Path(__file__).resolve().parents[2]          # repo root (~/BDB_ICA)
+OUT_DIR = ROOT / "OP3_HTML"
+SOCKET = "/var/run/mysqld/mysqld.sock"
 DATASETS = ("development", "challenge")
 TISSUES_SHOWN = 4
 
@@ -162,15 +173,12 @@ Sources: NCBI Gene, NCBI orthologs, UniProtKB, Bgee, local course API.</p>
 
 
 def connect():
-    settings = dict(unix_socket=SOCKET, charset="utf8mb4")
-    if MY_CNF.is_file():
-        settings.update(option_files=str(MY_CNF), option_groups=["client"])
-    else:
-        settings.update(user=getuser(), password=getpass("MySQL password: "))
-    connection = mysql.connector.connect(**settings)
-    if not connection.database:
-        connection.database = os.environ.get("MYSQL_DATABASE") or input("Your database name: ")
-    return connection
+    """Same login as all_sql_loads: asks for the password and database name."""
+    user = os.environ.get("MYSQL_USER") or getuser()
+    password = getpass(f"MySQL password for {user}: ")
+    database = input("Database name: ").strip()
+    return mysql.connector.connect(user=user, password=password, database=database,
+                                   unix_socket=SOCKET, charset="utf8mb4")
 
 
 def main():
