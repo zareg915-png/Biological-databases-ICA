@@ -1,659 +1,404 @@
-#!/usr/bin/env python3
 
-import argparse
-import csv
-import hashlib
+"""Part 3: compare each human gene with its mouse ortholog using UniProt and Bgee.
+
+Input:  OP1_data/part2_data/<dataset>/ncbi_ortholog.tsv (Part 2)
+Output: OP1_data/part3_data/<dataset>/
+  p3_pair_summary.tsv  one row per input and mouse ortholog: identifiers, each
+                       species' UniProt and Bgee fields (accessions, protein
+                       names, GO terms, function, locations), Jaccard scores
+                       and the expression comparison
+  p3_results.json      {"genes": one record per distinct gene looked up,
+                        "proteins": one record per UniProt entry used};
+                       loaded by all_sql_loads.py as p3_gene_status and p3_uniprot
+
+For every distinct resolved human and mouse gene (looked up once, even if
+it appears in several rows) the script:
+  1. confirms the gene's identity, type and Ensembl IDs with NCBI Datasets;
+  2. finds its UniProtKB entries, verified against the NCBI Gene ID or
+     Ensembl IDs, preferring reviewed (Swiss-Prot) entries;
+  3. collects protein names, GO terms (MF, BP, CC), UniProt subcellular
+     locations, function text and location evidence codes;
+  4. retrieves Bgee present/absent expression calls per anatomical entity.
+
+Each Part 2 row (one per input and mouse ortholog) then gets one summary row
+with Jaccard similarities for the GO and location sets and a tissue-level
+expression comparison. Rows that cannot be compared keep a status and a note
+(Pair_Note) explaining why.
+
+Shared helpers and the run() entry point come from p1_basic_anno.py, and
+MAPPING_OUTCOMES from p2_orthologs.py; both files must be in the same folder.
+"""
 import json
-import os
 import re
-import sys
-import tempfile
 import time
-from collections import Counter, defaultdict
-from datetime import datetime, timezone
-from io import StringIO
-from pathlib import Path
-from urllib.error import HTTPError
-from urllib.parse import urlencode, urlsplit
-from urllib.request import Request, urlopen
+from collections import defaultdict
 
-# Editable configuration: these paths match the combined Part 1/2 MySQL loader.
-PROJECT_ROOT = Path(os.environ.get("BDB_PROJECT_ROOT", "~/BDB_ICA")).expanduser()
-PART1_ROOT = PROJECT_ROOT / "OP1_data/part1_data/final_data"
-PART2_ROOT = PROJECT_ROOT / "OP1_data/part2_data"
-OUTPUT_ROOT = PROJECT_ROOT / "OP1_data/part3_data"
-DATASETS = ("development", "challenge")
-NCBI_URL = "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/{}/dataset_report"
-UNIPROT_URL = "https://rest.uniprot.org/uniprotkb/search"
-ID_MAPPING_URL = "https://rest.uniprot.org/idmapping"
-BGEE_URL = "https://www.bgee.org/api/"
-TAXA = {"human": "9606", "mouse": "10090"}
-TIMEOUT, MAX_ATTEMPTS, MIN_INTERVAL, CACHE_DAYS, MAX_POLLS = 30, 3, 0.4, 7, 30
-RETRYABLE = {408, 429, 500, 502, 503, 504}
-NONCODING_TYPES = {"NCRNA", "RRNA", "TRNA", "SNRNA", "SNORNA", "SCRNA", "NONCODING",
-                   "LNCRNA", "MIRNA", "PSEUDO", "PSEUDOGENE", "BIOLOGICAL_REGION"}
-
-# Output columns.
-GENE_KEYS = ["Dataset", "Species", "Tax_ID", "Gene_ID"]
-PAIR_KEYS = ["Dataset", "Input_Row", "Query_Symbol", "Human_Gene_ID", "Mouse_Gene_ID"]
-OLD_FILES = ("p3_gene_status.tsv", "p3_uniprot.tsv", "p3_bgee_calls.tsv",
-             "p3_tissue_comparison.tsv")
-ANNOTATION_SETS = ["GO_MF", "GO_BP", "GO_CC", "Location"]
-SET_FIELDS = ["Human_Count", "Mouse_Count", "Shared_IDs", "Human_Only_IDs", "Mouse_Only_IDs",
-              "Jaccard", "Status"]
-PROTEIN_FIELDS = {side: [f"{side}_{field}" for field in (
-    "UniProt_Accessions", "Protein_Names", "Protein_Existence", "Function",
-    "Subcellular_Locations", "GO_Terms")] for side in ("Human", "Mouse")}
-GO_ASPECTS = {"F": "MF", "P": "BP", "C": "CC"}
-SUMMARY_COLUMNS = [  # The TSV; p3_results.json keeps every comparison field.
-    "Dataset", "Input_Row", "Query_Symbol", "Human_Gene_ID", "Human_Symbol",
-    "Mouse_Gene_ID", "Mouse_Symbol", "Mapping_Status",
-    "Human_UniProt_Status", "Mouse_UniProt_Status", "Human_Bgee_Status", "Mouse_Bgee_Status",
-    "Protein_Comparison_Status", "Expression_Comparison_Status", "Pair_Note",
-    *PROTEIN_FIELDS["Human"], *PROTEIN_FIELDS["Mouse"],
-    "GO_MF_Jaccard", "GO_BP_Jaccard", "GO_CC_Jaccard", "Location_Jaccard", "Shared_GO_Terms",
-    "Comparable_Tissue_Count", "Shared_Present_Tissues", "Present_Tissue_Jaccard",
-    "Expression_Call_Agreement"]
-OK_STATUS = {"Metadata": {"retrieved"}, "UniProt": {"reviewed_found", "unreviewed_only"},
-             "Bgee": {"retrieved"}}
-
-class Part3Error(ValueError):
-    """An input problem that must be fixed before any API request."""
+from p1_basic_anno import (API_ERRORS, NCBI_GENES, ServiceError, decode, fetch, get_json,
+                           part_dir, read_table, run, write_tsv)
+from p2_orthologs import MAPPING_OUTCOMES
 
 
-class APIError(RuntimeError):
-    def __init__(self, message, status=None):
-        super().__init__(message)
-        self.status = status
+UNIPROT = "https://rest.uniprot.org"
+BGEE = "https://www.bgee.org/api/"
+TAXA = {"Human": "9606", "Mouse": "10090"}
+# NCBI gene types (normalised to upper case with underscores) that are not expected to encode a protein, so no UniProt entry is sought for them.
+NONCODING = set("NCRNA LNCRNA RRNA TRNA SNRNA SNORNA SCRNA MIRNA PSEUDO PSEUDOGENE NONCODING BIOLOGICAL_REGION".split())
+# Annotation sets compared between species with the Jaccard index.
+SETS = ("GO_MF", "GO_BP", "GO_CC", "Location")
+# Per-species columns, written once with a Human_ prefix and once with Mouse_.
+SIDE_FIELDS = "UniProt_Status UniProt_Accessions Protein_Names GO_Terms Function Subcellular_Locations Location_Evidence Bgee_Status".split()
+# Output column order for p3_pair_summary.tsv.
+COLUMNS = """Dataset Input_Row Query_Symbol Human_Gene_ID Human_Symbol Mouse_Gene_ID Mouse_Symbol
+             Resolution_Status Mapping_Status""".split()
+COLUMNS += [f"{side}_{field}" for side in TAXA for field in SIDE_FIELDS]
+COLUMNS += [kind + "_Jaccard" for kind in SETS]
+COLUMNS += """Expression_Comparison_Status Comparable_Tissue_Count Both_Present_Count Both_Absent_Count
+             Shared_Present_Tissues Expression_Call_Agreement Present_Tissue_Jaccard Pair_Note""".split()
 
 
-def utc_now():
-    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+# UniProt
+def uniprot_pages(url, params):
+    """Yield every result from a paginated UniProt REST query.
+
+    UniProt gives the next page as a URL in the HTTP Link header; that URL
+    already contains the query, so `params` are only sent with the first
+    request. A page URL seen twice raises ServiceError to prevent a loop.
+    """
+    seen = set()
+    while url:
+        if url in seen:
+            raise ServiceError("UniProt repeated a results page.")
+        seen.add(url)
+        body, headers = fetch(url, params)
+        yield from decode(body)["results"]
+        link = re.search(r'<([^>]+)>;\s*rel="?next"?', headers.get("Link", ""))
+        url, params = (link[1] if link else None), None
 
 
-def atomic_text(path, text):
-    """Write to a temporary file, then rename, so no output or cache file is half-written."""
-    path = Path(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    handle, temporary = tempfile.mkstemp(dir=path.parent)
-    with os.fdopen(handle, "w", encoding="utf-8", newline="") as stream:
-        stream.write(text)
-    os.replace(temporary, path)
+def mapped_entries(ids, database):
+    """Yield UniProtKB entries mapped from Ensembl IDs via the UniProt ID-mapping service.
 
-
-def to_number(value):
-    try:
-        return float(value)
-    except (TypeError, ValueError):
-        return None
-
-
-class JSONClient:
-    """REST client with throttling, retries and a dated JSON cache (offline mode reads it only)."""
-
-    def __init__(self, cache_dir, refresh=False, offline=False):
-        self.cache_dir, self.refresh, self.offline = Path(cache_dir), refresh, offline
-        self.last_request, self.audit = {}, []
-
-    def _path(self, key):
-        return self.cache_dir / (hashlib.sha256(key.encode()).hexdigest() + ".json")
-
-    def load(self, key):
-        path = self._path(key)
-        if self.refresh or not path.exists():
-            return None
-        try:
-            saved = json.loads(path.read_text(encoding="utf-8"))
-            age = datetime.now(timezone.utc) - datetime.fromisoformat(saved["retrieved_utc"])
-        except (ValueError, KeyError):
-            return None  # Unreadable cache entry: fetch again.
-        if not self.offline and age.days >= CACHE_DAYS:
-            return None
-        self.audit.append({"url": key, "retrieved_utc": saved["retrieved_utc"], "cached": True})
-        return saved["response"], saved["headers"]
-
-    def store(self, key, data, headers):
-        retrieved = utc_now()
-        atomic_text(self._path(key), json.dumps({"url": key, "retrieved_utc": retrieved,
-                                                 "headers": headers, "response": data}))
-        self.audit.append({"url": key, "retrieved_utc": retrieved, "cached": False})
-
-    def get(self, base_url, params=None, form=None, cache=True):
-        """GET, or POST when form is given. POSTs and temporary job URLs are not cached."""
-        url = base_url + ("?" + urlencode(params) if params else "")
-        cache = cache and not form
-        saved = self.load(url) if cache else None
-        if saved:
-            return saved
-        if self.offline:
-            raise APIError("Offline mode: no cached response for " + url)
-        host, problem = urlsplit(url).netloc, ""
-        for attempt in range(MAX_ATTEMPTS):
-            time.sleep(max(0, MIN_INTERVAL - (time.monotonic() - self.last_request.get(host, 0))))
-            self.last_request[host] = time.monotonic()
-            request = Request(url, data=urlencode(form).encode() if form else None,
-                              headers={"Accept": "application/json", "User-Agent": "BDB_ICA"})
-            try:
-                with urlopen(request, timeout=TIMEOUT) as response:
-                    data = json.loads(response.read())
-                    headers = {k.lower(): v for k, v in response.headers.items()}
-            except HTTPError as error:
-                if error.code not in RETRYABLE:
-                    raise APIError(f"HTTP {error.code}.", error.code) from None
-                problem = f"HTTP {error.code}"
-            except OSError as error:  # Connection failures and timeouts.
-                problem = type(error).__name__
-            except ValueError:
-                raise APIError("The service returned invalid JSON.") from None
-            else:
-                if not isinstance(data, dict) or data.get("error") or data.get("errors") or str(
-                        data.get("code", 200)) != "200":
-                    raise APIError("The service returned an error response.")
-                if cache:
-                    self.store(url, data, headers)
-                return data, headers
-            if attempt < MAX_ATTEMPTS - 1:
-                time.sleep(2 ** attempt)
-        raise APIError(f"{problem} after {MAX_ATTEMPTS} attempts.")
-
-
-def read_tsv(path, plain=False):
-    with open(path, encoding="utf-8-sig", newline="") as handle:
-        reader = csv.DictReader(handle, delimiter="\t",
-                                quoting=csv.QUOTE_NONE if plain else csv.QUOTE_MINIMAL)
-        rows = [{k: (v or "").strip() for k, v in row.items() if k} for row in reader]
-        return reader.fieldnames or [], rows
-
-
-def ensembl_ids(value, species):
-    """Validate and de-version Ensembl gene IDs given as a list or delimited string."""
-    prefix = "ENSG" if species == "human" else "ENSMUSG"
-    tokens = value if isinstance(value, list) else re.split(r"[;,\s]+", value or "")
-    result = set()
-    for token in filter(None, tokens):
-        if not re.fullmatch(prefix + r"\d+(\.\d+)?", token):
-            raise Part3Error(f"Invalid {species} Ensembl gene ID: {token!r}.")
-        result.add(token.split(".")[0])
-    return sorted(result)
-
-
-def load_inputs(part1_path, part2_path, dataset):
-    """One pair row per Part 1 input and Part 2 mouse ortholog (joined on Input_Row)."""
-    f1, part1 = read_tsv(part1_path, plain=True)
-    f2, part2 = read_tsv(part2_path)
-    for name, fields, needed in [("Part 1", f1, {"Query_Symbol", "Gene_ID"}),
-                                 ("Part 2", f2, {"Input_Row", "Human_Gene_ID", "Mouse_Gene_ID"})]:
-        if not needed <= set(fields):
-            raise Part3Error(f"{name} is missing columns {sorted(needed - set(fields))}.")
-    humans = {}
-    for number, row in enumerate(part1, 1):
-        row["Input_Row"] = row.get("Input_Row") or str(number)
-        row["Resolution_Status"] = row.get("Resolution_Status") or (
-            "resolved" if row["Gene_ID"] else "unresolved")
-        humans[row["Input_Row"]] = row
-    if not humans or len(humans) != len(part1):
-        raise Part3Error("Part 1 is empty or has duplicate Input_Row values.")
-    orthologs = defaultdict(list)
-    for row in part2:
-        human = humans.get(row["Input_Row"])
-        if human is None or human["Gene_ID"] != row["Human_Gene_ID"]:
-            raise Part3Error(f"Part 2 row {row['Input_Row']} does not match Part 1; rerun Part 2.")
-        orthologs[row["Input_Row"]].append(row)
-    pairs = []
-    for key, human in humans.items():
-        for mouse in orthologs[key] or [{"Mapping_Status": "part2_row_missing"}]:
-            mouse_id = mouse.get("Mouse_Gene_ID", "")
-            pairs.append({
-                "Dataset": dataset, "Input_Row": key, "Query_Symbol": human["Query_Symbol"],
-                "Human_Gene_ID": human["Gene_ID"], "Human_Symbol": human.get("Official_Symbol", ""),
-                "Mouse_Gene_ID": mouse_id, "Mouse_Symbol": mouse.get("Mouse_Symbol", ""),
-                "Mapping_Status": mouse.get("Mapping_Status")
-                or ("ortholog_found" if mouse_id else "unspecified_no_mouse_row"),
-                "Mapping_Note": mouse.get("Mapping_Note", ""),
-                **{k: human.get(k, "") for k in ("Resolution_Status", "Resolution_Note",
-                                                  "Same_Gene_Note")},
-                "Human_Ensembl_IDs": ensembl_ids(
-                    human.get("ENSG_IDs") or mouse.get("Human_Ensembl_Gene_ID"), "human"),
-                "Mouse_Ensembl_IDs": ensembl_ids(mouse.get("Mouse_Ensembl_Gene_ID"), "mouse"),
-                "Human_Gene_Type": human.get("Gene_Type", "")})
-    return pairs, len(part1)
-
-
-def ncbi_metadata(client, gene):
-    """Confirm gene ID and species with NCBI; take its current gene type and Ensembl IDs."""
-    reports = client.get(NCBI_URL.format(gene["Gene_ID"]))[0].get("reports")
-    if not reports:
-        raise APIError("NCBI returned no gene record.")
-    record = reports[0].get("gene", {})
-    if str(record.get("gene_id")) != gene["Gene_ID"] or str(record.get("tax_id")) != gene["Tax_ID"]:
-        raise APIError("NCBI returned a different gene ID or species.", "identity_error")
-    gene["Gene_Type"], gene["Gene_Type_Source"] = record.get("type") or "", "NCBI Datasets Gene"
-    current = ensembl_ids(record.get("ensembl_gene_ids", []), gene["Species"])
-    gene["Ensembl_IDs"] = current or gene["Ensembl_IDs"]
-    gene["Symbol"] = record.get("symbol") or gene["Symbol"]
-    gene["Metadata_Status"] = "retrieved"
-
-
-def uniprot_pages(client, url, params, cache=True):
-    """Yield every page of a UniProt result set by following next-page Link headers."""
-    for _ in range(100):
-        data, headers = client.get(url, params, cache=cache)
-        yield data
-        link = re.search(r'<([^>]+)>;\s*rel="?next"?', headers.get("link", ""))
-        if not link:
-            return
-        url, params = link.group(1), None
-    raise APIError("UniProt exceeded the pagination limit.")
-
-
-def map_ensembl_ids(client, ids):
-    """UniProt ID mapping (Ensembl gene -> UniProtKB); only the finished result is cached."""
-    form = {"from": "Ensembl", "to": "UniProtKB", "ids": ",".join(ids)}
-    key = ID_MAPPING_URL + "/run?" + urlencode(form)
-    saved = client.load(key)
-    if saved:
-        return saved[0]["results"]
-    job = client.get(ID_MAPPING_URL + "/run", form=form)[0]["jobId"]
-    for _ in range(MAX_POLLS):
-        status = client.get(f"{ID_MAPPING_URL}/status/{job}", cache=False)[0].get("jobStatus")
-        if status not in ("NEW", "RUNNING"):
+    `database` is the UniProt source database name ("Ensembl" for gene IDs or
+    "Ensembl_Transcript"). The job is submitted, polled every 2 s for up to
+    about a minute, and its results are paged. Only rows whose source ID
+    (ignoring any version suffix) was one of the requested IDs are kept.
+    """
+    base = UNIPROT + "/idmapping"
+    form = {"from": database, "to": "UniProtKB", "ids": ",".join(ids)}
+    job = get_json(base + "/run", form=form)["jobId"]  # POST; not retried by fetch().
+    for _ in range(30):
+        # A finished job may redirect to its results, which carry no jobStatus.
+        state = get_json(f"{base}/status/{job}").get("jobStatus")
+        if state in (None, "FINISHED"):
             break
+        if state not in ("RUNNING", "NEW"):
+            raise ServiceError(f"UniProt mapping job returned {state}.")
         time.sleep(2)
-    # A finished job reports FINISHED or redirects straight to its results (no jobStatus).
-    if status not in (None, "FINISHED"):
-        raise APIError(f"UniProt ID mapping job status: {status}.")
-    results_url = f"{ID_MAPPING_URL}/uniprotkb/results/{job}"
-    rows = [row for page in uniprot_pages(client, results_url, {"format": "json", "size": 500},
-                                          cache=False) for row in page.get("results", [])]
-    client.store(key, {"results": rows}, {})
-    return rows
+    else:
+        raise ServiceError("UniProt mapping job timed out.")
+    for row in uniprot_pages(f"{base}/uniprotkb/results/{job}", {"format": "json", "size": 500}):
+        if row["from"].split(".")[0] in ids:
+            yield row["to"]
 
 
-def gene_links(entry):
-    """NCBI GeneIDs and Ensembl gene IDs cross-referenced by a UniProt entry."""
-    xrefs = entry.get("uniProtKBCrossReferences", [])
-    ncbi = {x.get("id") for x in xrefs if x.get("database") == "GeneID"}
-    ensembl = {p.get("value", "").split(".")[0] for x in xrefs if x.get("database") == "Ensembl"
-               for p in x.get("properties", []) if p.get("key") == "GeneId"}
-    return ncbi, ensembl
+def transcripts(gene):
+    """Return the unversioned Ensembl transcript IDs of a gene's Ensembl gene IDs.
+
+    Used as a last-resort route to UniProt. Ensembl must confirm both the
+    gene ID and the expected species; only transcripts whose parent is that
+    gene are kept.
+    """
+    species = "homo_sapiens" if gene["Tax_ID"] == "9606" else "mus_musculus"
+    ids = set()
+    for gid in gene["Ensembl_IDs"]:
+        record = get_json("https://rest.ensembl.org/lookup/id/" + gid, {"expand": 1, "content-type": "application/json"})
+        if record["id"] != gid or record["species"] != species:
+            raise ServiceError("Ensembl returned a different gene or species.")
+        ids.update(t["id"].split(".")[0] for t in record.get("Transcript", []) if t.get("Parent") == gid)
+    return ids
 
 
-def parse_protein(entry, gene, method):
-    """Keep annotation IDs plus the evidence attached to each annotation."""
-    accession, description = entry["primaryAccession"], entry.get("proteinDescription", {})
-    names = [description.get("recommendedName", {})] + description.get("submissionNames", [])
-    name = next((n["fullName"]["value"] for n in names if n.get("fullName")), "")
-    comments = entry.get("comments", [])
-    functions = [t for c in comments if c.get("commentType") == "FUNCTION"
-                 for t in c.get("texts", [])]
-    locations = [{"location": item["location"], "topology": item.get("topology"),
-                  "orientation": item.get("orientation"), "molecule": c.get("molecule"),
-                  "note": c.get("note")}
-                 for c in comments if c.get("commentType") == "SUBCELLULAR LOCATION"
-                 for item in c.get("subcellularLocations", []) if item.get("location")]
-    go = []
-    for xref in entry.get("uniProtKBCrossReferences", []):
-        if xref.get("database") == "GO":
-            props = {p["key"]: p.get("value", "") for p in xref.get("properties", [])}
-            term = props.get("GoTerm", "")  # e.g. "F:ATP binding"
-            go.append({"id": xref["id"], "aspect": term[:1], "term": term[2:],
-                       "evidence_type": props.get("GoEvidenceType", ""),
-                       "evidences": xref.get("evidences", [])})
-    go_ids = {aspect: sorted({t["id"] for t in go if t["aspect"] == letter})
-              for aspect, letter in (("MF", "F"), ("BP", "P"), ("CC", "C"))}
-    return {
-        **{k: gene[k] for k in GENE_KEYS}, "UniProt_Accession": accession, "Protein_Name": name,
-        "Reviewed": entry.get("entryType") == "UniProtKB reviewed (Swiss-Prot)",
-        "Selected": False, "Match_Method": method,
-        "Function_Summary": " ".join(t.get("value", "") for t in functions),
-        "GO_MF_IDs": go_ids["MF"], "GO_BP_IDs": go_ids["BP"], "GO_CC_IDs": go_ids["CC"],
-        "Location_IDs": sorted({l["location"]["id"] for l in locations if "id" in l["location"]}),
-        "Subcellular_Locations": sorted({l["location"].get("value", "") for l in locations}),
-        "Function_Annotations_JSON": functions, "GO_Annotations_JSON": go,
-        "Location_Annotations_JSON": locations,
-        "Protein_Existence": entry.get("proteinExistence", ""),
-        "Annotation_Score": entry.get("annotationScore", ""),
-        "Entry_Audit_JSON": entry.get("entryAudit", {}),
-        "Source_URL": "https://www.uniprot.org/uniprotkb/" + accession}
+def verified(entries, gene, mapped=False):
+    """Keep only UniProt entries that belong to this gene, without duplicates.
+
+    An entry must be from the gene's species and must not point to a
+    different NCBI Gene ID. Entries from a Gene ID search (mapped=False) must
+    name this Gene ID. Entries reached through Ensembl ID mapping
+    (mapped=True) are also rejected if they list only other Ensembl genes.
+    """
+    result = {}
+    for entry in entries:
+        if str(entry["organism"]["taxonId"]) != gene["Tax_ID"]:
+            continue
+        xrefs = entry.get("uniProtKBCrossReferences", [])
+        ids = {x["id"] for x in xrefs if x["database"] == "GeneID"}
+        # Ensembl cross-references are transcripts; the gene ID is a property.
+        genes = {p["value"].split(".")[0] for x in xrefs if x["database"] == "Ensembl"
+                 for p in x.get("properties", []) if p["key"] == "GeneId"}
+        if ids and gene["Gene_ID"] not in ids:
+            continue
+        if mapped and genes and genes.isdisjoint(gene["Ensembl_IDs"]):
+            continue
+        if mapped or gene["Gene_ID"] in ids:
+            result[entry["primaryAccession"]] = entry
+    return list(result.values())
 
 
-def fetch_uniprot(client, gene):
-    """Exact GeneID cross-reference first; Ensembl gene ID mapping only if that finds nothing."""
-    if gene["Gene_Type"].upper().replace("-", "_").replace(" ", "_") in NONCODING_TYPES:
-        gene["UniProt_Status"] = "not_applicable_gene_type"
-        gene["UniProt_Note"] = f"NCBI gene type {gene['Gene_Type']}; no protein expected."
-        return []
-    taxon, gene_id = gene["Tax_ID"], gene["Gene_ID"]
-    method = "exact_GeneID_cross_reference"
-    query = {"query": f"organism_id:{taxon} AND xref:geneid-{gene_id}", "format": "json",
-             "size": 500}
-    candidates = [(gene_id, e) for page in uniprot_pages(client, UNIPROT_URL, query)
-                  for e in page["results"]]
-    if not candidates and gene["Ensembl_IDs"]:
-        method = "Ensembl_gene_ID_mapping"
-        candidates = [(r["from"], r["to"]) for r in map_ensembl_ids(client, gene["Ensembl_IDs"])]
-    proteins = {}
-    for source, entry in candidates:
-        ncbi, ensembl = gene_links(entry)
-        # Keep entries of the right species that do not point to a different gene.
-        verified = str(entry.get("organism", {}).get("taxonId")) == taxon and (
-            gene_id in ncbi if source == gene_id else
-            (not ncbi or gene_id in ncbi) and (not ensembl or source in ensembl))
-        if verified:
-            proteins.setdefault(entry["primaryAccession"], parse_protein(entry, gene, method))
-    proteins = list(proteins.values())
-    reviewed = any(p["Reviewed"] for p in proteins)
-    for protein in proteins:  # All reviewed entries, else all verified unreviewed entries.
-        protein["Selected"] = protein["Reviewed"] or not reviewed
-    gene["UniProt_Status"] = ("reviewed_found" if reviewed else "unreviewed_only" if proteins
-                              else "no_verified_entry")
-    gene["UniProt_Note"] = f"Match route: {method}." if proteins else (
-        f"{len(candidates)} candidate entries; none verified.")
-    return proteins
+def protein_data(gene):
+    """Return (UniProt status, entries) for one gene.
+
+    Search order, stopping at the first route that finds verified entries:
+    NCBI Gene ID cross-reference search, then Ensembl gene ID mapping, then
+    Ensembl transcript ID mapping. Reviewed (Swiss-Prot) entries are used
+    when any exist; otherwise unreviewed (TrEMBL) entries are used and the
+    status says so. Non-coding genes are skipped.
+    """
+    if gene["Gene_Type"].upper().replace("-", "_").replace(" ", "_") in NONCODING:
+        return "not_applicable_gene_type", []
+    query = f"organism_id:{gene['Tax_ID']} AND xref:geneid-{gene['Gene_ID']}"
+    params = {"query": query, "format": "json", "size": 500}
+    entries = verified(uniprot_pages(UNIPROT + "/uniprotkb/search", params), gene)
+    if not entries and gene["Ensembl_IDs"]:
+        entries = verified(mapped_entries(gene["Ensembl_IDs"], "Ensembl"), gene, mapped=True)
+        if not entries:
+            ids = transcripts(gene)
+            if ids:
+                entries = verified(mapped_entries(sorted(ids), "Ensembl_Transcript"), gene, mapped=True)
+    reviewed = [e for e in entries if e.get("entryType") == "UniProtKB reviewed (Swiss-Prot)"]
+    if reviewed:
+        return "reviewed_found", reviewed
+    return ("unreviewed_only" if entries else "no_verified_entry"), entries
 
 
-def bgee_row(call, gene, ensembl):
-    anatomy = call["condition"]["anatEntity"]
-    quality = str(call.get("expressionQuality") or "").lower()
-    score = call.get("expressionScore") or {}
-    reported = str(call.get("fdr") or "").strip()  # e.g. "<= 1.00e-14": keep the inequality
-    qualifier, value = re.fullmatch(r"(<=|>=|<|>|≤|≥)?\s*(.*)", reported).groups()
-    fdr = to_number(value)
-    return {
-        **{k: gene[k] for k in GENE_KEYS}, "Bgee_Gene_ID": ensembl,
-        "Tissue_ID": anatomy["id"], "Tissue_Name": anatomy.get("name", ""),
-        "Expression_Call": {"expressed": "present", "not_expressed": "absent"}[
-            call["expressionState"]],
-        "Call_Quality": quality, "Expression_Score": to_number(score.get("expressionScore")),
-        "Score_Confidence": score.get("expressionScoreConfidence", ""),
-        "FDR": fdr, "FDR_Reported": reported,
-        "FDR_Qualifier": "" if fdr is None else {"≤": "<=", "≥": ">="}.get(qualifier,
-                                                                           qualifier or "="),
-        "Data_Types": call.get("dataTypesWithData", []),
-        "Condition_Scope": "anatomy only; stages/sexes/strains aggregated",
-        "Eligible_For_Comparison": anatomy["id"].startswith("UBERON:")
-        and quality in {"gold", "silver"},
-        "Source_URL": "https://www.bgee.org/gene/" + ensembl}
+def protein_name(entry):
+    """Return the entry's protein name.
+
+    Reviewed entries have a recommended name; unreviewed (TrEMBL) entries
+    often have only a submitted name. Returns "" if neither is present.
+    """
+    description = entry.get("proteinDescription", {})
+    name = description.get("recommendedName") or (description.get("submissionNames") or [{}])[0]
+    return name.get("fullName", {}).get("value", "")
 
 
-def fetch_bgee(client, gene):
-    """Present and absent calls per anatomical entity, for every Ensembl ID of the gene."""
-    if not gene["Ensembl_IDs"]:
-        gene["Bgee_Status"], gene["Bgee_Note"] = "missing_ensembl_id", "No Ensembl gene ID."
-        return []
-    rows, outcomes, notes = [], [], []
-    for ensembl in gene["Ensembl_IDs"]:
-        for expr_type in ("EXPRESSED", "NOT_EXPRESSED"):
-            params = {"page": "gene", "action": "expression", "gene_id": ensembl,
-                      "species_id": gene["Tax_ID"], "display_type": "json",
-                      "cond_param": "anat_entity", "expr_type": expr_type}
-            try:
-                calls = client.get(BGEE_URL, params)[0]["data"]["calls"]
-                rows.extend([bgee_row(call, gene, ensembl) for call in calls])
-                outcomes.append("retrieved")
-            except (APIError, KeyError, TypeError, AttributeError, ValueError) as error:
-                outcomes.append("not_found" if getattr(error, "status", None) == 404
-                                else "lookup_failed")
-                notes.append(f"{ensembl} {expr_type}: {error or type(error).__name__}")
-    found = set(outcomes)
-    gene["Bgee_Status"] = (("retrieved" if rows else "no_calls_returned")
-                           if found == {"retrieved"} else "incomplete" if "retrieved" in found
-                           else "not_found" if found == {"not_found"} else "lookup_failed")
-    if len(gene["Ensembl_IDs"]) > 1:
-        notes.append("Several Ensembl IDs; tissue comparison skipped.")
-    gene["Bgee_Note"] = "; ".join(notes)
-    return rows
+def protein_annotations(entries):
+    """Summarise a gene's UniProt entries for the output table.
+
+    Returns the accessions, protein names, GO terms ("GO:ID name"), function
+    text, subcellular location names and location evidence (ECO codes) as
+    text, plus `sets`: the GO MF/BP/CC term IDs and UniProt subcellular
+    location IDs used for the Jaccard comparison. All evidence levels are
+    included.
+    """
+    sets = {kind: set() for kind in SETS}
+    functions, locations, evidence, go_terms = set(), set(), set(), set()
+    for entry in entries:
+        for c in entry.get("comments", []):
+            if c["commentType"] == "FUNCTION":
+                functions.update(t["value"] for t in c.get("texts", []) if t.get("value"))
+            if c["commentType"] == "SUBCELLULAR LOCATION":
+                for item in c.get("subcellularLocations", []):
+                    loc = item.get("location") or {}
+                    if loc.get("id"):
+                        sets["Location"].add(loc["id"])  # Controlled ID, e.g. SL-0191.
+                    if loc.get("value"):
+                        locations.add(loc["value"])
+                        evidence.update(f"{loc['value']} ({e['evidenceCode']})" for e in loc.get("evidences", [])
+                                        if e.get("evidenceCode"))
+        for ref in entry.get("uniProtKBCrossReferences", []):
+            if ref["database"] == "GO":
+                # GoTerm is "F:...", "P:..." or "C:...": the letter gives the GO aspect.
+                props = {p["key"]: p.get("value", "") for p in ref.get("properties", [])}
+                kind = {"F": "GO_MF", "P": "GO_BP", "C": "GO_CC"}.get(props.get("GoTerm", "")[:1])
+                if kind:
+                    sets[kind].add(ref["id"])
+                    go_terms.add(f'{ref["id"]} {props["GoTerm"][2:]}')  # e.g. "GO:0003677 DNA binding".
+    return dict(UniProt_Accessions="; ".join(sorted(e["primaryAccession"] for e in entries)),
+                Protein_Names="; ".join(sorted({protein_name(e) for e in entries} - {""})),
+                GO_Terms="; ".join(sorted(go_terms)),
+                Function=" | ".join(sorted(functions)), Subcellular_Locations="; ".join(sorted(locations)),
+                Location_Evidence="; ".join(sorted(evidence)), sets=sets)
 
 
-def collect_genes(client, pairs, dataset):
-    """Look up each distinct resolved human and mouse gene once."""
-    genes = {}
-    for pair in pairs:
-        for species, tax_id in TAXA.items():
-            side = species.title()
-            gene_id = pair[side + "_Gene_ID"]
-            if not gene_id or pair["Resolution_Status"] != "resolved":
-                continue
-            gene_type = pair.get(side + "_Gene_Type", "")
-            gene = genes.setdefault((species, gene_id), {
-                "Dataset": dataset, "Species": species, "Tax_ID": tax_id, "Gene_ID": gene_id,
-                "Symbol": pair[side + "_Symbol"], "Ensembl_IDs": [], "Gene_Type": gene_type,
-                "Gene_Type_Source": "Part 1" if gene_type else "",
-                **{f"{step}_{field}": value for step in ("Metadata", "UniProt", "Bgee")
-                   for field, value in (("Status", "not_requested"), ("Note", ""))}})
-            gene["Ensembl_IDs"] = sorted({*gene["Ensembl_IDs"], *pair[side + "_Ensembl_IDs"]})
-    proteins, expression = [], []
-    for gene in genes.values():
-        print(f"[INFO] {dataset}: {gene['Species']} {gene['Symbol'] or gene['Gene_ID']}",
-              flush=True)
+# Bgee
+def expression_data(gene):
+    """Return (Bgee status, calls) for one gene.
+
+    `calls` maps an UBERON anatomical entity ID to ("present" or "absent",
+    tissue name). Only gold- and silver-quality calls on UBERON anatomy are
+    kept. A tissue with more than one call (for example both present and
+    absent) is treated as conflicting and dropped. Bgee is only queried when
+    the gene has exactly one Ensembl ID, so the calls clearly belong to it.
+    A 404 means Bgee does not have the gene.
+    """
+    ids = gene["Ensembl_IDs"]
+    if len(ids) != 1:
+        return ("missing_ensembl_id" if not ids else "multiple_ensembl_ids"), {}
+    calls = {}
+    total = 0    # All calls returned, before filtering.
+    missing = 0  # Requests answered with 404.
+    for requested in ("EXPRESSED", "NOT_EXPRESSED"):
+        params = dict(page="gene", action="expression", gene_id=ids[0], species_id=gene["Tax_ID"],
+                      display_type="json", cond_param="anat_entity", expr_type=requested)
         try:
-            ncbi_metadata(client, gene)
-        except (APIError, Part3Error, KeyError, TypeError, AttributeError) as error:
-            gene["Metadata_Status"], gene["Metadata_Note"] = "lookup_failed", str(error)
-            if getattr(error, "status", None) == "identity_error":
-                gene["UniProt_Status"] = gene["Bgee_Status"] = "invalid_gene_identity"
-                continue
-        try:
-            proteins.extend(fetch_uniprot(client, gene))
-        except (APIError, KeyError, TypeError, AttributeError, ValueError) as error:
-            gene["UniProt_Status"], gene["UniProt_Note"] = "lookup_failed", str(error)
-        expression.extend(fetch_bgee(client, gene))
-    return genes, proteins, expression
+            records = get_json(BGEE, params)["data"]["calls"]
+        except ServiceError as error:
+            if error.status != 404:
+                raise
+            missing += 1
+            continue
+        if not isinstance(records, list):
+            raise ServiceError("Bgee returned an invalid call list.")
+        total += len(records)
+        for record in records:
+            tissue = record["condition"]["anatEntity"]
+            tissue_id = tissue["id"]
+            if tissue_id.startswith("UBERON:") and (record.get("expressionQuality") or "").lower() in ("gold", "silver"):
+                state = {"expressed": "present", "not_expressed": "absent"}[record["expressionState"]]
+                # Second call for the same tissue: mark it as conflicting (None).
+                calls[tissue_id] = None if tissue_id in calls else (state, tissue.get("name") or tissue_id)
+    if missing:
+        return ("not_found" if missing == 2 else "incomplete"), {}
+    return ("retrieved" if total else "no_calls_returned"), {t: call for t, call in calls.items() if call}
 
 
-def set_comparison(left, right):
-    """Jaccard of two ID sets; blank (not zero) when either side has no annotation."""
-    shared, both = left & right, bool(left and right)
-    return {"Human_Count": len(left), "Mouse_Count": len(right), "Shared_IDs": sorted(shared),
-            "Human_Only_IDs": sorted(left - right), "Mouse_Only_IDs": sorted(right - left),
-            "Jaccard": len(shared) / len(left | right) if both else None,
-            "Status": "comparable" if both else "missing_annotation"}
+# Per-gene annotation and pair comparison
+def annotate(gid, side, ensembl):
+    """Collect NCBI, UniProt and Bgee data for one gene ("Human" or "Mouse" side).
+
+    `ensembl` holds the Ensembl IDs carried from Parts 1-2; NCBI's current IDs
+    replace them when available. Each source is tried independently, so a
+    failure in one is recorded in `notes` and a "lookup_failed" status
+    without stopping the others. If NCBI reports a different gene or species,
+    nothing else is looked up.
+    """
+    taxon = TAXA[side]
+    gene = dict(Gene_ID=gid, Tax_ID=taxon, Gene_Type="", Ensembl_IDs=ensembl, notes=[])
+    try:
+        rec = get_json(f"{NCBI_GENES}{gid}/dataset_report")["reports"][0]["gene"]
+        if str(rec["gene_id"]) != gid or str(rec["tax_id"]) != taxon:
+            gene.update(UniProt_Status="invalid_gene_identity", Bgee_Status="invalid_gene_identity")
+            gene["notes"].append("NCBI returned a different gene or species.")
+            return gene
+        gene["Gene_Type"] = rec.get("type") or ""
+        prefix = "ENSG" if side == "Human" else "ENSMUSG"
+        current_ids = {v.split(".")[0] for v in rec.get("ensembl_gene_ids", [])
+                       if re.fullmatch(prefix + r"\d+(\.\d+)?", v)}
+        gene["Ensembl_IDs"] = sorted(current_ids) or ensembl
+    except API_ERRORS as error:
+        # Carry on with the Part 2 Ensembl IDs; gene type stays unknown.
+        gene["notes"].append(f"NCBI metadata: {error}")
+    try:
+        gene["UniProt_Status"], entries = protein_data(gene)
+        gene["entries"] = entries  # Kept for the per-protein JSON table.
+        gene.update(protein_annotations(entries))
+    except API_ERRORS as error:
+        gene["UniProt_Status"] = "lookup_failed"
+        gene["notes"].append(f"UniProt: {error}")
+    try:
+        gene["Bgee_Status"], gene["calls"] = expression_data(gene)
+    except API_ERRORS as error:
+        gene["Bgee_Status"] = "lookup_failed"
+        gene["notes"].append(f"Bgee: {error}")
+    return gene
 
 
-def go_label(term):
-    return f"{GO_ASPECTS.get(term['aspect'], term['aspect'])}: {term['term']} ({term['id']})"
+def compare_expression(human, mouse):
+    """Compare Bgee calls over the tissues that have a usable call in both species.
 
-
-def protein_annotations(side, chosen):
-    """One species' selected UniProtKB entries: what protein is made and how it is annotated."""
-    def unique(values):
-        return list(dict.fromkeys(v for v in values if v))
-    terms = {(t["aspect"] != "F", t["aspect"] != "P", t["term"], go_label(t))
-             for p in chosen for t in p["GO_Annotations_JSON"]}  # Sorted MF, BP, CC, name.
-    values = ([p["UniProt_Accession"] for p in chosen], unique(p["Protein_Name"] for p in chosen),
-              unique(p["Protein_Existence"] for p in chosen),
-              unique(p["Function_Summary"] for p in chosen),
-              sorted({loc for p in chosen for loc in p["Subcellular_Locations"] if loc}),
-              [t[-1] for t in sorted(terms)])
-    return dict(zip(PROTEIN_FIELDS[side], values))
-
-
-def compare_proteins(human, mouse, proteins):
-    sides = [("Human", human), ("Mouse", mouse)]
-    output = {f"{side}_UniProt_Status": g["UniProt_Status"] if g else "no_resolved_gene"
-              for side, g in sides}
-    chosen = {side: [p for p in proteins if g and p["Selected"] and p["Species"] == g["Species"]
-                     and p["Gene_ID"] == g["Gene_ID"]] for side, g in sides}
-    for side, _ in sides:  # Reported for each species even when the pair is not comparable.
-        output.update(protein_annotations(side, chosen[side]))
-    output["Shared_GO_Terms"] = []
-    found = {"reviewed_found", "unreviewed_only"}
-    if not (human and mouse and {g["UniProt_Status"] for _, g in sides} <= found):
-        output["Protein_Comparison_Status"] = "not_comparable"
-        return output
-    for prefix in ANNOTATION_SETS:  # Gene level: union over all selected proteins.
-        sets = [{i for p in chosen[side] for i in p[prefix + "_IDs"]} for side, _ in sides]
-        output.update({f"{prefix}_{k}": v for k, v in set_comparison(*sets).items()})
-    terms = {t["id"]: go_label(t) for side, _ in sides for p in chosen[side]
-             for t in p["GO_Annotations_JSON"]}
-    output["Shared_GO_Terms"] = [terms[i] for aspect in ("MF", "BP", "CC")
-                                 for i in output[f"GO_{aspect}_Shared_IDs"]]
-    output["Protein_Comparison_Status"] = "annotation_overlap_only"
-    return output
-
-
-def index_expression(rows):
-    """Eligible calls by (species, gene) and tissue; a tissue seen twice is marked None."""
-    index = defaultdict(dict)
-    for row in rows:
-        if row["Eligible_For_Comparison"]:
-            calls = index[(row["Species"], row["Gene_ID"])]
-            calls[row["Tissue_ID"]] = None if row["Tissue_ID"] in calls else row
-    return index
-
-
-def compare_expression(human, mouse, index):
-    summary = {"Comparable_Tissue_Count": 0, "Concordant_Tissue_Count": 0,
-               "Expression_Call_Agreement": None, "Shared_Present_Tissues": [],
-               "Shared_Absent_Tissues": [], "Different_Call_Tissues": [],
-               "Present_Tissue_Jaccard": None,
-               "Human_Bgee_Status": human["Bgee_Status"] if human else "no_resolved_gene",
-               "Mouse_Bgee_Status": mouse["Bgee_Status"] if mouse else "no_resolved_gene"}
-
-    def stop(status):
-        summary["Expression_Comparison_Status"] = status
-        return summary
-
-    if not human or not mouse:
-        return stop("not_comparable")
-    if len(human["Ensembl_IDs"]) != 1 or len(mouse["Ensembl_IDs"]) != 1:
-        return stop("missing_or_multiple_ensembl_ids")
-    if any(g["Bgee_Status"] not in {"retrieved", "no_calls_returned"} for g in (human, mouse)):
-        return stop("incomplete_expression_lookup")
-    hcalls = index.get(("human", human["Gene_ID"]), {})
-    mcalls = index.get(("mouse", mouse["Gene_ID"]), {})
-    if not hcalls and not mcalls:
-        return stop("no_eligible_tissues")
-    # Tissues with exactly one eligible call in each species (None marks conflicting calls).
-    both = [(t, hcalls[t]["Expression_Call"], mcalls[t]["Expression_Call"])
-            for t in sorted(hcalls.keys() & mcalls.keys()) if hcalls[t] and mcalls[t]]
+    Expression_Call_Agreement is the share of those tissues with the same call
+    (both present or both absent). Present_Tissue_Jaccard is the number of
+    tissues present in both divided by the number present in at least one;
+    it is left empty when no tissue is present in either species.
+    """
+    finished = {"retrieved", "no_calls_returned"}
+    if any(g.get("Bgee_Status") not in finished for g in (human, mouse)):
+        return {"Expression_Comparison_Status": "not_comparable"}
+    left, right = human["calls"], mouse["calls"]
+    both = left.keys() & right.keys()
     if not both:
-        return stop("no_shared_comparable_tissues")
-    present = [t for t, h, m in both if h == m == "present"]
-    absent = [t for t, h, m in both if h == m == "absent"]
-    any_present = [t for t, h, m in both if "present" in (h, m)]
-    summary.update({
-        "Comparable_Tissue_Count": len(both), "Concordant_Tissue_Count": len(present + absent),
-        "Expression_Call_Agreement": len(present + absent) / len(both),
-        "Shared_Present_Tissues": shared_tissues(present, hcalls, mcalls),
-        "Shared_Absent_Tissues": absent,
-        "Different_Call_Tissues": [t for t, h, m in both if h != m],
-        "Present_Tissue_Jaccard": len(present) / len(any_present) if any_present else None})
-    return stop("comparable")
+        return dict(Expression_Comparison_Status="no_shared_comparable_tissues", Comparable_Tissue_Count=0)
+    present = sorted(t for t in both if left[t][0] == right[t][0] == "present")
+    absent = sum(left[t][0] == right[t][0] == "absent" for t in both)
+    any_present = len(both) - absent
+    return dict(Expression_Comparison_Status="comparable", Comparable_Tissue_Count=len(both),
+                Both_Present_Count=len(present), Both_Absent_Count=absent,
+                Shared_Present_Tissues="; ".join(f"{left[t][1]} ({t})" for t in present),
+                Expression_Call_Agreement=(len(present) + absent) / len(both),
+                Present_Tissue_Jaccard=len(present) / any_present if any_present else None)
 
 
-def shared_tissues(tissues, hcalls, mcalls):
-    """Tissue ID and name with both species' Bgee evidence, strongest combined score first."""
-    rows = [{"tissue_id": t, "tissue_name": hcalls[t]["Tissue_Name"],
-             **{f"{side}_{key}": calls[t][field] for side, calls in (("human", hcalls),
-                                                                     ("mouse", mcalls))
-                for key, field in (("score", "Expression_Score"), ("quality", "Call_Quality"),
-                                   ("fdr", "FDR_Reported"))}} for t in tissues]
-    return sorted(rows, key=lambda r: -((r["human_score"] or 0) + (r["mouse_score"] or 0)))
+def pair_summary(dataset, row, genes):
+    """Build the output row for one Part 2 row (one input and one mouse ortholog).
 
-
-def pair_note(pair, human, mouse):
-    """One readable note naming every input, mapping or lookup problem behind a pair."""
-    if pair["Resolution_Status"] != "resolved":
-        return "Input not resolved to a human gene: " + (pair["Resolution_Note"] or "no detail.")
-    notes = [] if pair["Mapping_Status"] in {"ortholog_found", "multiple_mouse_orthologs"} \
-        else [f"Mouse ortholog: {pair['Mapping_Status']}. {pair['Mapping_Note']}".strip()]
+    Copies the identifiers and statuses from Part 2, adds each species'
+    UniProt and Bgee fields ("no_resolved_gene" where there is no gene on that
+    side), the Jaccard index for each annotation set, the expression
+    comparison and a Pair_Note that gathers every resolution, mapping and
+    lookup note. A Jaccard index is left empty unless both species have
+    at least one term of that kind.
+    """
+    result = {k: row[k] for k in ("Input_Row", "Human_Gene_ID", "Human_Symbol", "Mouse_Gene_ID", "Mouse_Symbol",
+                                  "Resolution_Status", "Mapping_Status")}
+    result.update(Dataset=dataset, Query_Symbol=row["Human_Input_ID"])
+    notes = [row["Resolution_Note"]] if row["Resolution_Status"] != "resolved" else []
+    if row["Mapping_Status"] not in ("ortholog_found", "multiple_mouse_orthologs") and row["Mapping_Note"]:
+        notes.append(row["Mapping_Note"])
+    human = genes.get(("Human", row["Human_Gene_ID"]), {})
+    mouse = genes.get(("Mouse", row["Mouse_Gene_ID"]), {})
     for side, gene in (("Human", human), ("Mouse", mouse)):
-        for step, ok in (OK_STATUS.items() if gene else ()):
-            status, note = gene[step + "_Status"], gene[step + "_Note"]
-            if status not in ok or (step == "Bgee" and note):
-                notes.append(f"{side} {step}: {status}" + (f" ({note})" if note else ""))
-    return "; ".join(notes)
+        for field in SIDE_FIELDS:
+            result[f"{side}_{field}"] = gene.get(field, "no_resolved_gene" if field.endswith("_Status") else "")
+        notes.extend(f"{side} {note}" for note in gene.get("notes", []))
+    for kind in SETS:
+        left = human.get("sets", {}).get(kind, set())
+        right = mouse.get("sets", {}).get(kind, set())
+        result[kind + "_Jaccard"] = len(left & right) / len(left | right) if left and right else None
+    result.update(compare_expression(human, mouse), Pair_Note="; ".join(notes))
+    return result
 
 
-def write_tsv(path, rows, columns):
-    """Lists and dicts are written as compact JSON text, booleans as 0/1."""
-    buffer = StringIO(newline="")
-    writer = csv.DictWriter(buffer, fieldnames=columns, delimiter="\t", extrasaction="ignore")
-    writer.writeheader()
-    for row in rows:
-        writer.writerow({
-            k: json.dumps(v, ensure_ascii=False, separators=(",", ":"))
-            if isinstance(v, (dict, list)) else int(v) if isinstance(v, bool) else v
-            for k, v in row.items()})
-    atomic_text(path, buffer.getvalue())
+def process(data_root, dataset):
+    """Annotate every gene in one dataset's Part 2 output and write both output files.
 
-
-def run_dataset(pairs, input_count, dataset, output_dir, source_paths, client):
-    genes, proteins, expression = collect_genes(client, pairs, dataset)
-    index, summaries = index_expression(expression), []
-    for pair in pairs:
-        resolved = pair["Resolution_Status"] == "resolved"
-        human, mouse = (genes.get((s, pair[s.title() + "_Gene_ID"])) if resolved else None
-                        for s in TAXA)
-        row = {k: v for k, v in pair.items() if not k.endswith("_Ensembl_IDs")}
-        row["Human_Gene_Type"] = human["Gene_Type"] if human else ""
-        row["Mouse_Gene_Type"] = mouse["Gene_Type"] if mouse else ""
-        row.update(compare_proteins(human, mouse, proteins))
-        row.update(compare_expression(human, mouse, index))
-        row["Pair_Note"] = pair_note(pair, human, mouse)
-        summaries.append(row)
-    write_tsv(Path(output_dir) / "p3_pair_summary.tsv", summaries, SUMMARY_COLUMNS)
-    for name in OLD_FILES:  # Remove the separate TSVs left by earlier runs.
-        (Path(output_dir) / name).unlink(missing_ok=True)
-    problems = [g for g in genes.values() if "lookup_failed" in (g["Metadata_Status"],
-                g["UniProt_Status"], g["Bgee_Status"]) or g["Bgee_Status"] == "incomplete"
-                or g["UniProt_Status"] == "invalid_gene_identity"]
-    manifest = {
-        "dataset": dataset, "generated_utc": utc_now(), "inputs": [os.path.relpath(p, PROJECT_ROOT) for p in source_paths],
-        "input_count": input_count, "pair_count": len(pairs), "unique_gene_count": len(genes),
-        "genes_with_lookup_problems": len(problems),
-        "pair_summary_rows": len(summaries), "protein_entries": len(proteins),
-        "bgee_calls": len(expression),
-        "protein_comparison_status_counts":
-            dict(Counter(r["Protein_Comparison_Status"] for r in summaries)),
-        "expression_comparison_status_counts":
-            dict(Counter(r["Expression_Comparison_Status"] for r in summaries))}
-    results = {"manifest": manifest, "genes": list(genes.values()), "proteins": proteins,
-               "expression_calls": expression, "pair_comparisons": summaries,
-               "request_provenance": client.audit}
-    atomic_text(Path(output_dir) / "p3_results.json",
-                json.dumps(results, ensure_ascii=False, indent=2))
-    print(f"[SAVED] {dataset}: {input_count} inputs, {len(pairs)} pairs -> {output_dir}")
-    if problems:
-        print(f"[WARN] {len(problems)} genes had lookup problems; see 'genes' in p3_results.json.")
-    return manifest
-
-
-def main(argv=None):
-    parser = argparse.ArgumentParser(
-        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--run", choices=["both", *DATASETS], default="both")
-    parser.add_argument("--part1-root", type=Path, default=PART1_ROOT)
-    parser.add_argument("--part2-root", type=Path, default=PART2_ROOT)
-    parser.add_argument("--output-root", type=Path, default=OUTPUT_ROOT)
-    parser.add_argument("--check-inputs", action="store_true", help="Validate inputs only")
-    mode = parser.add_mutually_exclusive_group()
-    mode.add_argument("--refresh", action="store_true", help="Ignore the dated API cache")
-    mode.add_argument("--offline", action="store_true", help="Use cached API responses only")
-    args = parser.parse_args(argv)
-    output_root = args.output_root.expanduser().resolve()
-    jobs = []
-    for dataset in DATASETS if args.run == "both" else (args.run,):
-        sources = [(args.part1_root / dataset / "ncbi_gene_summary2.tsv").expanduser(),
-                   (args.part2_root / dataset / "ncbi_ortholog.tsv").expanduser()]
-        pairs, count = load_inputs(*sources, dataset)
-        jobs.append((pairs, count, dataset, output_root / dataset, sources))
-        print(f"[CHECKED] {dataset}: {count} inputs -> {len(pairs)} pair rows.")
-    if args.check_inputs:
-        return 0
-    client = JSONClient(output_root / "api_cache", args.refresh, args.offline)
-    failed = [run_dataset(*job, client)["genes_with_lookup_problems"] for job in jobs]
-    return 2 if any(failed) else 0  # 2 = outputs saved, but some lookups need attention.
+    Returns True (the run exits with code 2) if any gene lookup left a note
+    or incomplete Bgee data, or if Part 2 carried a failed Part 1 lookup or a
+    mapping problem. p3_results.json is rewritten on every run, so it always
+    matches the TSV. After a clean run, Part 3 TSV files from earlier script
+    versions are deleted so they cannot be mistaken for current output.
+    """
+    # Part 2 writes standard quoted TSV.
+    mappings = read_table(part_dir(data_root, 2, dataset) / "ncbi_ortholog.tsv")
+    # Collect each distinct (side, Gene ID) once, merging its Ensembl IDs from every row it appears in.
+    ids = defaultdict(set)
+    for row in mappings:
+        for side in TAXA:
+            gid = row[side + "_Gene_ID"]
+            if gid and row["Resolution_Status"] == "resolved":
+                ids[side, gid].update(v for v in row[side + "_Ensembl_Gene_ID"].split(";") if v)
+    genes = {(side, gid): annotate(gid, side, sorted(values)) for (side, gid), values in ids.items()}
+    summaries = [pair_summary(dataset, row, genes) for row in mappings]
+    folder = part_dir(data_root, 3, dataset)
+    write_tsv(folder / "p3_pair_summary.tsv", COLUMNS, summaries)
+    # Per-gene and per-protein detail for the loader's p3_gene_status and p3_uniprot tables.
+    gene_rows = [{"Species": side, "Tax_ID": g["Tax_ID"], "Gene_ID": gid, "Gene_Type": g["Gene_Type"],
+                  "Ensembl_IDs": ";".join(g["Ensembl_IDs"]), "UniProt_Status": g.get("UniProt_Status", ""),
+                  "Bgee_Status": g.get("Bgee_Status", ""), "Notes": "; ".join(g["notes"])}
+                 for (side, gid), g in genes.items()]
+    protein_rows = [{"Species": side, "Tax_ID": g["Tax_ID"], "Gene_ID": gid,
+                     "UniProt_Accession": e["primaryAccession"], "Protein_Name": protein_name(e),
+                     "Reviewed": e.get("entryType") == "UniProtKB reviewed (Swiss-Prot)"}
+                    for (side, gid), g in genes.items() for e in g.get("entries", [])]
+    (folder / "p3_results.json").write_text(
+        json.dumps({"genes": gene_rows, "proteins": protein_rows}, indent=2, ensure_ascii=False), encoding="utf-8")
+    failed = (any(g["notes"] or g["Bgee_Status"] == "incomplete" for g in genes.values())
+              or any(r["Resolution_Status"] == "failed" or r["Mapping_Status"] not in MAPPING_OUTCOMES for r in mappings))
+    if not failed:
+        for old in ("p3_tissue_comparison.tsv", "p3_gene_status.tsv", "p3_uniprot.tsv", "p3_bgee_calls.tsv"):
+            (folder / old).unlink(missing_ok=True)
+    print(f"Part 3 {dataset}: {len(summaries)} input/ortholog rows saved.")
+    return failed
 
 
 if __name__ == "__main__":
-    try:
-        sys.exit(main())
-    except KeyboardInterrupt:
-        print("[ERROR] Cancelled; finished outputs and cached responses are kept.",
-              file=sys.stderr)
-        sys.exit(130)
-    except Exception as error:  # Input, file or unexpected errors: no traceback.
-        print(f"[ERROR] {error}", file=sys.stderr)
-        sys.exit(1)
+    run(process)

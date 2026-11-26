@@ -1,791 +1,249 @@
-#!/usr/bin/env python3
+"""Load the Part 1-4 TSV outputs into four linked MySQL tables and write a dump.
 
+Tables (one row per ...):
+  ica_annotations   ... input gene (Part 1), key (Dataset, Input_Row)
+  ica_orthologs     ... input and mouse ortholog (Part 2), key (Dataset, Input_Row, Pair_No)
+  ica_pair_summary  ... input and mouse ortholog (Part 3 UniProt/Bgee comparison), same key
+  ica_local_checks  ... input gene (Part 4 local API check), key (Dataset, Input_Row)
 
-import argparse
-from collections import Counter, defaultdict
+Pair_No numbers the mouse orthologs of one input (1, 2, ...). Foreign keys
+link orthologs and local checks to annotations, and pair summaries to
+orthologs. Columns repeated between parts (for example the human Gene ID in
+Part 2) are not stored again; instead they are checked to agree with Part 1
+before anything is loaded. The Part 3 and Part 4 JSON files are not loaded:
+these four tables hold everything the HTML tables are built from.
+
+Usage (on bioinfmsc9):
+  python3 load_ica_results.py --check-files   # validate the TSVs only
+  MYSQL_DATABASE=<db> python3 load_ica_results.py
+Login comes from ~/.my.cnf (or BDB_MYSQL_OPTION_FILE). The tables are
+dropped and rebuilt on every run, then dumped to
+OP2_SQL/all_parts_sql/bdb_ica_results.sql.
+"""
 import csv
-from datetime import datetime
-from getpass import getpass, getuser
-import json
 import math
 import os
-from pathlib import Path
-import re
 import shutil
 import subprocess
 import sys
-import tempfile
+from collections import Counter
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
+try:
+    from mysql.connector import connect, Error
+except ImportError:
+    connect, Error = None, ConnectionError
 
-PROJECT_ROOT = Path(os.environ.get("BDB_PROJECT_ROOT", "~/BDB_ICA")).expanduser()
+ROOT = Path(os.getenv("BDB_PROJECT_ROOT", "~/BDB_ICA")).expanduser()
+CONFIG = Path(os.getenv("BDB_MYSQL_OPTION_FILE", "~/.my.cnf")).expanduser()
 DATASETS = ("development", "challenge")
-PART1_TABLE_NAME = "p1_annotations"
-PART2_TABLE_NAME = "p2_orthologs"
-USERNAME = os.environ.get("MYSQL_USER") or getuser()
-MYSQL_SOCKET = "/var/run/mysqld/mysqld.sock"
-MYSQL_OPTION_FILE = Path.home() / ".my.cnf"
-_FALLBACK_PASSWORD = None
-PART1_INPUT_COLUMNS = (
-    "Query_Symbol", "Gene_ID", "ENSG_IDs", "Official_Symbol",
-    "Official_Name", "Chromosome", "Map_Location", "Other_Aliases",
-    "Summary", "Same_Gene_Note", "Resolution_Status", "Resolution_Note",)
-PART1_DATABASE_COLUMNS = ("Dataset", "Input_Row") + PART1_INPUT_COLUMNS
-PART2_INPUT_COLUMNS = (
-    "Human_Input_ID", "Human_Gene_ID", "Human_Symbol", "Human_Ensembl_Gene_ID",
-    "Mouse_Gene_ID", "Mouse_Symbol", "Mouse_Tax_ID", "Mouse_Ensembl_Gene_ID",
-    "Mouse_Official_Name", "Input_Row", "Same_Gene_Note", "Resolution_Status",
-    "Resolution_Note", "Mouse_Ortholog_Count", "Mapping_Status", "Mapping_Note",
-    "Human_Ensembl_Status", "Mouse_Ensembl_Status",)
-PART2_DATABASE_COLUMNS = ("Dataset",) + PART2_INPUT_COLUMNS
-MAPPED_STATUSES = {"ortholog_found", "multiple_mouse_orthologs"}
-FAILURE_STATUSES = {
-    "human_lookup_failed", "ortholog_lookup_failed", "invalid_human_gene_id",
-    "input_gene_is_not_human", "human_record_not_current",}
-ALL_STATUSES = MAPPED_STATUSES | FAILURE_STATUSES | {
-    "input_not_resolved", "no_mouse_ortholog_returned",}
-
-
-def read_part1_tables(base_dir):
-    """Part 1 writes plain TSV: keep literal quotation marks intact."""
-    tables = {}
-    for dataset in DATASETS:
-        path = Path(base_dir) / dataset / "ncbi_gene_summary2.tsv"
-        rows = []
-        with path.open(encoding="utf-8-sig", newline="") as handle:
-            reader = csv.DictReader(handle, delimiter="\t", quoting=csv.QUOTE_NONE)
-            if reader.fieldnames != list(PART1_INPUT_COLUMNS):
-                raise ValueError(f"Unexpected Part 1 columns in {path}.")
-            for row in reader:
-                where = f"{path}:{reader.line_num}"
-                if None in row or any(value is None for value in row.values()):
-                    raise ValueError(f"Wrong number of fields: {where}")
-                if not row["Query_Symbol"].strip() or not row["Resolution_Status"].strip():
-                    raise ValueError(f"Missing input label or resolution status: {where}")
-                gene_id = row["Gene_ID"]
-                if gene_id and (len(gene_id) > 20 or not re.fullmatch(r"[1-9][0-9]*", gene_id)):
-                    raise ValueError(f"Invalid Gene_ID: {where}")
-                if row["Resolution_Status"] == "resolved" and (
-                    not gene_id or not row["Official_Symbol"].strip()
-                ):
-                    raise ValueError(f"Incomplete resolved Part 1 row: {where}")
-                # Retain the uploaded Part 1 loader's blank-cell handling.
-                rows.append({key: value if value.strip() else None for key, value in row.items()})
-        if not rows:
-            raise ValueError(f"No Part 1 input rows in {path}.")
-        tables[dataset] = rows
-    return tables
-
-
-def read_part2_tables(base_dir):
-    """Part 2 uses csv.DictWriter: decode its normal CSV quoting."""
-    tables = {}
-    for dataset in DATASETS:
-        path = Path(base_dir) / dataset / "ncbi_ortholog.tsv"
-        rows = []
-        with path.open(encoding="utf-8-sig", newline="") as handle:
-            reader = csv.DictReader(handle, delimiter="\t", strict=True)
-            if reader.fieldnames != list(PART2_INPUT_COLUMNS):
-                raise ValueError(f"Unexpected Part 2 columns in {path}.")
-            for row in reader:
-                where = f"{path}:{reader.line_num}"
-                if None in row or any(value is None for value in row.values()):
-                    raise ValueError(f"Wrong number of fields: {where}")
-                if not row["Human_Input_ID"].strip() or not row["Resolution_Status"].strip():
-                    raise ValueError(f"Missing input label or resolution status: {where}")
-                if row["Mapping_Status"] not in ALL_STATUSES:
-                    raise ValueError(f"Unrecognised mapping status: {where}")
-                for name in ("Human_Gene_ID", "Mouse_Gene_ID", "Mouse_Tax_ID"):
-                    value = row[name]
-                    if value and (len(value) > 20 or not re.fullmatch(r"[1-9][0-9]*", value)):
-                        raise ValueError(f"Invalid {name}: {where}")
-                    row[name] = value or None
-                for name in ("Input_Row", "Mouse_Ortholog_Count"):
-                    value = row[name]
-                    pattern = r"[1-9][0-9]*" if name == "Input_Row" else r"[0-9]+"
-                    if name == "Mouse_Ortholog_Count" and value == "":
-                        row[name] = None  # Unassessed; distinct from a successful count of 0.
-                    elif not re.fullmatch(pattern, value) or int(value) > 4294967295:
-                        raise ValueError(f"Invalid {name}: {where}")
-                    else:
-                        row[name] = int(value)
-                rows.append(row)
-        validate_input_groups(rows, dataset)
-        tables[dataset] = rows
-    return tables
-
-
-def validate_input_groups(rows, dataset):
-    """Keep one outcome per input, or one row for each distinct mouse ortholog."""
-    if not rows:
-        raise ValueError(f"No Part 2 outcomes in {dataset}.")
-    groups = defaultdict(list)
-    for row in rows:
-        groups[row["Input_Row"]].append(row)
-    if set(groups) != set(range(1, len(groups) + 1)):
-        raise ValueError(f"{dataset}: Input_Row must cover 1 to the number of inputs.")
-    human_fields = (
-        "Human_Input_ID", "Human_Gene_ID", "Human_Symbol", "Human_Ensembl_Gene_ID",
-        "Same_Gene_Note", "Resolution_Status", "Resolution_Note", "Human_Ensembl_Status",
-        "Mapping_Status", "Mouse_Ortholog_Count",
-    )
-    for number, group in groups.items():
-        first = group[0]
-        where = f"{dataset}, input {number} ({first['Human_Input_ID']})"
-        if any(any(row[name] != first[name] for name in human_fields) for row in group):
-            raise ValueError(f"Inconsistent rows for {where}.")
-        status = first["Mapping_Status"]
-        if status in MAPPED_STATUSES:
-            mouse_ids = {row["Mouse_Gene_ID"] for row in group}
-            expected = "ortholog_found" if len(group) == 1 else "multiple_mouse_orthologs"
-            if (first["Resolution_Status"] != "resolved" or not first["Human_Gene_ID"]
-                    or None in mouse_ids or len(mouse_ids) != len(group)
-                    or any(row["Mouse_Tax_ID"] != "10090" for row in group)
-                    or first["Mouse_Ortholog_Count"] != len(group) or status != expected):
-                raise ValueError(f"Invalid or incomplete mouse mapping for {where}.")
-        else:
-            mouse_fields = ("Mouse_Gene_ID", "Mouse_Symbol", "Mouse_Tax_ID",
-                            "Mouse_Ensembl_Gene_ID", "Mouse_Official_Name")
-            expected_count = 0 if status == "no_mouse_ortholog_returned" else None
-            if (len(group) != 1 or any(first[name] for name in mouse_fields)
-                    or first["Mouse_Ortholog_Count"] != expected_count):
-                raise ValueError(f"Invalid empty/failed outcome for {where}.")
-            if (status == "input_not_resolved") != (first["Resolution_Status"] != "resolved"):
-                raise ValueError(f"Mapping and resolution status disagree for {where}.")
-            if status == "no_mouse_ortholog_returned" and not first["Human_Gene_ID"]:
-                raise ValueError(f"Successful lookup lacks its human Gene ID: {where}.")
-
-
-def part1_originals(rows):
-    return [(number, row["Query_Symbol"], row["Gene_ID"], row["Resolution_Status"],
-             row["Same_Gene_Note"], row["Resolution_Note"])
-            for number, row in enumerate(rows, start=1)]
-
-
-def compare_with_part1(dataset, originals, rows):
-    """Use the same identity comparison for the files and stored Part 1 rows."""
-    original = {record[0]: record[1:] for record in originals}
-    if None in original or len(original) != len(originals):
-        raise ValueError("Part 1 needs distinct, populated Input_Row values.")
-    if not original or set(original) != {row["Input_Row"] for row in rows}:
-        raise ValueError(f"Part 2 {dataset} does not cover the Part 1 inputs.")
-    for row in rows:
-        source = original[row["Input_Row"]]
-        expected = (source[0], str(source[1]) if source[1] else None,
-                    source[2], source[3] or "", source[4] or "")
-        observed = tuple(row[name] for name in (
-            "Human_Input_ID", "Human_Gene_ID", "Resolution_Status",
-            "Same_Gene_Note", "Resolution_Note",
-        ))
-        if expected != observed:
-            raise ValueError(f"Part 2 {dataset}, input {row['Input_Row']} differs from Part 1. "
-                             "Regenerate the matching results first.")
-
-
-def table_details(part):
-    if part == 1:
-        return PART1_TABLE_NAME, PART1_DATABASE_COLUMNS
-    if part == 2:
-        return PART2_TABLE_NAME, PART2_DATABASE_COLUMNS
-    raise ValueError("Part must be 1 or 2.")
-
-
-def build_table_sql(part, collation=None):
-    table, _ = table_details(part)
-    suffix = " ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4"
-    if collation is not None:
-        if not re.fullmatch(r"utf8mb4_[A-Za-z0-9_]+", collation):
-            raise ValueError("Dataset must use an utf8mb4 collation.")
-        suffix += f" COLLATE {collation}"
-    fields = ["`Row_ID` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY",
-              "`Dataset` VARCHAR(20) NOT NULL"]
-    if part == 1:
-        types = {"Query_Symbol": "VARCHAR(255) NOT NULL", "Gene_ID": "VARCHAR(20)",
-                 "Official_Symbol": "VARCHAR(255)", "Chromosome": "VARCHAR(20)",
-                 "Map_Location": "VARCHAR(100)", "Resolution_Status": "VARCHAR(30)"}
-        fields.append("`Input_Row` INT UNSIGNED NOT NULL")
-        fields.extend(f"`{name}` {types.get(name, 'TEXT')}" for name in PART1_INPUT_COLUMNS)
-        fields.extend(["INDEX `idx_dataset` (`Dataset`)", "INDEX `idx_gene_id` (`Gene_ID`)",
-                       "UNIQUE INDEX `idx_dataset_input` (`Dataset`, `Input_Row`)"])
-    else:
-        types = {"Input_Row": "INT UNSIGNED NOT NULL",
-                 "Mouse_Ortholog_Count": "INT UNSIGNED NULL"}
-        for name in PART2_INPUT_COLUMNS:
-            datatype = types.get(name, "VARCHAR(20)" if name in {
-                "Human_Gene_ID", "Mouse_Gene_ID", "Mouse_Tax_ID"} else "TEXT")
-            fields.append(f"`{name}` {datatype}")
-        # Non-unique: one input can produce several distinct ortholog rows.
-        fields.extend(["INDEX `idx_dataset_input` (`Dataset`, `Input_Row`)",
-                       "INDEX `idx_human_gene` (`Human_Gene_ID`)",
-                       "INDEX `idx_mouse_gene` (`Mouse_Gene_ID`)"])
-    return f"CREATE TABLE IF NOT EXISTS `{table}` (\n  " + ",\n  ".join(fields) + "\n)" + suffix
-
-
-def check_table(cursor, part):
-    table, columns = table_details(part)
-    cursor.execute(f"SHOW COLUMNS FROM `{table}`")
-    found = {row[0] for row in cursor.fetchall()}
-    if part == 1 and "Input_Row" not in found:
-        # Migrate before checking required fields; the import populates the values.
-        cursor.execute(f"ALTER TABLE `{table}` ADD COLUMN `Input_Row` "
-                       "INT UNSIGNED NULL AFTER `Dataset`")
-        found.add("Input_Row")
-        print("[INFO] Added Part 1 Input_Row column.")
-    missing = {"Row_ID", *columns} - found
-    if missing:
-        raise ValueError(f"Existing {table} is missing columns: {', '.join(sorted(missing))}")
-    cursor.execute("SELECT ENGINE FROM information_schema.TABLES "
-                   "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = %s", (table,))
-    engine = cursor.fetchone()
-    if not engine or str(engine[0]).upper() != "INNODB":
-        raise ValueError(f"{table} must use InnoDB for rollback.")
-
-
-def ensure_indexes(cursor, part):
-    table, _ = table_details(part)
-    cursor.execute(f"SHOW INDEX FROM `{table}`")
-    indexes = defaultdict(list)
-    for row in cursor.fetchall():
-        indexes[row[2]].append(row)
-    observed = {}
-    for name, rows in indexes.items():
-        if all(row[7] is None for row in rows):
-            columns = tuple(row[4] for row in sorted(rows, key=lambda item: item[3]))
-            observed[name] = (columns, rows[0][1] == 0)
-    if part == 1:
-        required = [("idx_dataset", ("Dataset",), False),
-                    ("idx_gene_id", ("Gene_ID",), False),
-                    ("idx_dataset_input", ("Dataset", "Input_Row"), True)]
-    else:
-        required = [("idx_dataset_input", ("Dataset", "Input_Row"), False),
-                    ("idx_human_gene", ("Human_Gene_ID",), False),
-                    ("idx_mouse_gene", ("Mouse_Gene_ID",), False)]
-        if any(unique and columns == ("Dataset", "Input_Row")
-               for columns, unique in observed.values()):
-            raise ValueError("Part 2 has a UNIQUE Dataset/Input_Row index, which prevents "
-                             "multiple orthologs per input. That index must be non-unique.")
-    for name, columns, unique in required:
-        if any(existing == columns and (not unique or is_unique)
-               for existing, is_unique in observed.values()):
-            continue
-        if name in indexes:
-            raise ValueError(f"Existing index {table}.{name} has an incompatible definition.")
-        fields = ", ".join(f"`{column}`" for column in columns)
-        kind = "UNIQUE INDEX" if unique else "INDEX"
-        cursor.execute(f"ALTER TABLE `{table}` ADD {kind} `{name}` ({fields})")
-
-
-def check_stored_part1(cursor, tables):
-    for dataset, rows in tables.items():
-        cursor.execute(f"SELECT `Input_Row`, `Query_Symbol`, `Gene_ID`, `Resolution_Status`, "
-                       f"`Same_Gene_Note`, `Resolution_Note` FROM `{PART1_TABLE_NAME}` "
-                       "WHERE `Dataset` = %s ORDER BY `Input_Row`", (dataset,))
-        compare_with_part1(dataset, cursor.fetchall(), rows)
-
-
-def input_values(part, dataset, rows):
-    if part == 1:
-        return [(dataset, number) + tuple(row[name] for name in PART1_INPUT_COLUMNS)
-                for number, row in enumerate(rows, start=1)]
-    return [(dataset,) + tuple(row[name] for name in PART2_INPUT_COLUMNS) for row in rows]
-
-
-def connect_mysql(host=None, port=3306):
-    try:
-        from mysql.connector import connect, Error
-    except ImportError:
-        raise RuntimeError("Install in this Python environment: "
-                           "python -m pip install mysql-connector-python") from None
-    global _FALLBACK_PASSWORD
-    settings = dict(unix_socket=MYSQL_SOCKET, charset="utf8mb4",
-                    collation="utf8mb4_unicode_ci", autocommit=False, connection_timeout=15)
-    # GenAI-assisted extension: optionally use a local TCP connection/SSH tunnel.
-    if host:
-        settings.update(unix_socket=None, host=host, port=port)
-    if MYSQL_OPTION_FILE.is_file():
-        settings.update(option_files=str(MYSQL_OPTION_FILE), option_groups=["client"])
-        if os.environ.get("MYSQL_USER"):
-            settings["user"] = USERNAME
-    else:
-        settings["user"] = USERNAME
-    if _FALLBACK_PASSWORD is not None:
-        settings["password"] = _FALLBACK_PASSWORD
-    try:
-        return connect(**settings)
-    except Error as error:
-        if error.errno != 1045:
-            raise
-        if os.environ.get("BDB_NON_INTERACTIVE") == "1":
-            raise ValueError("MySQL authentication failed. Configure [client] in ~/.my.cnf.") from None
-        _FALLBACK_PASSWORD = getpass(f"MySQL password for {settings.get('user', USERNAME)}: ")
-        settings["password"] = _FALLBACK_PASSWORD
-        return connect(**settings)
-
-
-def choose_database(connection, cursor):
-    cursor.execute("SHOW DATABASES")
-    available = [row[0] for row in cursor.fetchall()]
-    print("Accessible databases: " + ", ".join(available))
-    database = os.environ.get("MYSQL_DATABASE", "").strip() or connection.database
-    if not database:
-        if os.environ.get("BDB_NON_INTERACTIVE") == "1":
-            raise ValueError("Set MYSQL_DATABASE to your personal database name.")
-        database = input("Your personal MySQL database name: ").strip()
-    if database not in available or database.casefold() in {
-        "genbank", "mysql", "sys", "information_schema", "performance_schema",
-    }:
-        raise ValueError("Choose your personal database from the names shown above.")
-    connection.database = database
-    print(f"[INFO] Using personal database: {database}")
-
-
-def quote_option_value(value):
-    return '"' + str(value).replace("\\", "\\\\").replace('"', '\\"').replace(
-        "\n", "\\n").replace("\r", "\\r").replace("\t", "\\t") + '"'
-
-
-# The column lists are the actual headers of the current API output files.
-EXTRA_FILES = {
-    "p3_gene_status": (3, "p3_gene_status.tsv", """
-        Dataset Species Tax_ID Gene_ID Symbol Ensembl_IDs Gene_Type
-        Gene_Type_Source Metadata_Status Metadata_Note UniProt_Status
-        UniProt_Note Bgee_Status Bgee_Note
-    """.split()),
-    "p3_uniprot": (3, "p3_uniprot.tsv", """
-        Dataset Species Tax_ID Gene_ID UniProt_Accession Protein_Name Reviewed
-        Selected Match_Method Function_Summary GO_MF_IDs GO_BP_IDs GO_CC_IDs
-        Location_IDs Subcellular_Locations Function_Annotations_JSON
-        GO_Annotations_JSON Location_Annotations_JSON Protein_Existence
-        Annotation_Score Entry_Audit_JSON Source_URL
-    """.split()),
-    "p3_bgee_calls": (3, "p3_bgee_calls.tsv", """
-        Dataset Species Tax_ID Gene_ID Bgee_Gene_ID Tissue_ID Tissue_Name
-        Expression_Call Call_Quality Expression_Score Score_Confidence FDR
-        FDR_Qualifier FDR_Reported Data_Types Condition_Scope
-        Eligible_For_Comparison Source_URL
-    """.split()),
-    "p3_pair_summary": (3, "p3_pair_summary.tsv", """
-        Dataset Input_Row Query_Symbol Human_Gene_ID Mouse_Gene_ID Human_Symbol
-        Mouse_Symbol Resolution_Status Resolution_Note Same_Gene_Note
-        Mapping_Status Mapping_Note Human_Gene_Type Mouse_Gene_Type
-        Human_UniProt_Status Mouse_UniProt_Status Human_UniProt_Accessions
-        Mouse_UniProt_Accessions Protein_Comparison_Status
-        GO_MF_Human_Count GO_MF_Mouse_Count GO_MF_Shared_IDs GO_MF_Human_Only_IDs
-        GO_MF_Mouse_Only_IDs GO_MF_Jaccard GO_MF_Status
-        GO_BP_Human_Count GO_BP_Mouse_Count GO_BP_Shared_IDs GO_BP_Human_Only_IDs
-        GO_BP_Mouse_Only_IDs GO_BP_Jaccard GO_BP_Status
-        GO_CC_Human_Count GO_CC_Mouse_Count GO_CC_Shared_IDs GO_CC_Human_Only_IDs
-        GO_CC_Mouse_Only_IDs GO_CC_Jaccard GO_CC_Status
-        Location_Human_Count Location_Mouse_Count Location_Shared_IDs
-        Location_Human_Only_IDs Location_Mouse_Only_IDs Location_Jaccard Location_Status
-        Human_Bgee_Status Mouse_Bgee_Status Expression_Comparison_Status
-        Comparable_Tissue_Count Concordant_Tissue_Count Expression_Call_Agreement
-        Shared_Present_Tissues Shared_Absent_Tissues Different_Call_Tissues
-        Present_Tissue_Jaccard
-    """.split()),
-    "p3_tissue_comparison": (3, "p3_tissue_comparison.tsv", """
-        Dataset Input_Row Query_Symbol Human_Gene_ID Mouse_Gene_ID Tissue_ID
-        Tissue_Name Human_Call Mouse_Call Comparison_Status Human_Call_Quality
-        Human_Expression_Score Human_FDR Human_FDR_Qualifier Mouse_Call_Quality
-        Mouse_Expression_Score Mouse_FDR Mouse_FDR_Qualifier
-    """.split()),
-    "p4_local_ncbi_comparisons": (4, "local_ncbi_comparisons.tsv", """
-        Dataset Input_Row Query_Symbol Gene_ID Official_Symbol Resolution_Status
-        Resolution_Note Same_Gene_Note NCBI_Official_Name NCBI_Chromosome
-        NCBI_Map_Location NCBI_Other_Aliases Local_Query Local_Status Local_Note
-        Local_Record_Count Local_Candidate_Gene_IDs Selected_Record_Number
-        Local_Gene_ID Local_Official_Symbol Local_Official_Name Local_Status_Field
-        Local_Current_Gene_ID Local_Chromosome Local_Map_Location
-        Local_Organism_Scientific Local_Organism_Common Local_Other_Aliases
-        Local_Other_Designations Gene_ID_Comparison Symbol_Comparison
-        Name_Comparison Chromosome_Comparison Map_Location_Comparison
-        Aliases_Comparison Comparison_Status Differences Missing_Fields
-        Retrieved_UTC Source_URL
-    """.split()),
-    "p4_local_api_records": (4, "local_api_records.tsv", """
-        Dataset Input_Row Query_Symbol Gene_ID Local_Query Record_Number
-        Matches_Part1_Gene_ID Selected Local_Gene_ID Local_Official_Symbol
-        Local_Official_Name Local_Status_Field Local_Current_Gene_ID
-        Local_Chromosome Local_Map_Location Local_Organism_Scientific
-        Local_Organism_Common Local_Other_Aliases Local_Other_Designations
-        Retrieved_UTC Source_URL
-    """.split()),
+TABLES = ("ica_annotations", "ica_orthologs", "ica_pair_summary", "ica_local_checks")
+FILES = ("ncbi_gene_summary2.tsv", "ncbi_ortholog.tsv", "p3_pair_summary.tsv", "local_ncbi_comparisons.tsv")
+# Primary keys: one row per input, or one row per input and mouse ortholog.
+KEY = ["Dataset", "Input_Row"]
+PAIR = KEY + ["Pair_No"]
+# Stored columns per table. 
+COLUMNS = {
+    TABLES[0]: KEY + """Query_Symbol Official_Symbol Official_Name Gene_ID ENSG_IDs Map_Location
+        Other_Aliases Summary Resolution_Status Resolution_Note Same_Gene_Note""".split(),
+    TABLES[1]: PAIR + """Human_Ensembl_Gene_ID Mouse_Gene_ID Mouse_Symbol Mouse_Tax_ID Mouse_Ensembl_Gene_ID
+        Mouse_Official_Name Mouse_Ortholog_Count Mapping_Status Mapping_Note Human_Ensembl_Status Mouse_Ensembl_Status""".split(),
+    TABLES[2]: PAIR + [f"{side}_{field}" for side in ("Human", "Mouse") for field in
+        """UniProt_Status UniProt_Accessions Protein_Names GO_Terms Function Subcellular_Locations
+        Location_Evidence Bgee_Status""".split()]
+        + """GO_MF_Jaccard GO_BP_Jaccard GO_CC_Jaccard Location_Jaccard Expression_Comparison_Status
+        Comparable_Tissue_Count Both_Present_Count Both_Absent_Count Shared_Present_Tissues
+        Expression_Call_Agreement Present_Tissue_Jaccard Pair_Note""".split(),
+    TABLES[3]: KEY + """Local_Gene_ID Local_Official_Symbol Local_Map_Location Local_Status Symbol_Comparison
+        Map_Location_Comparison Comparison_Status Differences Local_Note""".split(),
 }
-
-BOOLEAN_COLUMNS = {"Reviewed", "Selected", "Eligible_For_Comparison", "Matches_Part1_Gene_ID"}
-INTEGER_COLUMNS = {"Input_Row", "Record_Number", "Selected_Record_Number"}
-FLOAT_COLUMNS = {"Expression_Score", "Human_Expression_Score", "Mouse_Expression_Score",
-                 "FDR", "Human_FDR", "Mouse_FDR", "Annotation_Score", "Expression_Call_Agreement"}
-ID_COLUMNS = {"Gene_ID", "Human_Gene_ID", "Mouse_Gene_ID", "Tax_ID", "Local_Gene_ID",
-              "Local_Current_Gene_ID"}
-JSON_COLUMNS = {"Ensembl_IDs", "GO_MF_IDs", "GO_BP_IDs", "GO_CC_IDs", "Location_IDs",
-                "Subcellular_Locations", "Data_Types", "Human_UniProt_Accessions",
-                "Mouse_UniProt_Accessions", "Shared_Present_Tissues",
-                "Shared_Absent_Tissues", "Different_Call_Tissues"}
-KEYS = {
-    "p3_gene_status": ("Dataset", "Species", "Gene_ID"),
-    "p3_uniprot": ("Dataset", "Species", "Gene_ID", "UniProt_Accession"),
-    "p3_bgee_calls": ("Dataset", "Species", "Gene_ID", "Bgee_Gene_ID", "Tissue_ID"),
-    "p3_pair_summary": ("Dataset", "Input_Row", "Mouse_Gene_ID"),
-    "p3_tissue_comparison": ("Dataset", "Input_Row", "Mouse_Gene_ID", "Tissue_ID"),
-    "p4_local_ncbi_comparisons": ("Dataset", "Input_Row"),
-    "p4_local_api_records": ("Dataset", "Input_Row", "Record_Number"),
-}
-TABLE_NAMES = (PART1_TABLE_NAME, PART2_TABLE_NAME, *EXTRA_FILES)
+# Columns that are only read to check consistency with Part 1, not stored.
+CHECK_ONLY = {4: {"NCBI_Map_Location"}}
+# First line of the dump file
+DUMP_HEADER = b"-- Exported with mysqldump.\n"
 
 
-def column_type(name):
-    if name == "Dataset":
-        return "VARCHAR(20) NOT NULL"
-    if name == "Species":
-        return "VARCHAR(10) NOT NULL"
-    if name in BOOLEAN_COLUMNS:
-        return "TINYINT UNSIGNED"
-    if name in INTEGER_COLUMNS or name.endswith("_Count"):
-        return "INT UNSIGNED" + (" NOT NULL" if name in {"Input_Row", "Record_Number"} else "")
-    if name in FLOAT_COLUMNS or name.endswith("_Jaccard"):
-        return "DOUBLE"
-    if name in ID_COLUMNS:
-        return "VARCHAR(20)"
-    if name == "UniProt_Accession":
-        return "VARCHAR(32) NOT NULL"
-    if name in {"Tissue_ID", "Bgee_Gene_ID"}:
-        return "VARCHAR(64) NOT NULL"
-    # Preserve long summaries and evidence JSON without truncating them.
-    return "LONGTEXT"
+def fields(names):
+    """Back-quoted, comma-separated column list for SQL."""
+    return ", ".join(f"`{name}`" for name in names)
 
 
-def convert_cell(name, value):
-    if value == "":
-        return None
-    if name in ID_COLUMNS:
-        if not re.fullmatch(r"[1-9][0-9]{0,19}", value):
-            raise ValueError(f"Invalid {name}.")
-    kind = column_type(name)
-    if name in BOOLEAN_COLUMNS:
-        mapping = {"0": 0, "1": 1, "false": 0, "true": 1}
-        if value.lower() not in mapping:
-            raise ValueError(f"Invalid boolean {name}.")
-        return mapping[value.lower()]
-    if kind.startswith("INT"):
-        if not re.fullmatch(r"[0-9]+", value) or int(value) > 4294967295:
-            raise ValueError(f"Invalid non-negative integer {name}.")
-        number = int(value)
-        if name in INTEGER_COLUMNS and number == 0:
-            raise ValueError(f"{name} must be positive when present.")
-        return number
-    if kind == "DOUBLE":
-        number = float(value)
-        if not math.isfinite(number):
-            raise ValueError(f"Non-finite {name}.")
-        if (name.endswith("_Jaccard") or name.endswith("FDR")
-                or name == "Expression_Call_Agreement") and not 0 <= number <= 1:
-            raise ValueError(f"{name} is outside [0, 1].")
-        return number
-    if name.endswith("_JSON") or name in JSON_COLUMNS or name.endswith(
-        ("_Shared_IDs", "_Human_Only_IDs", "_Mouse_Only_IDs")
-    ):
-        json.loads(value)  # Validate while preserving the original JSON text.
-    if name == "Retrieved_UTC":
-        if datetime.fromisoformat(value).utcoffset() is None:
-            raise ValueError("Retrieved_UTC needs a timezone.")
-    length = re.match(r"VARCHAR\((\d+)\)", kind)
-    if length and len(value) > int(length[1]):
-        raise ValueError(f"{name} exceeds its column length.")
-    return value
-
-
-def read_extra_tables(part3_dir, part4_dir):
-    tables = {}
-    for table, (part, filename, columns) in EXTRA_FILES.items():
-        tables[table] = {}
-        for dataset in DATASETS:
-            path = (part3_dir if part == 3 else part4_dir) / dataset / filename
-            rows = []
-            with path.open(encoding="utf-8-sig", newline="") as stream:
-                reader = csv.DictReader(stream, delimiter="\t", strict=True)
-                if reader.fieldnames != columns:
-                    raise ValueError(f"Unexpected columns: {path}")
-                for row in reader:
-                    if None in row or any(value is None for value in row.values()):
-                        raise ValueError(f"Wrong field count: {path}:{reader.line_num}")
-                    if row["Dataset"] != dataset:
-                        raise ValueError(f"Dataset differs from its folder: {path}:{reader.line_num}")
-                    try:
-                        rows.append({name: convert_cell(name, row[name]) for name in columns})
-                    except (ValueError, TypeError) as error:
-                        raise ValueError(f"{path}:{reader.line_num}: {error}") from error
-            keys = [tuple(row[name] for name in KEYS[table]) for row in rows]
-            if len(keys) != len(set(keys)):
-                raise ValueError(f"Duplicate record keys: {path}")
-            tables[table][dataset] = rows
-    return tables
+def create_table(table):
+    """Return the CREATE TABLE statement for one table, with its keys and indexes."""
+    def datatype(name):
+        # Chosen from the column name; anything not listed is free text.
+        if name == "Dataset": return "VARCHAR(20) NOT NULL"
+        if name in ("Input_Row", "Pair_No"): return "INT UNSIGNED NOT NULL"
+        if name.endswith("_Count"): return "INT UNSIGNED"
+        if name.endswith("_Jaccard") or name == "Expression_Call_Agreement": return "DOUBLE"
+        if name in ("Gene_ID", "Mouse_Gene_ID", "Local_Gene_ID", "Mouse_Tax_ID"): return "VARCHAR(20)"
+        if name.endswith(("_Status", "_Comparison")): return "VARCHAR(64)"
+        if name.endswith("_Symbol"): return "VARCHAR(128)"
+        if name.endswith("Chromosome"): return "VARCHAR(32)"
+        return "TEXT"
+    key = PAIR if table in TABLES[1:3] else KEY
+    definitions = [f"`{n}` {datatype(n)}" for n in COLUMNS[table]] + [f"PRIMARY KEY ({fields(key)})"]
+    if table == TABLES[0]:
+        definitions.append("INDEX (Gene_ID)")  # Used to find repeated genes.
+    else:
+        parent, link = (TABLES[1], PAIR) if table == TABLES[2] else (TABLES[0], KEY)
+        definitions.append(f"FOREIGN KEY ({fields(link)}) REFERENCES `{parent}` ({fields(link)})")
+    if table == TABLES[1]:
+        # Each mouse gene appears at most once per input.
+        definitions += ["UNIQUE (Dataset, Input_Row, Mouse_Gene_ID)", "INDEX (Mouse_Gene_ID)"]
+    return (f"CREATE TABLE `{table}` ({', '.join(definitions)}) "
+            "ENGINE=InnoDB ROW_FORMAT=DYNAMIC DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci")
 
 
 def require(condition, message):
+    """Raise ValueError(message) unless condition holds."""
     if not condition:
         raise ValueError(message)
 
 
-def pair_key(row):
-    return row["Input_Row"], row["Human_Gene_ID"], row["Mouse_Gene_ID"]
+def read_part(part, dataset):
+    """Read one part's TSV for one dataset and add Dataset and an integer Input_Row.
+
+    Part 1 is plain (unquoted) TSV; Parts 2-4 use standard CSV quoting. The
+    header must contain every column that is stored or checked. Part 1 has
+    no Input_Row column, so its row number is used.
+    """
+    folder = ROOT / "OP1_data" / f"part{part}_data"
+    path = (folder / "final_data" if part == 1 else folder) / dataset / FILES[part - 1]
+    with path.open(encoding="utf-8-sig", newline="") as stream:
+        reader = csv.DictReader(stream, delimiter="\t", strict=True, quoting=csv.QUOTE_NONE if part == 1 else csv.QUOTE_MINIMAL)
+        required = (set(COLUMNS[TABLES[part - 1]]) | CHECK_ONLY.get(part, set())) - {"Pair_No"}
+        required -= {"Dataset", "Input_Row"} if part == 1 else {"Dataset"} if part == 2 else set()
+        require(required <= set(reader.fieldnames or []), f"{path.name}: expected the shortened Part {part} TSV columns.")
+        rows = list(reader)
+    require(rows and all(None not in row and None not in row.values() for row in rows), f"Empty or malformed TSV: {path}")
+    for n, row in enumerate(rows, 1):
+        require(row.get("Dataset", dataset) == dataset, f"{path}: dataset mismatch at row {n}")
+        row.update(Dataset=dataset, Input_Row=int(row.get("Input_Row", n)))
+    return rows
 
 
-def validate_relationships(part1, part2, extra):
-    for dataset in DATASETS:
-        originals = {number: row for number, row in enumerate(part1[dataset], 1)}
-        compare_with_part1(dataset, part1_originals(part1[dataset]), part2[dataset])
-        pairs = {pair_key(row): row for row in part2[dataset]}
-        summaries = extra["p3_pair_summary"][dataset]
-        require({pair_key(row) for row in summaries} == set(pairs),
-                f"{dataset}: Part 3 pair outcomes differ from Part 2.")
-        for row in summaries:
-            original, pair = originals[row["Input_Row"]], pairs[pair_key(row)]
-            for name in ("Resolution_Status", "Resolution_Note", "Same_Gene_Note"):
-                require((row[name] or "") == (original[name] or ""),
-                        f"{dataset}: Part 3 {name} differs from Part 1.")
-            require(row["Query_Symbol"] == original["Query_Symbol"]
-                    and row["Mapping_Status"] == pair["Mapping_Status"],
-                    f"{dataset}: Part 3 input/mapping mismatch.")
-        for row in extra["p3_tissue_comparison"][dataset]:
-            require(pair_key(row) in pairs and row["Mouse_Gene_ID"] is not None,
-                    f"{dataset}: Tissue comparison lacks its mapped pair.")
-            require(row["Query_Symbol"] == originals[row["Input_Row"]]["Query_Symbol"],
-                    f"{dataset}: Tissue input label differs from Part 1.")
-        expected_genes = {("human", row["Gene_ID"]) for row in originals.values() if row["Gene_ID"]}
-        expected_genes.update(("mouse", row["Mouse_Gene_ID"]) for row in part2[dataset]
-                              if row["Mouse_Gene_ID"])
-        gene_rows = extra["p3_gene_status"][dataset]
-        observed_genes = {(row["Species"], row["Gene_ID"]) for row in gene_rows}
-        require(observed_genes == expected_genes, f"{dataset}: Part 3 gene coverage differs from Parts 1/2.")
-        for table in ("p3_gene_status", "p3_uniprot", "p3_bgee_calls"):
-            for row in extra[table][dataset]:
-                require((row["Species"], row["Gene_ID"]) in expected_genes
-                        and row["Tax_ID"] == {"human": "9606", "mouse": "10090"}.get(row["Species"]),
-                        f"{dataset}: {table} has an unexpected gene/species.")
-        comparisons = extra["p4_local_ncbi_comparisons"][dataset]
-        require({row["Input_Row"] for row in comparisons} == set(originals),
-                f"{dataset}: Part 4 must retain every Part 1 input.")
-        records = defaultdict(list)
-        for row in extra["p4_local_api_records"][dataset]:
-            require(row["Input_Row"] in originals, f"{dataset}: Unknown local record input.")
-            records[row["Input_Row"]].append(row)
-        for row in comparisons:
-            original = originals[row["Input_Row"]]
-            require(all((row[name] or "") == (original[name] or "") for name in (
-                "Query_Symbol", "Gene_ID", "Official_Symbol", "Resolution_Status",
-                "Resolution_Note", "Same_Gene_Note")), f"{dataset}: Part 4 differs from Part 1.")
-            group = records[row["Input_Row"]]
-            count = row["Local_Record_Count"]
-            require((count is None and not group) or count == len(group),
-                    f"{dataset}: Local record count mismatch.")
-            for record in group:
-                require(record["Query_Symbol"] == row["Query_Symbol"]
-                        and record["Gene_ID"] == row["Gene_ID"], f"{dataset}: Local record identity mismatch.")
-            selected = [record for record in group if record["Selected"] == 1]
-            number = row["Selected_Record_Number"]
-            require(len(selected) == (1 if number is not None else 0),
-                    f"{dataset}: Local selected record count mismatch.")
-            if selected:
-                require(selected[0]["Record_Number"] == number
-                        and selected[0]["Local_Gene_ID"] == row["Local_Gene_ID"],
-                        f"{dataset}: Local selected record differs from the comparison.")
+def read_dataset(dataset):
+    """Read all four parts for one dataset and check that they agree.
+
+    Checks: Part 1 inputs are numbered 1..N; every input has at least one
+    Part 2 row whose human columns match Part 1; mouse rows agree with their
+    ortholog count; every Part 2 row has exactly one Part 3 row with the same
+    statuses; the Part 3 expression scores agree with their tissue counts;
+    and Part 4 has one row per input matching Part 1. Pair_No is assigned
+    here. Returns the four row lists.
+    """
+    genes, orthologs, summaries, local = [read_part(i, dataset) for i in range(1, 5)]
+    inputs = {r["Input_Row"]: r for r in genes}
+    require(set(inputs) == set(range(1, len(genes) + 1)), f"{dataset}: invalid or duplicate original input number")
+    # Part 2: number the mouse orthologs of each input (Pair_No).
+    pairs, counts = {}, Counter()
+    for row in orthologs:
+        n, mouse = row["Input_Row"], row["Mouse_Gene_ID"]
+        source = inputs[n]
+        require((n, mouse) not in pairs and row["Human_Input_ID"] == source["Query_Symbol"] and
+                row["Human_Gene_ID"] == source["Gene_ID"] and row["Resolution_Status"] == source["Resolution_Status"],
+                f"{dataset} input {n}: duplicate or mismatched ortholog row")
+        counts[n] += 1
+        row["Pair_No"] = counts[n]
+        pairs[n, mouse] = row
+    require(set(counts) == set(inputs), f"{dataset}: ortholog file lost an input")
+    for (n, mouse), row in pairs.items():
+        valid = row["Mouse_Tax_ID"] == "10090" and int(row["Mouse_Ortholog_Count"]) == counts[n] if mouse else counts[n] == 1
+        require(valid, f"{dataset} input {n}: inconsistent mouse mapping")
+    # Part 3: one summary per Part 2 row, joined on (input, mouse Gene ID).
+    seen = set()
+    for row in summaries:
+        k = row["Input_Row"], row["Mouse_Gene_ID"]
+        mapping = pairs[k]
+        require(k not in seen and row["Human_Gene_ID"] == mapping["Human_Gene_ID"] and
+                row["Resolution_Status"] == mapping["Resolution_Status"] and
+                row["Mapping_Status"] == mapping["Mapping_Status"] and row["Query_Symbol"] == mapping["Human_Input_ID"],
+                f"{dataset} {k}: inconsistent pair summary")
+        row["Pair_No"] = mapping["Pair_No"]
+        seen.add(k)
+        # Recompute the expression scores from the tissue counts.
+        if row["Expression_Comparison_Status"] == "comparable":
+            n, p, a = (int(row[f]) for f in ("Comparable_Tissue_Count", "Both_Present_Count", "Both_Absent_Count"))
+            require(n > 0 and min(p, a) >= 0 and p + a <= n and math.isclose(float(row["Expression_Call_Agreement"]), (p+a)/n),
+                    f"{dataset} {k}: counts disagree with tissue agreement")
+            score = row["Present_Tissue_Jaccard"]
+            require(math.isclose(float(score), p/(n-a)) if n > a else score == "", f"{dataset} {k}: present-tissue Jaccard mismatch")
+        else:
+            require(not row["Expression_Call_Agreement"] and not row["Present_Tissue_Jaccard"],
+                    f"{dataset} {k}: an unassessed expression comparison has a score")
+    require(seen == pairs.keys() and len(local) == len(inputs) and {r["Input_Row"] for r in local} == inputs.keys(),
+            f"{dataset}: incomplete pair or local outcomes")
+    # Part 4: one row per input, carrying the same identifiers as Part 1.
+    # Part 4 collapses whitespace in the map location, so compare it that way.
+    for row in local:
+        source = inputs[row["Input_Row"]]
+        require(all(row[k] == source[k] for k in ("Query_Symbol", "Gene_ID", "Official_Symbol"))
+                and row["NCBI_Map_Location"] == " ".join(source["Map_Location"].split()),
+                f"{dataset}: local row differs from Part 1")
+    return genes, orthologs, summaries, local
 
 
-def table_columns(table):
-    if table == PART1_TABLE_NAME:
-        return PART1_DATABASE_COLUMNS
-    if table == PART2_TABLE_NAME:
-        return PART2_DATABASE_COLUMNS
-    return EXTRA_FILES[table][2]
-
-
-def table_values(table, dataset, prepared):
-    if table == PART1_TABLE_NAME:
-        return input_values(1, dataset, prepared[table][dataset])
-    if table == PART2_TABLE_NAME:
-        return input_values(2, dataset, prepared[table][dataset])
-    columns = table_columns(table)
-    return [tuple(row[name] for name in columns) for row in prepared[table][dataset]]
-
-
-def create_extra_sql(table, collation):
-    require(re.fullmatch(r"utf8mb4_[A-Za-z0-9_]+", collation), "Unsupported table collation.")
-    columns = table_columns(table)
-    fields = ["`Row_ID` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY"]
-    fields.extend(f"`{name}` {column_type(name)}" for name in columns)
-    keys = ", ".join(f"`{name}`" for name in KEYS[table])
-    fields.append(f"UNIQUE KEY `idx_record_key` ({keys})")
-    if "Input_Row" in columns:
-        fields.append("KEY `idx_dataset_input` (`Dataset`, `Input_Row`)")
-        fields.append(f"CONSTRAINT `fk_{table}_input` FOREIGN KEY (`Dataset`, `Input_Row`) "
-                      "REFERENCES `p1_annotations` (`Dataset`, `Input_Row`)")
-    if "Gene_ID" in columns:
-        fields.append("KEY `idx_gene_id` (`Gene_ID`)")
-    if "Human_Gene_ID" in columns:
-        fields.extend(["KEY `idx_human_gene` (`Human_Gene_ID`)",
-                       "KEY `idx_mouse_gene` (`Mouse_Gene_ID`)"])
-    if table in {"p3_uniprot", "p3_bgee_calls"}:
-        fields.append(f"CONSTRAINT `fk_{table}_gene` FOREIGN KEY (`Dataset`, `Species`, `Gene_ID`) "
-                      "REFERENCES `p3_gene_status` (`Dataset`, `Species`, `Gene_ID`)")
-    return (f"CREATE TABLE IF NOT EXISTS `{table}` (\n  " + ",\n  ".join(fields)
-            + f"\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE {collation}")
-
-
-def prepare_schema(connection, cursor):
-    cursor.execute(build_table_sql(1, "utf8mb4_unicode_ci"))
-    check_table(cursor, 1)
-    ensure_indexes(cursor, 1)
-    cursor.execute("SELECT COLLATION_NAME FROM information_schema.COLUMNS "
-                   "WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='p1_annotations' AND COLUMN_NAME='Dataset'")
-    collation = cursor.fetchone()[0]
-    cursor.execute(build_table_sql(2, collation))
-    check_table(cursor, 2)
-    ensure_indexes(cursor, 2)
-    for table in EXTRA_FILES:
-        cursor.execute(create_extra_sql(table, collation))
-        cursor.execute(f"SHOW COLUMNS FROM `{table}`")
-        require([row[0] for row in cursor.fetchall()] == ["Row_ID", *table_columns(table)],
-                f"Existing {table} has a different schema; review it before importing.")
-        cursor.execute("SELECT ENGINE FROM information_schema.TABLES "
-                       "WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME=%s", (table,))
-        require(cursor.fetchone()[0].upper() == "INNODB", f"{table} must use InnoDB.")
-    connection.commit()  # MySQL DDL commits separately from the data transaction.
-
-
-def load_and_verify(connection, cursor, prepared):
-    connection.start_transaction()
-    try:
-        # Children are deleted before parents. Other Dataset values are retained.
-        for table in reversed(TABLE_NAMES):
-            cursor.execute(f"DELETE FROM `{table}` WHERE `Dataset` IN (%s, %s)", DATASETS)
-        for table in TABLE_NAMES:
-            columns = table_columns(table)
-            names = ", ".join(f"`{name}`" for name in columns)
-            placeholders = ", ".join(["%s"] * len(columns))
-            insert = f"INSERT INTO `{table}` ({names}) VALUES ({placeholders})"
-            for dataset in DATASETS:
-                expected = table_values(table, dataset, prepared)
-                for start in range(0, len(expected), 200):
-                    cursor.executemany(insert, expected[start:start + 200])
-                cursor.execute(f"SELECT {names} FROM `{table}` WHERE `Dataset`=%s ORDER BY `Row_ID`", (dataset,))
-                require(cursor.fetchall() == expected, f"Stored {table}/{dataset} differs from its TSV.")
-        check_stored_part1(cursor, prepared[PART2_TABLE_NAME])
-        connection.commit()
-    except BaseException:
-        connection.rollback()
-        raise
-
-
-def export_all(database, username, password, destination, expected_counts, host=None, port=3306):
-    program = (os.environ.get("BDB_MYSQLDUMP") or shutil.which("mysqldump")
-               or shutil.which("mariadb-dump"))
-    require(program, "mysqldump was not found; the tables are loaded but no dump was saved.")
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    temporary_output = None
-    try:
-        with tempfile.TemporaryDirectory(prefix="bdb_all_dump_") as temporary:
-            if password is None and MYSQL_OPTION_FILE.is_file():
-                option_file = MYSQL_OPTION_FILE
-            else:
-                option_file = Path(temporary) / "client.cnf"
-                fd = os.open(option_file, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
-                with os.fdopen(fd, "w", encoding="utf-8") as stream:
-                    stream.write("[client]\n")
-                    for key, value in (("user", username), ("password", password or ""),
-                                       ("socket", MYSQL_SOCKET)):
-                        stream.write(f"{key}={quote_option_value(value)}\n")
-            help_result = subprocess.run([program, "--no-defaults", "--help"],
-                                         capture_output=True, text=True, timeout=20, check=False)
-            command = [program, f"--defaults-file={option_file}", "--single-transaction",
-                       "--skip-lock-tables", "--skip-add-locks", "--no-tablespaces",
-                       "--skip-comments", "--skip-dump-date", "--skip-extended-insert",
-                       "--default-character-set=utf8mb4",
-                       "--where=Dataset IN ('development','challenge')", f"--user={username}"]
-            if host:
-                command.extend([f"--host={host}", f"--port={port}", "--protocol=TCP"])
-            else:
-                command.append(f"--socket={MYSQL_SOCKET}")
-            for option, setting in (("--column-statistics", "0"), ("--set-gtid-purged", "OFF")):
-                if option in help_result.stdout:
-                    command.append(f"{option}={setting}")
-            command.extend([database, *TABLE_NAMES])
-            with tempfile.NamedTemporaryFile(dir=destination.parent, prefix="all_parts_",
-                                             suffix=".tmp", delete=False) as stream:
-                temporary_output = Path(stream.name)
-                result = subprocess.run(command, stdout=stream, stderr=subprocess.PIPE,
-                                        timeout=180, check=False)
-            require(result.returncode == 0 and temporary_output.stat().st_size > 0,
-                    "Dump failed; the previous SQL file was retained. Check your mysqldump credentials/version.")
-            text = temporary_output.read_text(encoding="utf-8")
-            # MariaDB's client-only sandbox directive is not supported by MySQL clients.
-            text = re.sub(r"\A/\*M!999999.*?\*/\r?\n", "", text, count=1)
-            require(not re.search(r"\bs\d{6,}\b|/home/s\d+", text, re.IGNORECASE),
-                    "The dump contains an identifying student number; it was not published.")
-            observed = Counter(re.findall(r"^INSERT INTO `([^`]+)`", text, re.MULTILINE))
-            require(all(observed[table] == expected_counts[table] for table in TABLE_NAMES),
-                    "Dump row counts differ from the verified import; the previous SQL file was retained.")
-            temporary_output.write_text(text, encoding="utf-8")
-            temporary_output.replace(destination)
-    finally:
-        if temporary_output is not None:
-            temporary_output.unlink(missing_ok=True)
-    return destination
-
-
-def main(argv=None):
-    global MYSQL_SOCKET, MYSQL_OPTION_FILE
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--project-root", type=Path, default=PROJECT_ROOT)
-    parser.add_argument("--part1-dir", type=Path)
-    parser.add_argument("--part2-dir", type=Path)
-    parser.add_argument("--part3-dir", type=Path)
-    parser.add_argument("--part4-dir", type=Path)
-    parser.add_argument("--dump-file", type=Path)
-    parser.add_argument("--socket", default=os.environ.get("MYSQL_SOCKET", MYSQL_SOCKET))
-    parser.add_argument("--host", default=os.environ.get("MYSQL_HOST"), help="Optional TCP host for an SSH tunnel.")
-    parser.add_argument("--port", type=int, default=int(os.environ.get("MYSQL_PORT", "3306")))
-    parser.add_argument("--check-files", action="store_true", help="Validate files without MySQL or API calls.")
-    args = parser.parse_args(argv)
-    root = args.project_root.expanduser()
-    part1_dir = (args.part1_dir or root / "OP1_data/part1_data/final_data").expanduser()
-    part2_dir = (args.part2_dir or root / "OP1_data/part2_data").expanduser()
-    part3_dir = (args.part3_dir or root / "OP1_data/part3_data").expanduser()
-    part4_dir = (args.part4_dir or root / "OP1_data/part4_data").expanduser()
-    destination = (args.dump_file or root / "OP2_SQL/all_parts_sql/bdb_ica_all_parts.sql").expanduser()
-    part1, part2 = read_part1_tables(part1_dir), read_part2_tables(part2_dir)
-    extra = read_extra_tables(part3_dir, part4_dir)
-    validate_relationships(part1, part2, extra)
-    prepared = {PART1_TABLE_NAME: part1, PART2_TABLE_NAME: part2, **extra}
-    expected_counts = {}
-    for table in TABLE_NAMES:
-        counts = [len(prepared[table][dataset]) for dataset in DATASETS]
-        expected_counts[table] = sum(counts)
-        print(f"{table}: development={counts[0]}, challenge={counts[1]}")
-    if args.check_files:
-        print("[OK] All TSVs and cross-part relationships checked; no MySQL/API calls made.")
-        return
-    MYSQL_SOCKET = args.socket
-    MYSQL_OPTION_FILE = Path(os.environ.get("BDB_MYSQL_OPTION_FILE", "~/.my.cnf")).expanduser()
-    with connect_mysql(args.host, args.port) as connection:
-        with connection.cursor() as cursor:
-            choose_database(connection, cursor)
-            cursor.execute("SET SESSION sql_mode = CONCAT_WS(',', @@sql_mode, 'STRICT_ALL_TABLES')")
-            connection.commit()
-            prepare_schema(connection, cursor)
-            load_and_verify(connection, cursor, prepared)
-            database, username = connection.database, connection.user
-    print("[OK] All nine tables committed after checking every stored value.")
-    path = export_all(database, username, _FALLBACK_PASSWORD, destination, expected_counts,
-                      args.host, args.port)
-    print(f"[OK] Combined schema-and-data dump saved: {path}")
+def main():
+    """Validate all files, then load the tables, check the joins and write the dump."""
+    data = {d: read_dataset(d) for d in DATASETS}
+    for d, rows in data.items():
+        print(d, *(f"{table}={len(part)}" for table, part in zip(TABLES, rows)))
+    if sys.argv[1:] == ["--check-files"]: return
+    require(not sys.argv[1:], "Usage: python3 load_ica_results.py [--check-files]")
+    require(connect is not None, "Install mysql-connector-python in the Python environment used for the ICA.")
+    db = os.getenv("MYSQL_DATABASE")
+    dump = shutil.which("mysqldump") or shutil.which("mariadb-dump")
+    require(db and CONFIG.is_file() and dump, "Set MYSQL_DATABASE and provide ~/.my.cnf and mysqldump.")
+    dest = ROOT / "OP2_SQL" / "all_parts_sql" / "bdb_ica_results.sql"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    # Add only the dump options this mysqldump/mariadb-dump version supports.
+    help_text = subprocess.check_output([dump, "--no-defaults", "--help"], text=True)
+    options = [dump, f"--defaults-file={CONFIG}", "--single-transaction", "--skip-comments", "--skip-add-locks",
+               "--skip-disable-keys", "--default-character-set=utf8mb4", "--where=Dataset IN ('development','challenge')"]
+    for flag in ("--no-tablespaces", "--set-gtid-purged=OFF", "--column-statistics=0"):
+        if flag.split("=")[0] in help_text: options.append(flag)
+    settings = dict(option_files=str(CONFIG), option_groups="client", database=db, charset="utf8mb4",
+                    collation="utf8mb4_unicode_ci", use_pure=True)
+    with connect(**settings) as conn, conn.cursor() as cur:
+        # Named lock: stops two copies of the loader running at once.
+        cur.execute("SELECT GET_LOCK(SHA2(CONCAT(DATABASE(), '/ica_results'),256), 30)")
+        require(cur.fetchone()[0] == 1, "Another import is running. Try again shortly.")
+        # CHANGED in review: drop and recreate (children first, because of the
+        # foreign keys) instead of CREATE IF NOT EXISTS + DELETE. Tables left by
+        # an earlier run keep their old columns otherwise, and the INSERTs fail.
+        for table in reversed(TABLES): cur.execute(f"DROP TABLE IF EXISTS `{table}`")
+        for table in TABLES: cur.execute(create_table(table))
+        conn.commit()
+        for i, table in enumerate(TABLES):
+            cols = COLUMNS[table]
+            values = [tuple(None if r[c] == "" else r[c] for c in cols) for parts in data.values() for r in parts[i]]
+            cur.executemany(f"INSERT INTO `{table}` ({fields(cols)}) VALUES ({','.join(['%s']*len(cols))})", values)
+        # Every pair summary row must join back to all four tables.
+        cur.execute("""SELECT a.Dataset, COUNT(*) FROM ica_annotations a JOIN ica_orthologs o USING (Dataset,Input_Row)
+            JOIN ica_pair_summary s USING (Dataset,Input_Row,Pair_No) JOIN ica_local_checks l USING (Dataset,Input_Row)
+            WHERE a.Dataset IN (%s,%s) GROUP BY a.Dataset""", DATASETS)
+        require(dict(cur.fetchall()) == {d: len(parts[2]) for d, parts in data.items()}, "Joined row counts differ from the TSVs.")
+        conn.commit()
+        with TemporaryDirectory(dir=dest.parent) as tmp:
+            path = Path(tmp) / dest.name
+            with path.open('wb') as stream:
+                subprocess.run([*options, db, *TABLES], stdout=stream, check=True)
+            contents = path.read_bytes()
+            # Newer MariaDB dumps start with a sandbox-mode line that MySQL rejects.
+            if contents.startswith(b'/*M!999999'):
+                contents = contents.split(b'\n', 1)[1]
+            for table in TABLES:
+                require(f'CREATE TABLE `{table}`'.encode() in contents and f'INSERT INTO `{table}`'.encode() in contents,
+                        f'Incomplete dump for {table}')
+            path.write_bytes(DUMP_HEADER + contents)
+            path.replace(dest)
+    print(dest)
 
 
 if __name__ == "__main__":
     try:
         main()
-    except KeyboardInterrupt:
-        print("\n[ERROR] Cancelled.", file=sys.stderr)
-        sys.exit(130)
-    except Exception as error:
-        print(f"[ERROR] {error}", file=sys.stderr)
-        sys.exit(1)
+    except (Error, OSError, csv.Error, KeyError, ValueError, subprocess.CalledProcessError) as error:
+        sys.exit(f"[ERROR] {error}")
