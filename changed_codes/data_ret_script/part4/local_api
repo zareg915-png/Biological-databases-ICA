@@ -30,9 +30,19 @@ the run() entry point come from p1_basic_anno.py (same folder).
 import json
 import os
 from functools import cache
+import importlib.util, sys
+from pathlib import Path
+CODE = Path(__file__).resolve().parents[1]   # the data_ret_script folder
 
+def _load(name, relative_path):
+    """Import another part's script under the module name this code expects."""
+    spec = importlib.util.spec_from_file_location(name, CODE / relative_path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+
+_load("p1_basic_anno", "part1/final_script_run_for_both_lists/final_script_for_both_end_res.py")
 from p1_basic_anno import API_ERRORS, ServiceError, get_json, part_dir, read_table, run, write_tsv
-
 BASE_URL = os.getenv("BDB_LOCAL_API_BASE_URL", "http://bioinfmsc6.bio.ed.ac.uk:8080").rstrip("/")
 # CHANGED in review: the chromosome comparison is replaced by Map_Location
 # (Part 1 no longer writes Chromosome), and Comparison_Status and Differences
@@ -69,7 +79,10 @@ def lookup(symbol):
     are collapsed; records that differ in any field are kept as separate
     candidates. `sleeptime` is the delay parameter the course API expects.
     """
-    records = get_json(BASE_URL + "/summary", {"identifiers": symbol, "sleeptime": 1})
+    response = get_json(BASE_URL + "/summary", {"identifiers": symbol, "sleeptime": 1})
+    # The API returns a plain list when it finds the gene, but
+    # {"status", "message", "data": []} when it doesn't, so unwrap that case.
+    records = response.get("data") if isinstance(response, dict) else response
     if not isinstance(records, list):
         raise ServiceError("Expected a list of records from /summary.")
     unique = {}

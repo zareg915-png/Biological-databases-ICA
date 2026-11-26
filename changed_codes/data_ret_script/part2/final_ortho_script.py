@@ -28,7 +28,18 @@ the same folder.
 
 import re
 from functools import cache  # Unused at present (see review note on mouse_genes).
+import importlib.util, sys
+from pathlib import Path
+CODE = Path(__file__).resolve().parents[1]   # the data_ret_script folder
 
+def _load(name, relative_path):
+    """Import another part's script under the module name this code expects."""
+    spec = importlib.util.spec_from_file_location(name, CODE / relative_path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+
+_load("p1_basic_anno", "part1/final_script_run_for_both_lists/final_script_for_both_end_res.py")
 from p1_basic_anno import (API_ERRORS, NCBI_GENES, ServiceError, current_human, gene_ensembl_ids, gene_summaries, get_json, part_dir, read_table, run, write_tsv)
 
 # Output column order; the MySQL loader requires exactly this header.

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """Part 3: compare each human gene with its mouse ortholog using UniProt and Bgee.
 
 Input:  OP1_data/part2_data/<dataset>/ncbi_ortholog.tsv (Part 2)
@@ -32,11 +32,21 @@ import json
 import re
 import time
 from collections import defaultdict
+import importlib.util, sys
+from pathlib import Path
+CODE = Path(__file__).resolve().parents[1]   # the data_ret_script folder
 
-from p1_basic_anno import (API_ERRORS, NCBI_GENES, ServiceError, decode, fetch, get_json,
-                           part_dir, read_table, run, write_tsv)
+def _load(name, relative_path):
+    """Import another part's script under the module name this code expects."""
+    spec = importlib.util.spec_from_file_location(name, CODE / relative_path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+
+_load("p1_basic_anno", "part1/final_script_run_for_both_lists/final_script_for_both_end_res.py")
+_load("p2_orthologs", "part2/final_ortho_script.py")
+from p1_basic_anno import (API_ERRORS, NCBI_GENES, ServiceError, decode, fetch, get_json, part_dir, read_table, run, write_tsv)
 from p2_orthologs import MAPPING_OUTCOMES
-
 
 UNIPROT = "https://rest.uniprot.org"
 BGEE = "https://www.bgee.org/api/"
